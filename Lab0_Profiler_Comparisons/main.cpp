@@ -12,6 +12,44 @@ Profiler p("secondMin");
 
 using namespace std;
 
+/**
+ * Task: find the two lowest values in an array of integers.
+ * @param v - pointer to the array of integers
+ * @param n - number of elements in the array
+ * @param min1 - pointer to the lowest value(to be returned)
+ * @param min2 - pointer to the second lowest value(to be returned)
+ *
+ * Solution:
+ * I implemented 3 different algorithms:
+ * Version 1: iterate though the elements once.
+ * If the current value is smaller
+ * then the current min1, let min2 take the value of min1 and update min1
+ * with the current elemen's value.
+ * If the current element's value is larger than or equal to min1, but smaller
+ * than min2, update min2 only with the current value.
+ *
+ * Version 2: similar to version 1, but compares to min2 first,
+ * based on the remark that (especially in a large array) most elements will
+ * be larger than min2 anyway, and then the second comparison is not needed.
+ *
+ * Version 3: build a binary tree of comparisons to find min1: originally,
+ * each element is a leaf. Nodes next to each other are compared and the
+ * smallest one will be their parent. With this recursive approach,
+ * the root element will be min1. For n leaves, n/2 leaf-comparisons and n/2
+ * inner-comparisons are needed.
+ * To find min2, use the remark that min2 must have been compared to min1
+ * at some point. So check the values to which min1 was compared. There are log n
+ * such nodes.
+ *
+ * Performance comparison:
+ * based on the attached graphs, version 1 and 2 are similar in terms of asignments,
+ * but version 2 performs much better at comparisons. On evaregae, version 1 has
+ * 2n comparisons, and version 2 a little more than n.
+ * Version 3 is definitely faster than the other 2, but the difference between
+ * version 2 and 3 is in fact irrelevant, especially if we take into account the fact
+ * that for version 3 we did no count the assignments performed on game entities.
+ */
+
 void secondMinV1(int* v, int n, int* min1, int* min2)
 {
     Operation opComp = p.createOperation("v1-comp", n);
