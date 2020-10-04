@@ -3,6 +3,7 @@
 //
 
 #include "InsertionSorter.h"
+#include "Profiler.h"
 
 void InsertionSorter::sort(int *v, int no_elements) {
     for (int i = 1; i < no_elements; i++) {
