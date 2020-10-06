@@ -12,7 +12,6 @@ using namespace std;
 
 SorterEvaluator::SorterEvaluator(){
     no_sorters = 0;
-    sorters = (Sorter**) malloc(sizeof(Sorter*)*MAX_NO_SORTERS);
 }
 
 void SorterEvaluator::evaluate() {
@@ -26,8 +25,16 @@ void SorterEvaluator::addSorter(Sorter *sorter) {
         cerr << "Max number of sorters exceeded";
         exit(1);
     }
-    no_sorters++;
     sorters[no_sorters] = sorter;
+    // todo: remove testing
+    cout << "Initialised: " + sorters[no_sorters]->message << endl;
+    cout << "First: " + sorters[0]->message << endl;
+    int v[5] = {1, 4, 2, 6, 4};
+    sorters[no_sorters]->sort(v, 5);
+    cout << "test sort done" << endl;
+    for(int i = 0; i < no_sorters; i++)
+        sorters[i]->sort(v, 5);
+    no_sorters++;
 }
 
 void SorterEvaluator::evaluateWorstCase() {
@@ -51,8 +58,8 @@ void SorterEvaluator::evaluateCase(int no_tests, int order) {
             for (int i = 0; i < no_sorters; i++) {
                 // todo change to memcpy
                 mempcpy(&u, &v, size * sizeof(v[0]));
-                cout << "evauluate case " << order << ", test nr. " << test << " sorter nr. " << i << endl;
-               // sorters[i]->sort(u, size);
+                cout << "evauluate case " << order << ", test nr. " << test << " sorter nr. " << i << " with assign op: " << sorters[i]->message << endl;
+                sorters[i]->sort(u, size);
             }
         }
     }
