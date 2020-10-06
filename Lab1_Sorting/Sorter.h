@@ -5,14 +5,17 @@
 #ifndef LAB1_SORTING_CLION_SORTER_H
 #define LAB1_SORTING_CLION_SORTER_H
 
-// todo: remove string
-#include <string>
+#include "Profiler.h"
 
 using namespace std;
 
 class Sorter {
 public:
-    virtual void sort(int* v, int no_elements) = 0;
+    virtual void sort(int* v, int no_elements, Profiler& p) = 0;
+
+    virtual const char* getCompOpName() = 0;
+
+    virtual const char* getAssignOpName() = 0;
 };
 
 

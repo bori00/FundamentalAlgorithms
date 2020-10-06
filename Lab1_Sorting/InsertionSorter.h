@@ -12,10 +12,14 @@ using namespace std;
 
 class InsertionSorter : public Sorter{
 public:
-    void sort(int* v, int no_elements) override;
+    void sort(int* v, int no_elements, Profiler& p) override;
 
-    const static string ASSIGN_OP_NAME;
-    const static string COMP_OP_NAME;
+    const char* getCompOpName() override;
+
+    const char* getAssignOpName() override;
+
+    const static char* ASSIGN_OP_NAME;
+    const static char* COMP_OP_NAME;
 };
 
 

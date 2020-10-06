@@ -12,11 +12,15 @@ using namespace std;
 
 class SelectionSorter : public Sorter {
 public:
-    void sort(int* v, int no_elements) override;
+    void sort(int* v, int no_elements, Profiler& p) override;
+
+    const char* getCompOpName() override;
+
+    const char* getAssignOpName() override;
 
     // todo: change to static const
-    const static string ASSIGN_OP_NAME;
-    const static string COMP_OP_NAME;
+    const static char* ASSIGN_OP_NAME;
+    const static char* COMP_OP_NAME;
 };
 
 
