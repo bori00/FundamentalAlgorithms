@@ -6,6 +6,10 @@
 #define LAB1_SORTING_SORTERTEST_H
 
 #include "gtest/gtest.h"
+#include "Profiler.h"
+
+static Profiler p("sorting_test");
+
 
 class SorterTest : public ::testing::Test {
 protected:
