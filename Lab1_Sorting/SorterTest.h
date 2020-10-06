@@ -11,8 +11,8 @@ class SorterTest : public ::testing::Test {
 protected:
     static bool ArrayIsSorted(int *v, int no_elements);
 
-    static int *GetRandomArray() {
-        return GetArrayWIthContent(random_array);
+    static int *GetAverageArray() {
+        return GetArrayWIthContent(average_array);
     }
 
     static int *GetSortedArray() {
@@ -26,7 +26,7 @@ protected:
     static const int ARRAY_LENGTH = 10;
 
 private:
-    static int random_array[ARRAY_LENGTH];
+    static int average_array[ARRAY_LENGTH];
     static int sorted_array[ARRAY_LENGTH];
     static int inv_sorted_array[ARRAY_LENGTH];
 

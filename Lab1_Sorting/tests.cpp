@@ -9,7 +9,7 @@
 #include "BubbleSorter.h"
 
 TEST_F(SorterTest, SelectionSorter_RandomArray) {
-    int* v = GetRandomArray();
+    int* v = GetAverageArray();
     SelectionSorter selectionSorter;
     selectionSorter.sort(v, ARRAY_LENGTH);
     EXPECT_TRUE(SorterTest::ArrayIsSorted(v, SorterTest::ARRAY_LENGTH));
@@ -30,7 +30,7 @@ TEST_F(SorterTest, SelectionSorter_InvSortedArray) {
 }
 
 TEST_F(SorterTest, InsertionSorter_RandomArray) {
-    int* v = GetRandomArray();
+    int* v = GetAverageArray();
     InsertionSorter insertionSorter;
     insertionSorter.sort(v, ARRAY_LENGTH);
     EXPECT_TRUE(SorterTest::ArrayIsSorted(v, SorterTest::ARRAY_LENGTH));
@@ -51,7 +51,7 @@ TEST_F(SorterTest, InsertionSorter_InvSortedArray) {
 }
 
 TEST_F(SorterTest, BubbleSorter_RandomArray) {
-    int* v = GetRandomArray();
+    int* v = GetAverageArray();
     BubbleSorter bubbleSorter;
     bubbleSorter.sort(v, ARRAY_LENGTH);
     EXPECT_TRUE(SorterTest::ArrayIsSorted(v, SorterTest::ARRAY_LENGTH));
