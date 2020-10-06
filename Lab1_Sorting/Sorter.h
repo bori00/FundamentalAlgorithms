@@ -5,6 +5,10 @@
 #ifndef LAB1_SORTING_CLION_SORTER_H
 #define LAB1_SORTING_CLION_SORTER_H
 
+// todo: remove string
+#include <string>
+
+using namespace std;
 
 class Sorter {
 public:
