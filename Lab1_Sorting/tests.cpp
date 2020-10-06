@@ -2,13 +2,20 @@
 // Created by Bori on 10/4/2020.
 //
 
+#include <iostream>
 #include "gtest/gtest.h"
 #include "SorterTest.h"
 #include "SelectionSorter.h"
 #include "InsertionSorter.h"
 #include "BubbleSorter.h"
+#include "Profiler.h"
 
-TEST_F(SorterTest, SelectionSorter_RandomArray) {
+#define NO_RANDOM_TESTS 10
+#define MAX_ARRAY_SIZE 10000
+
+using namespace std;
+
+TEST_F(SorterTest, SelectionSorter_AverageArray) {
     int* v = GetAverageArray();
     SelectionSorter selectionSorter;
     selectionSorter.sort(v, ARRAY_LENGTH);
@@ -29,7 +36,18 @@ TEST_F(SorterTest, SelectionSorter_InvSortedArray) {
     EXPECT_TRUE(SorterTest::ArrayIsSorted(v, SorterTest::ARRAY_LENGTH));
 }
 
-TEST_F(SorterTest, InsertionSorter_RandomArray) {
+TEST_F(SorterTest, SelectionSorter_RandomArrays) {
+    int v[MAX_ARRAY_SIZE];
+    for (int i = 0; i < NO_RANDOM_TESTS; i++) {
+        int size = rand() % MAX_ARRAY_SIZE;
+        FillRandomArray(v, size);
+        SelectionSorter selectionSorter;
+        selectionSorter.sort(v, size);
+        EXPECT_TRUE(SorterTest::ArrayIsSorted(v, size));
+    }
+}
+
+TEST_F(SorterTest, InsertionSorter_AverageArray) {
     int* v = GetAverageArray();
     InsertionSorter insertionSorter;
     insertionSorter.sort(v, ARRAY_LENGTH);
@@ -50,7 +68,18 @@ TEST_F(SorterTest, InsertionSorter_InvSortedArray) {
     EXPECT_TRUE(SorterTest::ArrayIsSorted(v, SorterTest::ARRAY_LENGTH));
 }
 
-TEST_F(SorterTest, BubbleSorter_RandomArray) {
+TEST_F(SorterTest, InsertionnSorter_RandomArrays) {
+    int v[MAX_ARRAY_SIZE];
+    for (int i = 0; i < NO_RANDOM_TESTS; i++) {
+        int size = rand() % MAX_ARRAY_SIZE;
+        FillRandomArray(v, size);
+        InsertionSorter insertionSorter;
+        insertionSorter.sort(v, size);
+        EXPECT_TRUE(SorterTest::ArrayIsSorted(v, size));
+    }
+}
+
+TEST_F(SorterTest, BubbleSorter_AverageArray) {
     int* v = GetAverageArray();
     BubbleSorter bubbleSorter;
     bubbleSorter.sort(v, ARRAY_LENGTH);
@@ -69,4 +98,15 @@ TEST_F(SorterTest, BubbleSorter_InvSortedArray) {
     BubbleSorter bubbleSorter;
     bubbleSorter.sort(v, ARRAY_LENGTH);
     EXPECT_TRUE(SorterTest::ArrayIsSorted(v, SorterTest::ARRAY_LENGTH));
+}
+
+TEST_F(SorterTest, BubbleSorter_RandomArrays) {
+    int v[MAX_ARRAY_SIZE];
+    for (int i = 0; i < NO_RANDOM_TESTS; i++) {
+        int size = rand() % MAX_ARRAY_SIZE;
+        FillRandomArray(v, size);
+        BubbleSorter bubbleSorter;
+        bubbleSorter.sort(v, size);
+        EXPECT_TRUE(SorterTest::ArrayIsSorted(v, size));
+    }
 }
