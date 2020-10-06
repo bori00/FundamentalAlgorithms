@@ -6,6 +6,8 @@
 #define LAB1_SORTING_SORTEREVALUATOR_H
 
 
+#include "Sorter.h"
+
 class SorterEvaluator {
 public:
     SorterEvaluator();
@@ -15,12 +17,13 @@ public:
 private:
     void evaluateBestCase();
     void evaluateWorstCase();
-    void evaluateAvreageCase();
+    void evaluateAverageCase();
     void evaluateCase(int no_tests, int order);
 
-    Sorter* sorters;
-    static int NO_TESTS_AVERAGE_CASE = 5;
-    static int MAX_NO_SORTERS = 10;
+    Sorter** sorters;
+    int no_sorters;
+    const static int NO_TESTS_AVERAGE_CASE = 5;
+    const static int MAX_NO_SORTERS = 10;
 };
 
 
