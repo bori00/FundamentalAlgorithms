@@ -4,6 +4,9 @@
 
 #include "BubbleSorter.h"
 
+const string BubbleSorter::ASSIGN_OP_NAME = "BubbleSort-Assign";
+const string BubbleSorter::COMP_OP_NAME = "BubbleSort-Comp";
+
 void BubbleSorter::sort(int *v, int no_elements) {
     bool exchangeMade = true;
     for (int i = no_elements - 1; i >= 1 && exchangeMade; i--) {

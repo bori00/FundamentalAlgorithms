@@ -5,12 +5,17 @@
 #ifndef LAB1_SORTING_CLION_INSERTIONSORTER_H
 #define LAB1_SORTING_CLION_INSERTIONSORTER_H
 
-
+#include <string>
 #include "Sorter.h"
+
+using namespace std;
 
 class InsertionSorter : public Sorter{
 public:
     void sort(int* v, int no_elements) override;
+
+    const static string ASSIGN_OP_NAME;
+    const static string COMP_OP_NAME;
 };
 
 

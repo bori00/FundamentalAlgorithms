@@ -4,6 +4,9 @@
 
 #include "SelectionSorter.h"
 
+const string SelectionSorter::ASSIGN_OP_NAME = "SelectionSort-Assign";
+const string SelectionSorter::COMP_OP_NAME = "SelectionSort-Comp";
+
 void SelectionSorter::sort(int *v, int no_elements) {
     for (int i = 0; i < no_elements; i++){
         int minIndex = i;

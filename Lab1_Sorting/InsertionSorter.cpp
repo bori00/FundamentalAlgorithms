@@ -5,6 +5,9 @@
 #include "InsertionSorter.h"
 #include "Profiler.h"
 
+const string InsertionSorter::ASSIGN_OP_NAME = "InsertionSort-Assign";
+const string InsertionSorter::COMP_OP_NAME = "InsertionSort-Comp";
+
 void InsertionSorter::sort(int *v, int no_elements) {
     for (int i = 1; i < no_elements; i++) {
         int insertionIndex = i;
