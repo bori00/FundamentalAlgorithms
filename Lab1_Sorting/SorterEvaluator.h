@@ -23,7 +23,7 @@ class SorterEvaluator {
 
   void evaluateAverageCase();
 
-  void evaluateCase(int no_tests, int order, char *title);
+  void evaluateCase(int no_tests, int order, const char *title);
 
   static bool isSorted(int *v, int no_elements);
 

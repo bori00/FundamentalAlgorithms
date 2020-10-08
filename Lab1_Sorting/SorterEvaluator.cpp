@@ -43,7 +43,7 @@ void SorterEvaluator::evaluateAverageCase() {
   evaluateCase(1, UNSORTED, "AverageCase");
 }
 
-void SorterEvaluator::evaluateCase(int no_tests, int order, char *title) {
+void SorterEvaluator::evaluateCase(int no_tests, int order, const char *title) {
   p.reset(title);
   int v[MAX_ARRAY_SIZE];
   int u[MAX_ARRAY_SIZE];
