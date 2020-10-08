@@ -20,9 +20,9 @@ class BubbleSorter : public Sorter {
 
   const char *getSorterName() override;
 
-  const static char *ASSIGN_OP_NAME;
-  const static char *COMP_OP_NAME;
-  const static char *SORTER_NAME;
+  static const char *ASSIGN_OP_NAME;
+  static const char *COMP_OP_NAME;
+  static const char *SORTER_NAME;
 };
 
 #endif //LAB1_SORTING_CLION_BUBBLESORTER_H

@@ -36,12 +36,12 @@ class SorterEvaluator {
   void createProfilerCompGroup();
 
   int no_sorters;
-  const static int NO_TESTS_AVERAGE_CASE = 5;
-  const static int MAX_NO_SORTERS = 10;
-  const static int MIN_ARRAY_SIZE = 100;
+  static const int NO_TESTS_AVERAGE_CASE = 5;
+  static const int MAX_NO_SORTERS = 10;
+  static const int MIN_ARRAY_SIZE = 100;
   // todo change to 10000
-  const static int MAX_ARRAY_SIZE = 1000;
-  const static int STEP_SIZE = 100;
+  static const int MAX_ARRAY_SIZE = 1000;
+  static const int STEP_SIZE = 100;
   Sorter *sorters[MAX_NO_SORTERS];
   Profiler p;
 };
