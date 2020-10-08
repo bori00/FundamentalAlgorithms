@@ -10,31 +10,30 @@
 
 static Profiler p("sorting_test");
 
-
 class SorterTest : public ::testing::Test {
-protected:
-    static bool ArrayIsSorted(int *v, int no_elements);
+ protected:
+  static bool ArrayIsSorted(int *v, int no_elements);
 
-    static int *GetAverageArray() {
-        return GetArrayWIthContent(average_array);
-    }
+  static int *GetAverageArray() {
+    return GetArrayWIthContent(average_array);
+  }
 
-    static int *GetSortedArray() {
-        return GetArrayWIthContent(sorted_array);
-    }
+  static int *GetSortedArray() {
+    return GetArrayWIthContent(sorted_array);
+  }
 
-    static int *GetInverselySortedArray() {
-        return GetArrayWIthContent(inv_sorted_array);
-    }
+  static int *GetInverselySortedArray() {
+    return GetArrayWIthContent(inv_sorted_array);
+  }
 
-    static const int ARRAY_LENGTH = 10;
+  static const int ARRAY_LENGTH = 10;
 
-private:
-    static int average_array[ARRAY_LENGTH];
-    static int sorted_array[ARRAY_LENGTH];
-    static int inv_sorted_array[ARRAY_LENGTH];
+ private:
+  static int average_array[ARRAY_LENGTH];
+  static int sorted_array[ARRAY_LENGTH];
+  static int inv_sorted_array[ARRAY_LENGTH];
 
-    static int *GetArrayWIthContent(const int content[ARRAY_LENGTH]);
+  static int *GetArrayWIthContent(const int content[ARRAY_LENGTH]);
 };
 
 #endif //LAB1_SORTING_SORTERTEST_H

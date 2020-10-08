@@ -11,17 +11,19 @@
 using namespace std;
 
 class SelectionSorter : public Sorter {
-public:
-    void sort(int* v, int no_elements, Profiler& p) override;
+ public:
+  void sort(int *v, int no_elements, Profiler &p) override;
 
-    const char* getCompOpName() override;
+  const char *getCompOpName() override;
 
-    const char* getAssignOpName() override;
+  const char *getAssignOpName() override;
 
-    // todo: change to static const
-    const static char* ASSIGN_OP_NAME;
-    const static char* COMP_OP_NAME;
+  const char *getSorterName() override;
+
+  // todo: change to static const
+  const static char *ASSIGN_OP_NAME;
+  const static char *COMP_OP_NAME;
+  const static char *SORTER_NAME;
 };
-
 
 #endif //LAB1_SORTING_CLION_SELECTIONSORTER_H
