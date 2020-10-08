@@ -20,6 +20,7 @@ class SelectionSorter : public Sorter {
 
   const char *getSorterName() override;
 
+ private:
   static const char *ASSIGN_OP_NAME;
   static const char *COMP_OP_NAME;
   static const char *SORTER_NAME;
