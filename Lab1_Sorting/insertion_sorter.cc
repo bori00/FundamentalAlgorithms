@@ -4,9 +4,6 @@
 
 #include "insertion_sorter.h"
 #include "Profiler.h"
-#include "sorter_evaluator.h"
-// todo remove
-#include <iostream>
 
 const char *InsertionSorter::kAssignOpName = "InsertionSort-Assign";
 const char *InsertionSorter::kCompOpName = "InsertionSort-Comp";

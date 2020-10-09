@@ -3,7 +3,6 @@
 //
 
 #include "selection_sorter.h"
-#include "sorter_evaluator.h"
 
 const char *SelectionSorter::kAssignOpName = "SelectionSort-Assign";
 const char *SelectionSorter::kCompOpName = "SelectionSort-Comp";
