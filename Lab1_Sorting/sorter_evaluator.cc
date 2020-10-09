@@ -64,7 +64,7 @@ void SorterEvaluator::EvaluateCase(int no_tests, int order, const char *title) {
     p_.divideValues(sorters_[i]->GetAssignOpName(), no_tests);
     p_.addSeries(sorters_[i]->GetSorterName(), sorters_[i]->GetCompOpName(), sorters_[i]->GetAssignOpName());
   }
-  //CreateProfilerGroups();
+  CreateProfilerGroups();
   p_.showReport();
 }
 
