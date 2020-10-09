@@ -21,6 +21,10 @@ class InsertionSorter : public Sorter {
   const char *GetSorterName() override;
 
  private:
+  static int getInsertionIndex(int *v, int value, int no_elements, Operation &op_comp);
+
+  static void shiftElementsToRight(int *v, int lowIndex, int highIndex, Operation &op_assign);
+
   static const char *kAssignOpName;
   static const char *kCompOpName;
   static const char *kSorterName;
