@@ -39,7 +39,8 @@ const char *InsertionSorter::GetSorterName() {
   return kSorterName;
 }
 
-int InsertionSorter::getInsertionIndex(const int *v, int value, int no_elements, Operation &op_comp) {
+int InsertionSorter::getInsertionIndex(const int *v, int value, int no_elements,
+                                       Operation &op_comp) {
   int min = 0;
   int max = no_elements - 1;
   int middle;
@@ -47,6 +48,7 @@ int InsertionSorter::getInsertionIndex(const int *v, int value, int no_elements,
     middle = (min + max) / 2;
     op_comp.count();
     if (v[middle] == value) {
+      // ensure stability by inserting after the rightmost element equal to it
       int insertion_index = middle;
       while (insertion_index < no_elements && v[insertion_index] == value) {
         insertion_index++;
@@ -73,7 +75,8 @@ int InsertionSorter::getInsertionIndex(const int *v, int value, int no_elements,
   }
 }
 
-void InsertionSorter::shiftElementsToRight(int *v, int lowIndex, int highIndex, Operation &op_assign) {
+void InsertionSorter::shiftElementsToRight(int *v, int lowIndex, int highIndex,
+                                           Operation &op_assign) {
   if (highIndex >= lowIndex) {
     for (int i = highIndex + 1; i >= lowIndex + 1; i--) {
       v[i] = v[i - 1];

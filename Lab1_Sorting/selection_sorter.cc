@@ -22,6 +22,7 @@ void SelectionSorter::Sort(int *v, int no_elements, Profiler &p) {
     }
     if (min_index != i) {
       op_assign.count(3);
+      // swap
       const int helper = v[i];
       v[i] = v[min_index];
       v[min_index] = helper;
