@@ -5,38 +5,38 @@
 #include "SelectionSorter.h"
 #include "SorterEvaluator.h"
 
-const char *SelectionSorter::ASSIGN_OP_NAME = "SelectionSort-Assign";
-const char *SelectionSorter::COMP_OP_NAME = "SelectionSort-Comp";
-const char *SelectionSorter::SORTER_NAME = "SelectionSort";
+const char *SelectionSorter::kAssignOpName = "SelectionSort-Assign";
+const char *SelectionSorter::kCompOpName = "SelectionSort-Comp";
+const char *SelectionSorter::kSorterName = "SelectionSort";
 
-void SelectionSorter::sort(int *v, int no_elements, Profiler &p) {
-  Operation opComp = p.createOperation(COMP_OP_NAME, no_elements);
-  Operation opAssign = p.createOperation(ASSIGN_OP_NAME, no_elements);
+void SelectionSorter::Sort(int *v, int no_elements, Profiler &p) {
+  Operation op_comp = p.createOperation(kCompOpName, no_elements);
+  Operation op_assign = p.createOperation(kAssignOpName, no_elements);
   for (int i = 0; i < no_elements - 1; i++) {
-    int minIndex = i;
+    int min_index = i;
     for (int j = i + 1; j < no_elements; j++) {
-      opComp.count();
-      if (v[minIndex] > v[j]) {
-        minIndex = j;
+      op_comp.count();
+      if (v[min_index] > v[j]) {
+        min_index = j;
       }
     }
-    if (minIndex != i) {
-      opAssign.count(3);
+    if (min_index != i) {
+      op_assign.count(3);
       const int helper = v[i];
-      v[i] = v[minIndex];
-      v[minIndex] = helper;
+      v[i] = v[min_index];
+      v[min_index] = helper;
     }
   }
 }
 
-const char *SelectionSorter::getCompOpName() {
-  return COMP_OP_NAME;
+const char *SelectionSorter::GetCompOpName() {
+  return kCompOpName;
 }
 
-const char *SelectionSorter::getAssignOpName() {
-  return ASSIGN_OP_NAME;
+const char *SelectionSorter::GetAssignOpName() {
+  return kAssignOpName;
 }
 
-const char *SelectionSorter::getSorterName() {
-  return SORTER_NAME;
+const char *SelectionSorter::GetSorterName() {
+  return kSorterName;
 }

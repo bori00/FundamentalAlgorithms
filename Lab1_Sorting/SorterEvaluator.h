@@ -12,36 +12,36 @@ class SorterEvaluator {
  public:
   SorterEvaluator();
 
-  void evaluate();
+  void Evaluate();
 
-  void addSorter(Sorter *sorter);
+  void AddSorter(Sorter *sorter);
 
  private:
-  void evaluateBestCase();
+  void EvaluateBestCase();
 
-  void evaluateWorstCase();
+  void EvaluateWorstCase();
 
-  void evaluateAverageCase();
+  void EvaluateAverageCase();
 
-  void evaluateCase(int no_tests, int order, const char *title);
+  void EvaluateCase(int no_tests, int order, const char *title);
 
-  void createProfilerGroups();
+  void CreateProfilerGroups();
 
-  void createProfilerTotalGroup();
+  void CreateProfilerTotalGroup();
 
-  void createProfilerAssignGroup();
+  void CreateProfilerAssignGroup();
 
-  void createProfilerCompGroup();
+  void CreateProfilerCompGroup();
 
-  int no_sorters;
-  static const int NO_TESTS_AVERAGE_CASE = 5;
-  static const int MAX_NO_SORTERS = 10;
-  static const int MIN_ARRAY_SIZE = 100;
+  static const int kAverageCaseNoTests = 5;
+  static const int kMaxNoSorters = 10;
+  static const int kMinArraySize = 100;
   // todo change to 10000
-  static const int MAX_ARRAY_SIZE = 1000;
-  static const int STEP_SIZE = 100;
-  Sorter *sorters[MAX_NO_SORTERS];
-  Profiler p;
+  static const int kMaxArraySize = 1000;
+  static const int kStepSize = 100;
+  Sorter *sorters_[kMaxNoSorters];
+  Profiler p_;
+  int no_sorters_;
 };
 
 #endif //LAB1_SORTING_SORTEREVALUATOR_H

@@ -8,12 +8,12 @@
 int main(int argc, char *argv[]) {
   SorterEvaluator sorterEvaluator;
   SelectionSorter selectionSorter;
-  sorterEvaluator.addSorter(&selectionSorter);
+  sorterEvaluator.AddSorter(&selectionSorter);
   BubbleSorter bubbleSorter;
-  sorterEvaluator.addSorter(&bubbleSorter);
+  sorterEvaluator.AddSorter(&bubbleSorter);
   InsertionSorter insertionSorter;
-  sorterEvaluator.addSorter(&insertionSorter);
-  sorterEvaluator.evaluate();
+  sorterEvaluator.AddSorter(&insertionSorter);
+  sorterEvaluator.Evaluate();
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

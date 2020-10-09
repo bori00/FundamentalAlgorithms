@@ -11,13 +11,13 @@ using namespace std;
 
 class Sorter {
  public:
-  virtual void sort(int *v, int no_elements, Profiler &p) = 0;
+  virtual void Sort(int *v, int no_elements, Profiler &p) = 0;
 
-  virtual const char *getCompOpName() = 0;
+  virtual const char *GetCompOpName() = 0;
 
-  virtual const char *getAssignOpName() = 0;
+  virtual const char *GetAssignOpName() = 0;
 
-  virtual const char *getSorterName() = 0;
+  virtual const char *GetSorterName() = 0;
 };
 
 #endif //LAB1_SORTING_CLION_SORTER_H

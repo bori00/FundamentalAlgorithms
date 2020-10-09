@@ -12,29 +12,29 @@ static Profiler p("sorting_test");
 
 class SorterTest : public ::testing::Test {
  public:
-  static bool ArrayIsSorted(int *v, int no_elements);
+  static bool ArrayIsSorted(const int *v, int no_elements);
 
  protected:
   static int *GetAverageArray() {
-    return GetArrayWIthContent(average_array);
+    return GetArrayWithContent(average_array_);
   }
 
   static int *GetSortedArray() {
-    return GetArrayWIthContent(sorted_array);
+    return GetArrayWithContent(sorted_array_);
   }
 
   static int *GetInverselySortedArray() {
-    return GetArrayWIthContent(inv_sorted_array);
+    return GetArrayWithContent(inv_sorted_array_);
   }
 
-  static const int ARRAY_LENGTH = 10;
+  static const int kArrayLength = 10;
 
  private:
-  static int average_array[ARRAY_LENGTH];
-  static int sorted_array[ARRAY_LENGTH];
-  static int inv_sorted_array[ARRAY_LENGTH];
+  static int average_array_[kArrayLength];
+  static int sorted_array_[kArrayLength];
+  static int inv_sorted_array_[kArrayLength];
 
-  static int *GetArrayWIthContent(const int content[ARRAY_LENGTH]);
+  static int *GetArrayWithContent(const int content[kArrayLength]);
 };
 
 #endif //LAB1_SORTING_SORTERTEST_H

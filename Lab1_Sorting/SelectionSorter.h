@@ -12,18 +12,18 @@ using namespace std;
 
 class SelectionSorter : public Sorter {
  public:
-  void sort(int *v, int no_elements, Profiler &p) override;
+  void Sort(int *v, int no_elements, Profiler &p) override;
 
-  const char *getCompOpName() override;
+  const char *GetCompOpName() override;
 
-  const char *getAssignOpName() override;
+  const char *GetAssignOpName() override;
 
-  const char *getSorterName() override;
+  const char *GetSorterName() override;
 
  private:
-  static const char *ASSIGN_OP_NAME;
-  static const char *COMP_OP_NAME;
-  static const char *SORTER_NAME;
+  static const char *kAssignOpName;
+  static const char *kCompOpName;
+  static const char *kSorterName;
 };
 
 #endif //LAB1_SORTING_CLION_SELECTIONSORTER_H

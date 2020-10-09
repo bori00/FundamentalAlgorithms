@@ -5,38 +5,38 @@
 #include "BubbleSorter.h"
 #include "SorterEvaluator.h"
 
-const char *BubbleSorter::ASSIGN_OP_NAME = "BubbleSort-Assign";
-const char *BubbleSorter::COMP_OP_NAME = "BubbleSort-Comp";
-const char *BubbleSorter::SORTER_NAME = "BubbleSort";
+const char *BubbleSorter::kAssignOpName = "BubbleSort-Assign";
+const char *BubbleSorter::kCompOpName = "BubbleSort-Comp";
+const char *BubbleSorter::kSorterName = "BubbleSort";
 
-void BubbleSorter::sort(int *v, int no_elements, Profiler &p) {
-  Operation opComp = p.createOperation(COMP_OP_NAME, no_elements);
-  Operation opAssign = p.createOperation(ASSIGN_OP_NAME, no_elements);
-  bool exchangeMade = true;
-  for (int i = no_elements - 1; i >= 1 && exchangeMade; i--) {
-    exchangeMade = false;
+void BubbleSorter::Sort(int *v, int no_elements, Profiler &p) {
+  Operation op_comp = p.createOperation(kCompOpName, no_elements);
+  Operation op_assign = p.createOperation(kAssignOpName, no_elements);
+  bool exchange_made = true;
+  for (int i = no_elements - 1; i >= 1 && exchange_made; i--) {
+    exchange_made = false;
     for (int j = 0; j < i; j++) {
-      opComp.count();
+      op_comp.count();
       if (v[j] > v[j + 1]) {
         int helper = v[j];
         v[j] = v[j + 1];
         v[j + 1] = helper;
-        opAssign.count(3);
-        exchangeMade = true;
+        op_assign.count(3);
+        exchange_made = true;
       }
     }
   }
 }
 
-const char *BubbleSorter::getCompOpName() {
-  return COMP_OP_NAME;
+const char *BubbleSorter::GetCompOpName() {
+  return kCompOpName;
 }
 
-const char *BubbleSorter::getAssignOpName() {
-  return ASSIGN_OP_NAME;
+const char *BubbleSorter::GetAssignOpName() {
+  return kAssignOpName;
 }
 
-const char *BubbleSorter::getSorterName() {
-  return SORTER_NAME;
+const char *BubbleSorter::GetSorterName() {
+  return kSorterName;
 }
 

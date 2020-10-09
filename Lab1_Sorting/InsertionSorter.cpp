@@ -6,40 +6,40 @@
 #include "Profiler.h"
 #include "SorterEvaluator.h"
 
-const char *InsertionSorter::ASSIGN_OP_NAME = "InsertionSort-Assign";
-const char *InsertionSorter::COMP_OP_NAME = "InsertionSort-Comp";
-const char *InsertionSorter::SORTER_NAME = "InsertionSort";
+const char *InsertionSorter::kAssignOpName = "InsertionSort-Assign";
+const char *InsertionSorter::kCompOpName = "InsertionSort-Comp";
+const char *InsertionSorter::kSorterName = "InsertionSort";
 
-void InsertionSorter::sort(int *v, int no_elements, Profiler &p) {
-  Operation opComp = p.createOperation(COMP_OP_NAME, no_elements);
-  Operation opAssign = p.createOperation(ASSIGN_OP_NAME, no_elements);
+void InsertionSorter::Sort(int *v, int no_elements, Profiler &p) {
+  Operation op_comp = p.createOperation(kCompOpName, no_elements);
+  Operation op_assign = p.createOperation(kAssignOpName, no_elements);
   for (int i = 1; i < no_elements; i++) {
-    int insertionIndex = i;
-    int toInsertValue = v[i];
-    opAssign.count();
-    while (insertionIndex >= 1 && toInsertValue < v[insertionIndex - 1]) {
-      opComp.count();
-      v[insertionIndex] = v[insertionIndex - 1];
-      opAssign.count();
-      insertionIndex--;
+    int insertion_index = i;
+    int to_insert_value = v[i];
+    op_assign.count();
+    while (insertion_index >= 1 && to_insert_value < v[insertion_index - 1]) {
+      op_comp.count();
+      v[insertion_index] = v[insertion_index - 1];
+      op_assign.count();
+      insertion_index--;
     }
-    if (insertionIndex >= 1) {
-      opComp.count();
+    if (insertion_index >= 1) {
+      op_comp.count();
     }
-    v[insertionIndex] = toInsertValue;
-    opAssign.count();
+    v[insertion_index] = to_insert_value;
+    op_assign.count();
   }
 }
 
-const char *InsertionSorter::getCompOpName() {
-  return COMP_OP_NAME;
+const char *InsertionSorter::GetCompOpName() {
+  return kCompOpName;
 }
 
-const char *InsertionSorter::getAssignOpName() {
-  return ASSIGN_OP_NAME;
+const char *InsertionSorter::GetAssignOpName() {
+  return kAssignOpName;
 }
 
-const char *InsertionSorter::getSorterName() {
-  return SORTER_NAME;
+const char *InsertionSorter::GetSorterName() {
+  return kSorterName;
 }
 
