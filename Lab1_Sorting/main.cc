@@ -1,9 +1,9 @@
 #include <iostream>
-#include "SelectionSorter.h"
-#include "SorterEvaluator.h"
+#include "selection_sorter.h"
+#include "sorter_evaluator.h"
 #include "gtest/gtest.h"
-#include "BubbleSorter.h"
-#include "InsertionSorter.h"
+#include "bubble_sorter.h"
+#include "insertion_sorter.h"
 
 int main(int argc, char *argv[]) {
   SorterEvaluator sorterEvaluator;

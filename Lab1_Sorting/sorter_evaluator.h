@@ -5,7 +5,7 @@
 #ifndef LAB1_SORTING_SORTEREVALUATOR_H
 #define LAB1_SORTING_SORTEREVALUATOR_H
 
-#include "Sorter.h"
+#include "sorter.h"
 #include "Profiler.h"
 
 class SorterEvaluator {
@@ -37,7 +37,7 @@ class SorterEvaluator {
   static const int kMaxNoSorters = 10;
   static const int kMinArraySize = 100;
   // todo change to 10000
-  static const int kMaxArraySize = 1000;
+  static const int kMaxArraySize = 10000;
   static const int kStepSize = 100;
   Sorter *sorters_[kMaxNoSorters];
   Profiler p_;

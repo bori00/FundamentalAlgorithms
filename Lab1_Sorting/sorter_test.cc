@@ -3,8 +3,8 @@
 //
 
 #include "gtest/gtest.h"
-#include "SelectionSorter.h"
-#include "SorterTest.h"
+#include "selection_sorter.h"
+#include "sorter_test.h"
 
 int SorterTest::average_array_[] = {3, -7, 2, 10, -5, 9, 4, 12, 10, 10};
 int SorterTest::sorted_array_[] = {-10, 0, 3, 7, 10, 23, 101, 103, 1000, 1500};

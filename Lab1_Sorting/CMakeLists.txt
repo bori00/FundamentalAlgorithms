@@ -8,6 +8,6 @@ add_subdirectory(lib/googletest-master)
 include_directories(lib/googletest-master/googletest/include)
 include_directories(lib/googletest-master/googlemock/include)
 
-add_executable(Lab1_Sorting main.cpp  Sorter.h Sorter.cpp SelectionSorter.h SelectionSorter.cpp InsertionSorter.h InsertionSorter.cpp BubbleSorter.h BubbleSorter.cpp SorterTest.h SorterTest.cpp tests.cpp Profiler.h SorterEvaluator.h SorterEvaluator.cpp)
+add_executable(Lab1_Sorting main.cc sorter.h sorter.cc selection_sorter.h selection_sorter.cc insertion_sorter.h insertion_sorter.cc bubble_sorter.h bubble_sorter.cc sorter_test.h sorter_test.cc tests.cc Profiler.h sorter_evaluator.h sorter_evaluator.cc)
 
 target_link_libraries(Lab1_Sorting gtest gtest_main)

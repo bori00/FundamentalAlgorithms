@@ -4,10 +4,10 @@
 
 #include <iostream>
 #include "gtest/gtest.h"
-#include "SorterTest.h"
-#include "SelectionSorter.h"
-#include "InsertionSorter.h"
-#include "BubbleSorter.h"
+#include "sorter_test.h"
+#include "selection_sorter.h"
+#include "insertion_sorter.h"
+#include "bubble_sorter.h"
 #include "Profiler.h"
 
 #define NO_RANDOM_TESTS 10

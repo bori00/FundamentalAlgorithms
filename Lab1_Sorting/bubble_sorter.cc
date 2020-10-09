@@ -2,8 +2,8 @@
 // Created by Bori on 10/4/2020.
 //
 
-#include "BubbleSorter.h"
-#include "SorterEvaluator.h"
+#include "bubble_sorter.h"
+#include "sorter_evaluator.h"
 
 const char *BubbleSorter::kAssignOpName = "BubbleSort-Assign";
 const char *BubbleSorter::kCompOpName = "BubbleSort-Comp";

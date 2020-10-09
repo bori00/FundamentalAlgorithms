@@ -6,8 +6,8 @@
 #include <cstring>
 #include <iostream>
 #include <cassert>
-#include "SorterEvaluator.h"
-#include "SorterTest.h"
+#include "sorter_evaluator.h"
+#include "sorter_test.h"
 
 using namespace std;
 
@@ -103,6 +103,7 @@ void SorterEvaluator::CreateProfilerCompGroup() {
 }
 
 void SorterEvaluator::CreateProfilerAssignGroup() {
+
   char **members = (char **) malloc(sizeof(char *) * kMaxNoSorters);
   for (int i = 0; i < kMaxNoSorters; i++) {
     if (i < no_sorters_) {

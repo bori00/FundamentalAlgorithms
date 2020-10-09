@@ -2,9 +2,9 @@
 // Created by Bori on 10/4/2020.
 //
 
-#include "InsertionSorter.h"
+#include "insertion_sorter.h"
 #include "Profiler.h"
-#include "SorterEvaluator.h"
+#include "sorter_evaluator.h"
 
 const char *InsertionSorter::kAssignOpName = "InsertionSort-Assign";
 const char *InsertionSorter::kCompOpName = "InsertionSort-Comp";

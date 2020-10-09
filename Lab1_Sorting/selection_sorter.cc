@@ -2,8 +2,8 @@
 // Created by Bori on 10/4/2020.
 //
 
-#include "SelectionSorter.h"
-#include "SorterEvaluator.h"
+#include "selection_sorter.h"
+#include "sorter_evaluator.h"
 
 const char *SelectionSorter::kAssignOpName = "SelectionSort-Assign";
 const char *SelectionSorter::kCompOpName = "SelectionSort-Comp";

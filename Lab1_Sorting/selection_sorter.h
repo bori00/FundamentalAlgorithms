@@ -6,7 +6,7 @@
 #define LAB1_SORTING_CLION_SELECTIONSORTER_H
 
 #include <string>
-#include "Sorter.h"
+#include "sorter.h"
 
 using namespace std;
 
