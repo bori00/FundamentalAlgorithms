@@ -15,14 +15,14 @@ const char *InsertionSorter::kSorterName = "InsertionSort";
 void InsertionSorter::Sort(int *v, int no_elements, Profiler &p) {
   Operation op_comp = p.createOperation(kCompOpName, no_elements);
   Operation op_assign = p.createOperation(kAssignOpName, no_elements);
+  int to_insert_value;
   for (int i = 1; i < no_elements; i++) {
-    int to_insert_value = v[i];
-    op_assign.count();
     int insertion_index = getInsertionIndex(v, v[i], i, op_comp);
-    shiftElementsToRight(v, insertion_index, i - 1, op_assign);
-    if (i != insertion_index) {
+    if (insertion_index != i) {
+      to_insert_value = v[i];
+      shiftElementsToRight(v, insertion_index, i - 1, op_assign);
       v[insertion_index] = to_insert_value;
-      op_assign.count();
+      op_assign.count(2);
     }
   }
 }
@@ -39,7 +39,7 @@ const char *InsertionSorter::GetSorterName() {
   return kSorterName;
 }
 
-int InsertionSorter::getInsertionIndex(int *v, int value, int no_elements, Operation &op_comp) {
+int InsertionSorter::getInsertionIndex(const int *v, int value, int no_elements, Operation &op_comp) {
   int min = 0;
   int max = no_elements - 1;
   int middle;
@@ -47,7 +47,15 @@ int InsertionSorter::getInsertionIndex(int *v, int value, int no_elements, Opera
     middle = (min + max) / 2;
     op_comp.count();
     if (v[middle] == value) {
-      return middle + 1;
+      int insertion_index = middle;
+      while (insertion_index < no_elements && v[insertion_index] == value) {
+        insertion_index++;
+        op_comp.count();
+      }
+      if (insertion_index < no_elements) {
+        op_comp.count();
+      }
+      return insertion_index;
     } else {
       op_comp.count();
       if (v[middle] > value) {
@@ -66,9 +74,11 @@ int InsertionSorter::getInsertionIndex(int *v, int value, int no_elements, Opera
 }
 
 void InsertionSorter::shiftElementsToRight(int *v, int lowIndex, int highIndex, Operation &op_assign) {
-  for (int i = highIndex + 1; i >= lowIndex + 1; i--) {
-    v[i] = v[i - 1];
+  if (highIndex >= lowIndex) {
+    for (int i = highIndex + 1; i >= lowIndex + 1; i--) {
+      v[i] = v[i - 1];
+    }
+    op_assign.count(highIndex - lowIndex + 1);
   }
-  op_assign.count(highIndex - lowIndex + 1);
 }
 
