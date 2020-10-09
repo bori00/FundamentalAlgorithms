@@ -3,9 +3,9 @@
 //
 
 #include <cstdlib>
-#include <string.h>
+#include <cstring>
 #include <iostream>
-#include <assert.h>
+#include <cassert>
 #include "SorterEvaluator.h"
 
 using namespace std;
@@ -32,7 +32,7 @@ void SorterEvaluator::addSorter(Sorter *sorter) {
 }
 
 void SorterEvaluator::evaluateWorstCase() {
-  evaluateCase(NO_TESTS_AVERAGE_CASE, DESCENDING, "WorstCase");
+  evaluateCase(1, DESCENDING, "WorstCase");
 }
 
 void SorterEvaluator::evaluateBestCase() {
@@ -40,7 +40,7 @@ void SorterEvaluator::evaluateBestCase() {
 }
 
 void SorterEvaluator::evaluateAverageCase() {
-  evaluateCase(1, UNSORTED, "AverageCase");
+  evaluateCase(NO_TESTS_AVERAGE_CASE, UNSORTED, "AverageCase");
 }
 
 void SorterEvaluator::evaluateCase(int no_tests, int order, const char *title) {
