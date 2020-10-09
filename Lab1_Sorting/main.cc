@@ -56,10 +56,10 @@ int main(int argc, char *argv[]) {
  * --Evaluate charts--
  * These computations correspond to the charts:
  * - for size = 100,
- * the algorithm required 4868 ~ 4950 comparisons and 7516 ~ 7425 assignments
+ * the algorithm required 4867 ~ 4950 comparisons and 6969 ~ 7425 assignments
  * - for size = 10000,
- * the algorithm required 4,9990,240 ~ 49,995,000 comparisons
- * and 74,982,301 ~ 74,992,500 assignments
+ * the algorithm required 49,985,238 ~ 49,995,000 comparisons
+ * and 74,959,339 ~ 74,992,500 assignments
  *
  * b) Worst Case: inversely sorted input array
  * At the i-th iteration, the algorithm will "bubble" the i-th largest element
