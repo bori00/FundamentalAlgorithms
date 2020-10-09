@@ -25,8 +25,6 @@ class SorterEvaluator {
 
   void evaluateCase(int no_tests, int order, const char *title);
 
-  static bool isSorted(const int *v, int no_elements);
-
   void createProfilerGroups();
 
   void createProfilerTotalGroup();

@@ -11,9 +11,10 @@
 static Profiler p("sorting_test");
 
 class SorterTest : public ::testing::Test {
- protected:
+ public:
   static bool ArrayIsSorted(int *v, int no_elements);
 
+ protected:
   static int *GetAverageArray() {
     return GetArrayWIthContent(average_array);
   }

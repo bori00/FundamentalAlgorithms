@@ -7,6 +7,7 @@
 #include <iostream>
 #include <cassert>
 #include "SorterEvaluator.h"
+#include "SorterTest.h"
 
 using namespace std;
 
@@ -56,7 +57,7 @@ void SorterEvaluator::evaluateCase(int no_tests, int order, const char *title) {
         cout << "evauluate case " << order << " size " << size << ", test nr. " << test << " sorter nr. " << i << endl;
         sorters[i]->sort(u, size, p);
         // todo change to Profiler's tester function
-        assert(SorterEvaluator::isSorted(u, size));
+        assert(SorterTest::ArrayIsSorted(u, size));
       }
     }
   }
@@ -67,15 +68,6 @@ void SorterEvaluator::evaluateCase(int no_tests, int order, const char *title) {
   }
   createProfilerGroups();
   p.showReport();
-}
-
-bool SorterEvaluator::isSorted(const int *v, int no_elements) {
-  for (int i = 0; i < no_elements - 1; i++) {
-    if (v[i] > v[i + 1]) {
-      return false;
-    }
-  }
-  return true;
 }
 
 void SorterEvaluator::createProfilerGroups() {
