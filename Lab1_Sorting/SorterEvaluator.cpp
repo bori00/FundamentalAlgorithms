@@ -49,12 +49,13 @@ void SorterEvaluator::evaluateCase(int no_tests, int order, const char *title) {
   int u[MAX_ARRAY_SIZE];
   for (int size = MIN_ARRAY_SIZE; size <= MAX_ARRAY_SIZE; size += STEP_SIZE) {
     for (int test = 0; test < no_tests; test++) {
-      FillRandomArray(v, size, 1, 500000, false, order);
+      FillRandomArray(v, size, INT_MIN / 2, INT_MAX / 2, false, order);
       for (int i = 0; i < no_sorters; i++) {
         // todo change to memcpy
         mempcpy(&u, &v, size * sizeof(v[0]));
         cout << "evauluate case " << order << " size " << size << ", test nr. " << test << " sorter nr. " << i << endl;
         sorters[i]->sort(u, size, p);
+        // todo change to Profiler's tester function
         assert(SorterEvaluator::isSorted(u, size));
       }
     }
@@ -68,7 +69,7 @@ void SorterEvaluator::evaluateCase(int no_tests, int order, const char *title) {
   p.showReport();
 }
 
-bool SorterEvaluator::isSorted(int *v, int no_elements) {
+bool SorterEvaluator::isSorted(const int *v, int no_elements) {
   for (int i = 0; i < no_elements - 1; i++) {
     if (v[i] > v[i + 1]) {
       return false;
