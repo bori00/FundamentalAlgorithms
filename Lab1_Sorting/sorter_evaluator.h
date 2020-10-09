@@ -36,7 +36,6 @@ class SorterEvaluator {
   static const int kAverageCaseNoTests = 5;
   static const int kMaxNoSorters = 10;
   static const int kMinArraySize = 100;
-  // todo change to 10000
   static const int kMaxArraySize = 10000;
   static const int kStepSize = 100;
   Sorter *sorters_[kMaxNoSorters];
