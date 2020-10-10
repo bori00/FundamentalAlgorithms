@@ -15,13 +15,13 @@
 
 int main(int argc, char *argv[]) {
   SorterEvaluator sorterEvaluator;
-  SelectionSorter selectionSorter;
-  sorterEvaluator.AddSorter(&selectionSorter);
-  BubbleSorter bubbleSorter;
-  sorterEvaluator.AddSorter(&bubbleSorter);
-  InsertionSorter insertionSorter;
-  sorterEvaluator.AddSorter(&insertionSorter);
-  sorterEvaluator.Evaluate();
+//  SelectionSorter selectionSorter;
+//  sorterEvaluator.AddSorter(&selectionSorter);
+//  BubbleSorter bubbleSorter;
+//  sorterEvaluator.AddSorter(&bubbleSorter);
+//  InsertionSorter insertionSorter;
+//  sorterEvaluator.AddSorter(&insertionSorter);
+//  sorterEvaluator.Evaluate();
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
