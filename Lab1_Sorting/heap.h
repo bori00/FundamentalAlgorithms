@@ -31,6 +31,8 @@ class Heap {
    */
   int findSupposedRootIndex(int current_root_index);
 
+  void swap(int index_1, int index_2);
+
   static const int kMaxSize = 1e6;
   int size;
   int v[kMaxSize];

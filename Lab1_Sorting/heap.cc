@@ -17,7 +17,12 @@ void Heap::push(int value) {
 }
 
 void Heap::heapify(int rootIndex) {
-
+  int supposed_root_index = findSupposedRootIndex(rootIndex);
+  while (rootIndex != supposed_root_index) {
+    swap(rootIndex, supposed_root_index);
+    rootIndex = supposed_root_index;
+    supposed_root_index = findSupposedRootIndex(rootIndex);
+  }
 }
 
 int Heap::findSupposedRootIndex(int current_root_index) {
@@ -56,6 +61,13 @@ int Heap::findSupposedRootIndex(int current_root_index) {
 
 int Heap::pop() {
   return 0;
+}
+
+void Heap::swap(int index_1, int index_2) {
+  int helper = v[index_1];
+  v[index_1] = v[index_2];
+  v[index_2] = helper;
+  op_assign.count(3);
 }
 
 
