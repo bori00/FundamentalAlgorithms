@@ -14,6 +14,7 @@ Heap::Heap(int *content,
     cerr << kSizeExceeded << endl;
     exit(1);
   }
+  heap_type_ = heap_type;
   size_ = no_elements;
   this->op_assign_ = op_assign;
   this->op_comp_ = op_comp;
@@ -25,6 +26,14 @@ Heap::Heap(int *content,
     heapify(i);
   }
 }
+
+Heap::Heap(Heap::HeapType heap_type, Operation *op_comp, Operation *op_assign) {
+  size_ = 0;
+  heap_type_ = heap_type;
+  this->op_assign_ = op_assign;
+  this->op_comp_ = op_comp;
+}
+
 
 void Heap::push(int value) {
   size_++;

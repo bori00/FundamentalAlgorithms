@@ -17,6 +17,9 @@ class Heap {
   /** This corresponds to the build_heap() method, which builds the heap from the given content. */
   Heap(int *content, int no_elements, HeapType heap_type, Operation *op_comp, Operation *op_assign);
 
+  /** This corresponds to the build_heap() method, and builds an empty heap. */
+  Heap(HeapType heap_type, Operation *op_comp, Operation *op_assign);
+
   /**
    * Inserts @param value into the heap(unless the maximum size is exceeded) by preserving the
    * heap structure.
