@@ -9,6 +9,7 @@
 #include "insertion_sorter.h"
 #include "bubble_sorter.h"
 #include "Profiler.h"
+#include "heap_sorter.h"
 
 #define NO_RANDOM_TESTS 10
 #define MAX_ARRAY_SIZE 10000
@@ -112,3 +113,35 @@ TEST_F(SorterTest, BubbleSorter_InvSortedArray) {
 //    EXPECT_TRUE(SorterTest::ArrayIsSorted(v, size));
 //  }
 //}
+
+TEST_F(SorterTest, HeapSorter_AverageArray) {
+  int *v = GetAverageArray();
+  HeapSorter heapSorter;
+  heapSorter.Sort(v, kArrayLength, ignoreP);
+  EXPECT_TRUE(SorterTest::ArrayIsSorted(v, SorterTest::kArrayLength));
+}
+
+TEST_F(SorterTest, HeapSorter_SortedArray) {
+  int *v = GetSortedArray();
+  HeapSorter heapSorter;
+  heapSorter.Sort(v, kArrayLength, ignoreP);
+  EXPECT_TRUE(SorterTest::ArrayIsSorted(v, SorterTest::kArrayLength));
+}
+
+TEST_F(SorterTest, HeapSorter_InvSortedArray) {
+  int *v = GetInverselySortedArray();
+  HeapSorter heapSorter;
+  heapSorter.Sort(v, kArrayLength, ignoreP);
+  EXPECT_TRUE(SorterTest::ArrayIsSorted(v, SorterTest::kArrayLength));
+}
+
+TEST_F(SorterTest, HeapSorter_RandomArrays) {
+  int v[MAX_ARRAY_SIZE];
+  for (int i = 0; i < NO_RANDOM_TESTS; i++) {
+    int size = rand() % MAX_ARRAY_SIZE;
+    FillRandomArray(v, size);
+    HeapSorter heapSorter;
+    heapSorter.Sort(v, size, ignoreP);
+    EXPECT_TRUE(SorterTest::ArrayIsSorted(v, size));
+  }
+}
