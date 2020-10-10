@@ -26,6 +26,10 @@ class Heap {
   /** Removes and returns the top element of the heap by preserving the heap structure. */
   int pop();
 
+  int *getContent();
+
+  int size();
+
  private:
   void heapify(int rootIndex);
 
@@ -38,11 +42,11 @@ class Heap {
   void swap(int index_1, int index_2);
 
   static const int kMaxSize = 1e6;
-  int size;
-  int v[kMaxSize];
-  HeapType heap_type;
-  Operation *op_comp;
-  Operation *op_assign;
+  int size_;
+  int v_[kMaxSize];
+  HeapType heap_type_;
+  Operation *op_comp_;
+  Operation *op_assign_;
   const string kSizeExceeded = "Maximum number of elements exceeded. Operation failed!";
 };
 
