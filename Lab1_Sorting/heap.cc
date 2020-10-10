@@ -39,34 +39,35 @@ void Heap::heapify(int rootIndex) {
   }
 }
 
+//todo: improve naming
 int Heap::findSupposedRootIndex(int current_root_index) {
   int min_index, max_index;
   switch (heap_type_) {
     case HeapType::kMinHeap:min_index = current_root_index;
-      if (min_index * 2 <= size_) {
+      if (current_root_index * 2 <= size_) {
         op_comp_->count();
-        if (v_[min_index] > v_[min_index * 2]) {
-          min_index = min_index * 2;
+        if (v_[min_index] > v_[current_root_index * 2]) {
+          min_index = current_root_index * 2;
         }
       }
-      if (min_index * 2 + 1 <= size_) {
+      if (current_root_index * 2 + 1 <= size_) {
         op_comp_->count();
-        if (v_[min_index] > v_[min_index * 2 + 1]) {
-          min_index = min_index * 2 + 1;
+        if (v_[min_index] > v_[current_root_index * 2 + 1]) {
+          min_index = current_root_index * 2 + 1;
         }
       }
       return min_index;
     case HeapType::kMaxHeap:max_index = current_root_index;
-      if (max_index * 2 <= size_) {
+      if (current_root_index * 2 <= size_) {
         op_comp_->count();
-        if (v_[max_index] < v_[max_index * 2]) {
-          max_index = max_index * 2;
+        if (v_[max_index] < v_[current_root_index * 2]) {
+          max_index = current_root_index * 2;
         }
       }
-      if (max_index * 2 + 1 <= size_) {
+      if (current_root_index * 2 + 1 <= size_) {
         op_comp_->count();
-        if (v_[max_index] < v_[max_index * 2 + 1]) {
-          max_index = max_index * 2 + 1;
+        if (v_[max_index] < v_[current_root_index * 2 + 1]) {
+          max_index = current_root_index * 2 + 1;
         }
       }
       return max_index;
