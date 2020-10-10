@@ -30,6 +30,8 @@ class Heap {
 
   int size();
 
+  HeapType getHeapType();
+
  private:
   void heapify(int rootIndex);
 
@@ -41,7 +43,8 @@ class Heap {
 
   void swap(int index_1, int index_2);
 
-  static const int kMaxSize = 1e6;
+  // todo change to 1e6
+  static const int kMaxSize = 100000;
   int size_;
   int v_[kMaxSize];
   HeapType heap_type_;

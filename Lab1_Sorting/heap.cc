@@ -14,6 +14,7 @@ Heap::Heap(int *content,
     cerr << kSizeExceeded << endl;
     exit(1);
   }
+  size_ = no_elements;
   this->op_assign_ = op_assign;
   this->op_comp_ = op_comp;
   for (int i = 1; i <= no_elements; i++) {
@@ -70,6 +71,7 @@ int Heap::findSupposedRootIndex(int current_root_index) {
       }
       return max_index;
   }
+  return current_root_index;
 }
 
 int Heap::pop() {
@@ -89,6 +91,10 @@ int *Heap::getContent() {
 
 int Heap::size() {
   return size_;
+}
+
+Heap::HeapType Heap::getHeapType() {
+  return heap_type_;
 }
 
 
