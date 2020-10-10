@@ -7,9 +7,6 @@
 #include "heap_test.h"
 #include "Profiler.h"
 
-#define NO_RANDOM_TESTS 10
-#define MAX_ARRAY_SIZE 10000
-
 using namespace std;
 
 static Profiler ignorePHeap("ignore");

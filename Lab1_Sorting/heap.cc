@@ -27,7 +27,20 @@ Heap::Heap(int *content,
 }
 
 void Heap::push(int value) {
-
+  size_++;
+  v_[size_] = value;
+  int value_index = size_;
+  if (heap_type_ == HeapType::kMaxHeap) {
+    while (value_index > 1 && v_[value_index] > v_[value_index / 2]) {
+      swap(value_index, value_index / 2);
+      value_index /= 2;
+    }
+  } else {
+    while (value_index > 1 && v_[value_index] < v_[value_index / 2]) {
+      swap(value_index, value_index / 2);
+      value_index /= 2;
+    }
+  }
 }
 
 void Heap::heapify(int rootIndex) {
