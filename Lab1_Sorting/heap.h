@@ -5,13 +5,17 @@
 #ifndef LAB1_SORTING__HEAP_H_
 #define LAB1_SORTING__HEAP_H_
 
+#include <string>
+
+using namespace std;
+
 #include "Profiler.h"
 class Heap {
  public:
   enum class HeapType { kMaxHeap, kMinHeap };
 
   /** This corresponds to the build_heap() method, which builds the heap from the given content. */
-  Heap(int *content, int no_elements, HeapType heap_type, Operation &op_comp, Operation &op_assign);
+  Heap(int *content, int no_elements, HeapType heap_type, Operation *op_comp, Operation *op_assign);
 
   /**
    * Inserts @param value into the heap(unless the maximum size is exceeded) by preserving the
@@ -37,8 +41,9 @@ class Heap {
   int size;
   int v[kMaxSize];
   HeapType heap_type;
-  Operation op_comp;
-  Operation op_assign;
+  Operation *op_comp;
+  Operation *op_assign;
+  const string kSizeExceeded = "Maximum number of elements exceeded. Operation failed!";
 };
 
 #endif //LAB1_SORTING__HEAP_H_
