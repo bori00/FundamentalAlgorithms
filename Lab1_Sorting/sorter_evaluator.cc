@@ -53,7 +53,8 @@ void SorterEvaluator::EvaluateCase(int no_tests, int order, const char *title) {
       FillRandomArray(v, size, INT_MIN / 2, INT_MAX / 2, false, order);
       for (int i = 0; i < no_sorters_; i++) {
         memcpy(&u, &v, size * sizeof(v[0]));
-        cout << "evauluate case " << order << " size " << size << ", test nr. " << test << " sorter nr. " << i << endl;
+        cout << "evauluate case " << order << " size " << size <<
+             ", test nr. " << test << " sorter nr. " << i << endl;
         sorters_[i]->Sort(u, size, p_);
         assert(SorterTest::ArrayIsSorted(u, size));
       }
@@ -62,7 +63,9 @@ void SorterEvaluator::EvaluateCase(int no_tests, int order, const char *title) {
   for (int i = 0; i < no_sorters_; i++) {
     p_.divideValues(sorters_[i]->GetCompOpName(), no_tests);
     p_.divideValues(sorters_[i]->GetAssignOpName(), no_tests);
-    p_.addSeries(sorters_[i]->GetSorterName(), sorters_[i]->GetCompOpName(), sorters_[i]->GetAssignOpName());
+    p_.addSeries(sorters_[i]->GetSorterName(),
+                 sorters_[i]->GetCompOpName(),
+                 sorters_[i]->GetAssignOpName());
   }
   CreateProfilerGroups();
   p_.showReport();
@@ -84,8 +87,10 @@ void SorterEvaluator::CreateProfilerTotalGroup() {
       members[i] = 0;
     }
   }
-  p_.createGroup("Total", members[0], members[1], members[2], members[3], members[4], members[5],
-                 members[6], members[7], members[8], members[9]);
+  p_.createGroup("Total", members[0], members[1],
+                 members[2], members[3], members[4],
+                 members[5], members[6], members[7],
+                 members[8], members[9]);
 }
 
 void SorterEvaluator::CreateProfilerCompGroup() {
@@ -98,8 +103,10 @@ void SorterEvaluator::CreateProfilerCompGroup() {
       members[i] = 0;
     }
   }
-  p_.createGroup("Comparsions", members[0], members[1], members[2], members[3], members[4], members[5],
-                 members[6], members[7], members[8], members[9]);
+  p_.createGroup("Comparsions", members[0], members[1],
+                 members[2], members[3], members[4],
+                 members[5], members[6], members[7],
+                 members[8], members[9]);
 }
 
 void SorterEvaluator::CreateProfilerAssignGroup() {
@@ -113,6 +120,8 @@ void SorterEvaluator::CreateProfilerAssignGroup() {
       members[i] = 0;
     }
   }
-  p_.createGroup("Assignments", members[0], members[1], members[2], members[3], members[4], members[5],
-                 members[6], members[7], members[8], members[9]);
+  p_.createGroup("Assignments", members[0], members[1],
+                 members[2], members[3], members[4],
+                 members[5], members[6], members[7],
+                 members[8], members[9]);
 }
