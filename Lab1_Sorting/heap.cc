@@ -98,9 +98,9 @@ int Heap::findSupposedRootIndex(int current_root_index) {
 }
 
 int Heap::pop() {
-  int top_value = v_[1];
-  v_[1] = v_[size_];
-  heapify(1);
+  int top_value = v_[0];
+  v_[0] = v_[size_ - 1];
+  heapify(0);
   size_--;
   return top_value;
 }
