@@ -54,7 +54,7 @@ void Heap::Push(int value) {
 void Heap::Heapify(int rootIndex) {
   int supposed_root_index = FindSupposedRootIndex(rootIndex);
   while (rootIndex != supposed_root_index) {
-    swap(rootIndex, supposed_root_index);
+    Swap(rootIndex, supposed_root_index);
     rootIndex = supposed_root_index;
     supposed_root_index = FindSupposedRootIndex(rootIndex);
   }
