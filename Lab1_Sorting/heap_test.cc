@@ -20,15 +20,15 @@ bool HeapTest::isHeap(Heap h) {
   int *v = h.getContent();
   int size = h.size();
   if (h.getHeapType() == Heap::HeapType::kMaxHeap) {
-    for (int i = size / 2; i >= 1; i--) {
-      if (v[i] < v[2 * i] || (2 * i + 1 <= size && v[i] < v[2 * i + 1])) {
+    for (int i = size / 2 - 1; i >= 0; i--) {
+      if (v[i] < v[2 * i + 1] || (2 * i + 2 < size && v[i] < v[2 * i + 2])) {
         return false;
       }
     }
     return true;
   } else {
-    for (int i = size / 2; i >= 1; i--) {
-      if (v[i] > v[2 * i] || (2 * i + 1 <= size && v[i] > v[2 * i + 1])) {
+    for (int i = size / 2 - 1; i >= 0; i--) {
+      if (v[i] > v[2 * i + 1] || (2 * i + 2 < size && v[i] > v[2 * i + 2])) {
         return false;
       }
     }
