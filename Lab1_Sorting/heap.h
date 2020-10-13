@@ -46,6 +46,12 @@ class Heap {
 
   void swap(int index_1, int index_2);
 
+  static int LeftChildIndex(int i);
+
+  static int RightChildIndex(int i);
+
+  static int ParentIndex(int i);
+
   // todo change to 1e6
   static const int kMaxSize = 100000;
   int size_;

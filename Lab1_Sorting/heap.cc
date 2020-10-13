@@ -18,12 +18,12 @@ Heap::Heap(int *content,
   size_ = no_elements;
   this->op_assign_ = op_assign;
   this->op_comp_ = op_comp;
-  for (int i = 1; i <= no_elements; i++) {
-    v_[i] = content[i - 1];
+  for (int i = 0; i <= no_elements - 1; i++) {
+    v_[i] = content[i];
     op_assign->count();
   }
   for (int i = no_elements / 2; i >= 1; i--) {
-    heapify(i);
+    heapify(i - 1);
   }
 }
 
@@ -122,6 +122,18 @@ int Heap::size() {
 
 Heap::HeapType Heap::getHeapType() {
   return heap_type_;
+}
+
+int Heap::ParentIndex(int i) {
+  return (i - 1) / 2;
+}
+
+int Heap::LeftChildIndex(int i) {
+  return 2 * i + 1;
+}
+
+int Heap::RightChildIndex(int i) {
+  return 2 * i + 2;
 }
 
 
