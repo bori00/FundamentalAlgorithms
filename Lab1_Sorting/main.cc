@@ -4,6 +4,7 @@
 #include "gtest/gtest.h"
 #include "bubble_sorter.h"
 #include "insertion_sorter.h"
+#include "heap_evaluator.h"
 
 /**
  * Task: implement 3 direct sorting methods:
@@ -12,16 +13,9 @@
  * 3. Selection Sort
  * and then evaluate and compare their performance.
  */
-
 int main(int argc, char *argv[]) {
-  SorterEvaluator sorterEvaluator;
-//  SelectionSorter selectionSorter;
-//  sorterEvaluator.AddSorter(&selectionSorter);
-//  BubbleSorter bubbleSorter;
-//  sorterEvaluator.AddSorter(&bubbleSorter);
-//  InsertionSorter insertionSorter;
-//  sorterEvaluator.AddSorter(&insertionSorter);
-//  sorterEvaluator.Evaluate();
+  HeapEvaluator heap_evaluator;
+  heap_evaluator.Evaluate();
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

@@ -11,6 +11,7 @@ include_directories(lib/googletest-master/googlemock/include)
 add_executable(Lab1_Sorting main.cc sorter.h sorter.cc selection_sorter.h selection_sorter.cc
         insertion_sorter.h insertion_sorter.cc bubble_sorter.h bubble_sorter.cc sorter_test.h
         sorter_test.cc sorter_tests.cc Profiler.h sorter_evaluator.h sorter_evaluator.cc heap.cc heap.h
-        heap_test.h heap_test.cc heap_tests.cc heap_sorter.h heap_sorter.cc)
+        heap_test.h heap_test.cc heap_tests.cc heap_sorter.h heap_sorter.cc heap_evaluator.cc
+        heap_evaluator.h)
 
 target_link_libraries(Lab1_Sorting gtest gtest_main)

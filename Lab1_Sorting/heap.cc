@@ -37,6 +37,7 @@ Heap::Heap(Heap::HeapType heap_type, Operation *op_comp, Operation *op_assign) {
 void Heap::Push(int value) {
   size_++;
   v_[size_ - 1] = value;
+  op_assign_->count();
   int value_index = size_ - 1;
   while (value_index > 0 && !isCorrectRelation(ParentIndex(value_index), value_index)) {
     Swap(value_index, ParentIndex(value_index));
@@ -58,19 +59,18 @@ int Heap::FindSupposedRootIndex(int current_root_index) {
   if (LeftChildIndex(current_root_index) < size_ && !isCorrectRelation(supposed_root_index,
                                                                        LeftChildIndex(
                                                                            current_root_index))) {
-    op_comp_->count();
     supposed_root_index = LeftChildIndex(current_root_index);
   }
   if (RightChildIndex(current_root_index) < size_ && !isCorrectRelation(supposed_root_index,
                                                                         RightChildIndex(
                                                                             current_root_index))) {
-    op_comp_->count();
     supposed_root_index = RightChildIndex(current_root_index);
   }
   return supposed_root_index;
 }
 
 int Heap::Pop() {
+  op_assign_->count(2);
   int top_value = v_[0];
   v_[0] = v_[size_ - 1];
   size_--;
@@ -110,6 +110,7 @@ int Heap::RightChildIndex(int i) {
 }
 
 bool Heap::isCorrectRelation(int parentIndex, int childIndex) {
+  op_comp_->count();
   if (heap_type_ == HeapType::kMaxHeap) {
     return v_[parentIndex] >= v_[childIndex];
   } else {
