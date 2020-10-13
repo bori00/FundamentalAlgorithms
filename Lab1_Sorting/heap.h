@@ -52,6 +52,8 @@ class Heap {
 
   static int ParentIndex(int i);
 
+  bool isCorrectRelation(int parentIndex, int childIndex);
+
   // todo change to 1e6
   static const int kMaxSize = 100000;
   int size_;

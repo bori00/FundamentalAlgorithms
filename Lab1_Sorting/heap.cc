@@ -38,16 +38,9 @@ void Heap::Push(int value) {
   size_++;
   v_[size_ - 1] = value;
   int value_index = size_ - 1;
-  if (heap_type_ == HeapType::kMaxHeap) {
-    while (value_index > 0 && v_[value_index] > v_[ParentIndex(value_index)]) {
-      Swap(value_index, ParentIndex(value_index));
-      value_index = ParentIndex(value_index);
-    }
-  } else {
-    while (value_index > 0 && v_[value_index] < v_[ParentIndex(value_index)]) {
-      Swap(value_index, ParentIndex(value_index));
-      value_index = ParentIndex(value_index);
-    }
+  while (value_index > 0 && !isCorrectRelation(ParentIndex(value_index), value_index)) {
+    Swap(value_index, ParentIndex(value_index));
+    value_index = ParentIndex(value_index);
   }
 }
 
@@ -60,40 +53,21 @@ void Heap::Heapify(int rootIndex) {
   }
 }
 
-//todo: improve naming
 int Heap::FindSupposedRootIndex(int current_root_index) {
-  int min_index, max_index;
-  switch (heap_type_) {
-    case HeapType::kMinHeap:min_index = current_root_index;
-      if (LeftChildIndex(current_root_index) < size_) {
-        op_comp_->count();
-        if (v_[min_index] > v_[LeftChildIndex(current_root_index)]) {
-          min_index = LeftChildIndex(current_root_index);
-        }
-      }
-      if (RightChildIndex(current_root_index) < size_) {
-        op_comp_->count();
-        if (v_[min_index] > v_[RightChildIndex(current_root_index)]) {
-          min_index = RightChildIndex(current_root_index);
-        }
-      }
-      return min_index;
-    case HeapType::kMaxHeap:max_index = current_root_index;
-      if (LeftChildIndex(current_root_index) < size_) {
-        op_comp_->count();
-        if (v_[max_index] < v_[LeftChildIndex(current_root_index)]) {
-          max_index = LeftChildIndex(current_root_index);
-        }
-      }
-      if (RightChildIndex(current_root_index) < size_) {
-        op_comp_->count();
-        if (v_[max_index] < v_[RightChildIndex(current_root_index)]) {
-          max_index = RightChildIndex(current_root_index);
-        }
-      }
-      return max_index;
+  int supposed_root_index = current_root_index;
+  if (LeftChildIndex(current_root_index) < size_ && !isCorrectRelation(supposed_root_index,
+                                                                       LeftChildIndex(
+                                                                           current_root_index))) {
+    op_comp_->count();
+    supposed_root_index = LeftChildIndex(current_root_index);
   }
-  return current_root_index;
+  if (RightChildIndex(current_root_index) < size_ && !isCorrectRelation(supposed_root_index,
+                                                                        RightChildIndex(
+                                                                            current_root_index))) {
+    op_comp_->count();
+    supposed_root_index = RightChildIndex(current_root_index);
+  }
+  return supposed_root_index;
 }
 
 int Heap::Pop() {
@@ -133,6 +107,14 @@ int Heap::LeftChildIndex(int i) {
 
 int Heap::RightChildIndex(int i) {
   return 2 * i + 2;
+}
+
+bool Heap::isCorrectRelation(int parentIndex, int childIndex) {
+  if (heap_type_ == HeapType::kMaxHeap) {
+    return v_[parentIndex] >= v_[childIndex];
+  } else {
+    return v_[parentIndex] <= v_[childIndex];
+  }
 }
 
 
