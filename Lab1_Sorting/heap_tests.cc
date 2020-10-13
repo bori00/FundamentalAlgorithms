@@ -53,7 +53,7 @@ TEST_F(HeapTest, BuildHeap_TopDown_MaxHeap_AverageArray) {
   int *v = GetAverageArray();
   Heap h(Heap::HeapType::kMaxHeap, &op_comp, &op_assign);
   for (int i = 0; i < kArrayLength; i++) {
-    h.push(v[i]);
+    h.Push(v[i]);
   }
   EXPECT_TRUE(HeapTest::isHeap(h));
 }
@@ -62,7 +62,7 @@ TEST_F(HeapTest, BuildHeap_TopDown_MaxHeap_SortedArray) {
   int *v = GetSortedArray();
   Heap h(Heap::HeapType::kMaxHeap, &op_comp, &op_assign);
   for (int i = 0; i < kArrayLength; i++) {
-    h.push(v[i]);
+    h.Push(v[i]);
   }
   EXPECT_TRUE(HeapTest::isHeap(h));
 }
@@ -71,7 +71,7 @@ TEST_F(HeapTest, BuildHeap_TopDown_MaxHeap_InvSortedArray) {
   int *v = GetInverselySortedArray();
   Heap h(Heap::HeapType::kMaxHeap, &op_comp, &op_assign);
   for (int i = 0; i < kArrayLength; i++) {
-    h.push(v[i]);
+    h.Push(v[i]);
   }
   EXPECT_TRUE(HeapTest::isHeap(h));
 }
@@ -80,7 +80,7 @@ TEST_F(HeapTest, BuildHeap_TopDown_MinHeap_AverageArray) {
   int *v = GetAverageArray();
   Heap h(Heap::HeapType::kMinHeap, &op_comp, &op_assign);
   for (int i = 0; i < kArrayLength; i++) {
-    h.push(v[i]);
+    h.Push(v[i]);
   }
   EXPECT_TRUE(HeapTest::isHeap(h));
 }
@@ -89,7 +89,7 @@ TEST_F(HeapTest, BuildHeap_TopDown_MinHeap_SortedArray) {
   int *v = GetSortedArray();
   Heap h(Heap::HeapType::kMinHeap, &op_comp, &op_assign);
   for (int i = 0; i < kArrayLength; i++) {
-    h.push(v[i]);
+    h.Push(v[i]);
   }
   EXPECT_TRUE(HeapTest::isHeap(h));
 }
@@ -98,7 +98,7 @@ TEST_F(HeapTest, BuildHeap_TopDown_MinHeap_InvSortedArray) {
   int *v = GetInverselySortedArray();
   Heap h(Heap::HeapType::kMinHeap, &op_comp, &op_assign);
   for (int i = 0; i < kArrayLength; i++) {
-    h.push(v[i]);
+    h.Push(v[i]);
   }
   EXPECT_TRUE(HeapTest::isHeap(h));
 }

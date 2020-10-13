@@ -17,9 +17,9 @@ int *HeapTest::GetArrayWithContent(const int content[]) {
 }
 
 bool HeapTest::isHeap(Heap h) {
-  int *v = h.getContent();
+  int *v = h.GetContent();
   int size = h.size();
-  if (h.getHeapType() == Heap::HeapType::kMaxHeap) {
+  if (h.GetHeapType() == Heap::HeapType::kMaxHeap) {
     for (int i = size / 2 - 1; i >= 0; i--) {
       if (v[i] < v[2 * i + 1] || (2 * i + 2 < size && v[i] < v[2 * i + 2])) {
         return false;

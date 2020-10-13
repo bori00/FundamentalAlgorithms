@@ -24,27 +24,27 @@ class Heap {
    * Inserts @param value into the heap(unless the maximum size is exceeded) by preserving the
    * heap structure.
    */
-  void push(int value);
+  void Push(int value);
 
   /** Removes and returns the top element of the heap by preserving the heap structure. */
-  int pop();
+  int Pop();
 
-  int *getContent();
+  int *GetContent();
 
   int size();
 
-  HeapType getHeapType();
+  HeapType GetHeapType();
 
  private:
-  void heapify(int rootIndex);
+  void Heapify(int rootIndex);
 
   /**
    * Returns the index of the element which should be the root of the tree currently
    * rooted at @current_root_index, assuming that the left and right subtrees are heaps.
    */
-  int findSupposedRootIndex(int current_root_index);
+  int FindSupposedRootIndex(int current_root_index);
 
-  void swap(int index_1, int index_2);
+  void Swap(int index_1, int index_2);
 
   static int LeftChildIndex(int i);
 

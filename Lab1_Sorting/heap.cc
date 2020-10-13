@@ -23,7 +23,7 @@ Heap::Heap(int *content,
     op_assign->count();
   }
   for (int i = no_elements / 2; i >= 1; i--) {
-    heapify(i - 1);
+    Heapify(i - 1);
   }
 }
 
@@ -34,35 +34,34 @@ Heap::Heap(Heap::HeapType heap_type, Operation *op_comp, Operation *op_assign) {
   this->op_comp_ = op_comp;
 }
 
-
-void Heap::push(int value) {
+void Heap::Push(int value) {
   size_++;
   v_[size_ - 1] = value;
   int value_index = size_ - 1;
   if (heap_type_ == HeapType::kMaxHeap) {
     while (value_index > 0 && v_[value_index] > v_[ParentIndex(value_index)]) {
-      swap(value_index, ParentIndex(value_index));
+      Swap(value_index, ParentIndex(value_index));
       value_index = ParentIndex(value_index);
     }
   } else {
     while (value_index > 0 && v_[value_index] < v_[ParentIndex(value_index)]) {
-      swap(value_index, ParentIndex(value_index));
+      Swap(value_index, ParentIndex(value_index));
       value_index = ParentIndex(value_index);
     }
   }
 }
 
-void Heap::heapify(int rootIndex) {
-  int supposed_root_index = findSupposedRootIndex(rootIndex);
+void Heap::Heapify(int rootIndex) {
+  int supposed_root_index = FindSupposedRootIndex(rootIndex);
   while (rootIndex != supposed_root_index) {
     swap(rootIndex, supposed_root_index);
     rootIndex = supposed_root_index;
-    supposed_root_index = findSupposedRootIndex(rootIndex);
+    supposed_root_index = FindSupposedRootIndex(rootIndex);
   }
 }
 
 //todo: improve naming
-int Heap::findSupposedRootIndex(int current_root_index) {
+int Heap::FindSupposedRootIndex(int current_root_index) {
   int min_index, max_index;
   switch (heap_type_) {
     case HeapType::kMinHeap:min_index = current_root_index;
@@ -97,22 +96,22 @@ int Heap::findSupposedRootIndex(int current_root_index) {
   return current_root_index;
 }
 
-int Heap::pop() {
+int Heap::Pop() {
   int top_value = v_[0];
   v_[0] = v_[size_ - 1];
   size_--;
-  heapify(0);
+  Heapify(0);
   return top_value;
 }
 
-void Heap::swap(int index_1, int index_2) {
+void Heap::Swap(int index_1, int index_2) {
   int helper = v_[index_1];
   v_[index_1] = v_[index_2];
   v_[index_2] = helper;
   op_assign_->count(3);
 }
 
-int *Heap::getContent() {
+int *Heap::GetContent() {
   return v_;
 }
 
@@ -120,7 +119,7 @@ int Heap::size() {
   return size_;
 }
 
-Heap::HeapType Heap::getHeapType() {
+Heap::HeapType Heap::GetHeapType() {
   return heap_type_;
 }
 

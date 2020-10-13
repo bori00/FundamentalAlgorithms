@@ -14,7 +14,7 @@ void HeapSorter::Sort(int *v, int no_elements, Profiler &p) {
   Operation op_assign = p.createOperation(kAssignOpName, no_elements);
   Heap h(v, no_elements, Heap::HeapType::kMaxHeap, &op_comp, &op_assign);
   for (int i = 0; i < no_elements; i++) {
-    v[no_elements-i-1] = h.pop();
+    v[no_elements - i - 1] = h.Pop();
   }
 }
 
