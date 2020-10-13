@@ -8,6 +8,11 @@
 #include "sorter.h"
 #include "Profiler.h"
 
+/**
+ * SorterEvaluator is responsible for evaluating maximum @param  kMaxNoSorters implementations
+ * of Sorter, in average, best and worst case, and draw a chart for the number of assignments and
+ * comparisons needed for ach of them depending on the size of the array to be sorted.
+ */
 class SorterEvaluator {
  public:
   SorterEvaluator();

@@ -21,9 +21,14 @@ class InsertionSorter : public Sorter {
   const char *GetSorterName() override;
 
  private:
+  /** Defines where the new element should be inserted in the already sorted part of the array. */
   static int getInsertionIndex(const int *v, int value, int no_elements, Operation &op_comp);
 
-  static void shiftElementsToRight(int *v, int lowIndex, int highIndex, Operation &op_assign);
+  /**
+   * Shift the elements [low_index .. high_index] to the right by one position,
+   * to [low_index + 1 .. high_index + 1]. The value of v[low_index] remains the same.
+   */
+  static void shiftElementsToRight(int *v, int low_index, int high_index, Operation &op_assign);
 
   static const char *kAssignOpName;
   static const char *kCompOpName;

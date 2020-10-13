@@ -72,13 +72,13 @@ int InsertionSorter::getInsertionIndex(const int *v, int value, int no_elements,
   }
 }
 
-void InsertionSorter::shiftElementsToRight(int *v, int lowIndex, int highIndex,
+void InsertionSorter::shiftElementsToRight(int *v, int low_index, int high_index,
                                            Operation &op_assign) {
-  if (highIndex >= lowIndex) {
-    for (int i = highIndex + 1; i >= lowIndex + 1; i--) {
+  if (high_index >= low_index) {
+    for (int i = high_index + 1; i >= low_index + 1; i--) {
       v[i] = v[i - 1];
     }
-    op_assign.count(highIndex - lowIndex + 1);
+    op_assign.count(high_index - low_index + 1);
   }
 }
 
