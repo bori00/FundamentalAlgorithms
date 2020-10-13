@@ -66,13 +66,13 @@ int Heap::findSupposedRootIndex(int current_root_index) {
   int min_index, max_index;
   switch (heap_type_) {
     case HeapType::kMinHeap:min_index = current_root_index;
-      if (LeftChildIndex(current_root_index) <= size_) {
+      if (LeftChildIndex(current_root_index) < size_) {
         op_comp_->count();
         if (v_[min_index] > v_[LeftChildIndex(current_root_index)]) {
           min_index = LeftChildIndex(current_root_index);
         }
       }
-      if (RightChildIndex(current_root_index) <= size_) {
+      if (RightChildIndex(current_root_index) < size_) {
         op_comp_->count();
         if (v_[min_index] > v_[RightChildIndex(current_root_index)]) {
           min_index = RightChildIndex(current_root_index);
@@ -80,13 +80,13 @@ int Heap::findSupposedRootIndex(int current_root_index) {
       }
       return min_index;
     case HeapType::kMaxHeap:max_index = current_root_index;
-      if (LeftChildIndex(current_root_index) <= size_) {
+      if (LeftChildIndex(current_root_index) < size_) {
         op_comp_->count();
         if (v_[max_index] < v_[LeftChildIndex(current_root_index)]) {
           max_index = LeftChildIndex(current_root_index);
         }
       }
-      if (RightChildIndex(current_root_index) <= size_) {
+      if (RightChildIndex(current_root_index) < size_) {
         op_comp_->count();
         if (v_[max_index] < v_[RightChildIndex(current_root_index)]) {
           max_index = RightChildIndex(current_root_index);
@@ -100,8 +100,8 @@ int Heap::findSupposedRootIndex(int current_root_index) {
 int Heap::pop() {
   int top_value = v_[0];
   v_[0] = v_[size_ - 1];
-  heapify(0);
   size_--;
+  heapify(0);
   return top_value;
 }
 
