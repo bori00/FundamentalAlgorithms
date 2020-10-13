@@ -37,17 +37,17 @@ Heap::Heap(Heap::HeapType heap_type, Operation *op_comp, Operation *op_assign) {
 
 void Heap::push(int value) {
   size_++;
-  v_[size_] = value;
-  int value_index = size_;
+  v_[size_ - 1] = value;
+  int value_index = size_ - 1;
   if (heap_type_ == HeapType::kMaxHeap) {
-    while (value_index > 1 && v_[value_index] > v_[value_index / 2]) {
-      swap(value_index, value_index / 2);
-      value_index /= 2;
+    while (value_index > 0 && v_[value_index] > v_[ParentIndex(value_index)]) {
+      swap(value_index, ParentIndex(value_index));
+      value_index = ParentIndex(value_index);
     }
   } else {
-    while (value_index > 1 && v_[value_index] < v_[value_index / 2]) {
-      swap(value_index, value_index / 2);
-      value_index /= 2;
+    while (value_index > 0 && v_[value_index] < v_[ParentIndex(value_index)]) {
+      swap(value_index, ParentIndex(value_index));
+      value_index = ParentIndex(value_index);
     }
   }
 }
