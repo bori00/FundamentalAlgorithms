@@ -16,19 +16,25 @@ const char *QuickSorter::kAssignOpName = "QuickSort-Assign";
 const char *QuickSorter::kCompOpName = "QuickSort-Comp";
 const char *QuickSorter::kSorterName = "QuickSort";
 
+// todo pass operations instead, to count them recursively --> modify sorter interface too
 void QuickSorter::Sort(int *v, int no_elements, Profiler &p) {
+  if (no_elements <= 1) {
+    return;
+  }
   Operation op_comp = p.createOperation(kCompOpName, no_elements);
   Operation op_assign = p.createOperation(kAssignOpName, no_elements);
-  int q = partition(v, no_elements, v[no_elements / 2]);
-  // AklSelect(v, no_elements, no_elements / 2, &op_comp, &op_assign);
-  if (q > 1) {
-    Sort(v, q, p);
-    assert(SorterTest::ArrayIsSorted(v, q));
-  }
-  if (q < no_elements - 1) {
-    Sort(v + q + 1, no_elements - q - 1, p);
-    assert(SorterTest::ArrayIsSorted(v + q + 1, no_elements - q - 1));
-  }
+  // int q = partition(v, no_elements, v[no_elements / 2]);
+  AklSelect(v, no_elements, no_elements / 2, &op_comp, &op_assign);
+//  if (q > 1) {
+//    Sort(v, q, p);
+//    assert(SorterTest::ArrayIsSorted(v, q));
+//  }
+//  if (q < no_elements - 1) {
+//    Sort(v + q + 1, no_elements - q - 1, p);
+//    assert(SorterTest::ArrayIsSorted(v + q + 1, no_elements - q - 1));
+//  }
+  Sort(v, no_elements / 2, p);
+  Sort(v + no_elements / 2, no_elements - (no_elements / 2), p);
   if (!SorterTest::ArrayIsSorted(v, no_elements)) {
     exit(111);
   }
@@ -70,7 +76,7 @@ void QuickSorter::AklSelect(int *v,
     int curr_no_elements = min(no_elements - i, 5);
     //todo change to insertion sort, count operations
     qsort(v + i, curr_no_elements, sizeof(int), compare);
-    medians[no_medians++] = v[i + (curr_no_elements) / 2];
+    medians[no_medians++] = v[i + (curr_no_elements / 2)];
   }
   if (no_medians > 1) {
     AklSelect(medians, no_medians, no_medians / 2, op_comp, op_assign);
@@ -78,7 +84,7 @@ void QuickSorter::AklSelect(int *v,
     assert(contains(v, m, no_elements));
     int m_index = partition(v, no_elements, m);
     if (index < m_index) {
-      AklSelect(v, m_index - 1, index, op_comp, op_assign);
+      AklSelect(v, m_index, index, op_comp, op_assign);
     } else if (index > m_index) {
       AklSelect(v + m_index + 1,
                 no_elements - m_index - 1,

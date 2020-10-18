@@ -5,6 +5,9 @@
 #include "bubble_sorter.h"
 #include "insertion_sorter.h"
 #include "heap_evaluator.h"
+#include "quick_sorter.h"
+#include "Profiler.h"
+#include "sorter_test.h"
 
 /**
  * Task: implement 3 direct sorting methods:
@@ -14,8 +17,14 @@
  * and then evaluate and compare their performance.
  */
 int main(int argc, char *argv[]) {
-  HeapEvaluator heap_evaluator;
-  heap_evaluator.Evaluate();
+  QuickSorter quickSorter;
+  int v[8] = {45, 102, 34, 2, 78, 22, 1003, 10};
+  // FillRandomArray(v, 8, 10, 50000, false, UNSORTED);
+  Profiler p;
+  quickSorter.Sort(v, 8, p);
+  assert(SorterTest::ArrayIsSorted(v, 8));
+//  HeapEvaluator heap_evaluator;
+//  heap_evaluator.Evaluate();
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
