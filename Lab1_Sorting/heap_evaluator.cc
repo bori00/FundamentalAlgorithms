@@ -12,7 +12,7 @@ const char *HeapEvaluator::kTopDownComparisonName = "top-down-comparison";
 const char *HeapEvaluator::kBottomUpAssignmentName = "bottom-up-assignment";
 const char *HeapEvaluator::kBottomUpComparisonName = "bottom-up-comparison";
 const char *HeapEvaluator::kBottomUpOperationName = "bottom-up";
-const char *HeapEvaluator::kTopDownOperationName = "total";
+const char *HeapEvaluator::kTopDownOperationName = "top-down";
 
 // These are not used for evaluation.
 Profiler ignore_p("ignore");

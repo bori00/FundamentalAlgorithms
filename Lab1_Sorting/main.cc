@@ -6,13 +6,7 @@
 #include "insertion_sorter.h"
 #include "heap_evaluator.h"
 
-/**
- * Task: implement 3 direct sorting methods:
- * 1. Bubble Sort
- * 2. Insertion Sort
- * 3. Selection Sort
- * and then evaluate and compare their performance.
- */
+
 int main(int argc, char *argv[]) {
   HeapEvaluator heap_evaluator;
   heap_evaluator.Evaluate();
@@ -21,6 +15,139 @@ int main(int argc, char *argv[]) {
 }
 
 /**
+ * Task lab 2:
+ * Implement build-heap with top-down and bottom-up method
+ * and then evaluate and compare their performance.
+ * Implement and exemplify heapsort.
+ *
+ * ----------------------------
+ * Explanations and Conclusions about heap building
+ * General heap building considerations
+ * - for building a heap, I used an array, indexed from 0.
+ * - the array is interpreted as a binary tree:
+ * --> the left child of node at index i is the node at index 2 * i + 1
+ * --> the right child of node at index i is the node at index 2 * i + 2
+ * I implemented 2 different heap types based on their partial order relations:
+ * --> MinHeap: the value of a node is smaller than those of its children
+ * --> MaxHeap; the value of a node is larger than those of its children
+ * Remark that the partial order relation is imposed by the IsCorrectRelation function
+ * only, so new heaptypes can be easily added.
+ *
+ *
+ * 1. Bottom-up approach
+ * ----Short description----
+ * This approach builds a heap from an array in the following way:
+ * - first, the content of the array is copied into the heap's internal array
+ * - for every node other than the leaves, in a bottom-up order, heapify() is called.
+ * Heapify() ensures that the subtree of the heap rooted at the current node is a proper tree.
+ * For this, it assumes that the left and the right subtrees are already proper trees. It ensures
+ * the heap property for the entire subtree by sinking the root down as long as any of its
+ * children is larger than it. For a heap of size k, heapify() takes at most log (k) comparisons,
+ * because after each comparison the node goes down one level, and the height of the tree is log
+ * (k).
+ * The bottom-up order is important to make sure that when heapify() is called for node i, than
+ * its  left and right subtrees, rooted at 2*i+1 and 2*i=2 are already heapified.
+ * After the root being heapified, the heap building is finished.
+ *
+ * ----Complexity Analysis----
+ * Thus, all in all we need to call heapify
+ * n/2^2 times for the parents of the leaves, in trees of height 1
+ * n/2^3 times for the "gradparents" of the leaves, for trees of height 2
+ * n/2^4 times for trees of height 3
+ * ...
+ * once for a tree of length log(n)(which is the entire tree)
+ * This sums up to 2n swaps(sinking steps) in worst case(worst case appears if tree root of any
+ * subtree must be sunk down to the bottom).
+ * At each swap 3 assignments are performed. At each possible sinking step 2 comaprisons are
+ * performed.
+ * Al in all, the heap building takes linear time with a > 1 multiplicative constant.
+ *
+ * ----Evaluate the charts in averag case----
+ * What we can see on the chart corresponds to what we cave deduced based on computations:
+ * - the total number of operations is ~6n
+ * - the number of comparisons is ~2n
+ * - the number of assignments is ~4n
+ * So each of the metrics is growing linearly, as expected.
+ *
+ *
+ * 2. Top-down approach
+ * This approach os different in that it does not build the heap from a previously specified
+ * array, but it is dynamical: elements can be inserted and removed from it anytime, and the heap
+ * property is always ensured.
+ * The two main operations are pop() and push().
+ * At pop(), the top element(the max o min for maxheap and minheap) are removed from the heap.
+ * The last element is placed on the top instead, and the size is decremented. Then, we apply
+ * heapify() from the root to ensure the element placed at the root is at the correct position
+ * and the heap property is still valid. Based on the previous analysis of heapify, this takes at
+ * most log(n) swaps.
+ * At push(), the size is incremented and the new array is inserted at the end. Then, because
+ * this new element may violate the heap property, it must be bubbled up as long as the heap
+ * relation does not hold for it and its parent. Similarly to heapify(), this takes <= log n swaps.
+ * To build a heap with this interface we must apply push() for all elements.
+ *
+ * ----Complexity Analysis----
+ * For the 1st element, log 1 = 0 swaps are needed at most
+ * For the next 2 at most 1 swap
+ * For the next 4 at most 2 swaps
+ * ...
+ * For the last n/2 at most log n swaps
+ * This sums up to an O(n*logn) complexity.
+ *
+ * ----Evaluate the charts in average case----
+ * Based on the average case chart we can only notice that the number of operations doesn't  grow
+ * linearly, but the difference from a linear growth can be almost ignored: at small input sizes,
+ * the number of operations is ~6n, and at larger input sizes its ~7n.
+ *
+ * ----------------------------------------------
+ * Worst case analysis
+ * For testing how the build-heap methods for max-heaps work in worst case, I generated ascending
+ * arrays. Thus, for the bottom-up approach, each element is smaller than all of its children, so
+ * it must be sunk to the bottom, and for the top-down approach each newly inserted element is
+ * larger than all of its parents, so it must be bubbled up to the top. Thus, the maximum number
+ * of operations is achieved.
+ * (Remark that this is not the only worst case for build-heap method, but probably the only one
+ * that can be easily generated, and which ensures that the worst-case scenario can be properly
+ * analysed.)
+ * Looking at the charts for te worst case, the difference between the linear bottom-up and the
+ * nlogn top-down approach becomes much clearar than in the average case:
+ * whereas for n=10000 the bottom-up approach takes ~60000 operations, the top-down one takes
+ * 450000.
+ *
+  * -------------------------------------
+ *
+ * COMPARISON AND CONCLUSIONS
+ *
+ * All in all, in complexity mathematically we can express a significant difference, but the
+ * actual difference in the running time of the top-down and bottom-up approach is almost
+ * insignificant. The bottom-up approach is slightly faster, but in most cases the difference may
+ * not matter.
+ * On the other hand, the top-down approach has a major advantage: it's dynamic, we don't need to
+ * know the size of the heap in advance. It can be seen as a data structure which supports
+ * extracting the min/max in constant time and inserting a new element in logn time, which can be
+ * exploited in amazingly in several applications, in particular, for optimisation problems(heaps
+ * are a frequently used element of greedy solutions, for example).
+ * However, the bottom-up approach is certainly the best option to choose if we want to use it
+ * for sorting: in this case, the array is anyway fixed, dynamical insertion is an unnecessary
+ * feature.
+ *
+ * To understand why the top-down approach is slower despite the very similar technique, we
+ * should remark that when we bubble elements up, the majority of the elements is far away from
+ * the "target"(=root). Half of the elements are leaves, and for each of them we need logn time,
+ * then n/2 elements are parents of the leaves for which we need log(n/2) time, etc. On the other
+ * hand, for the bottom-up approach all these "highly populated" levels are really close to the
+ * target, which is the lowest level. Thus, for most of the elements heapify will be quick, it
+ * will tak emore time only for the elements close to the root.
+ */
+
+
+/**
+ *  Task: implement 3 direct sorting methods:
+ * 1. Bubble Sort
+ * 2. Insertion Sort
+ * 3. Selection Sort
+ * and then evaluate and compare their performance.
+ *
+ * ----------------------------
  * Explanations and Conclusions
  *
  * ALGORITHM ANALYSIS
