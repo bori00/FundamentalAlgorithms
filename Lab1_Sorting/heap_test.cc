@@ -16,7 +16,7 @@ int *HeapTest::GetArrayWithContent(const int content[]) {
   return result;
 }
 
-bool HeapTest::isHeap(Heap h) {
+bool HeapTest::IsHeap(Heap h) {
   int *v = h.GetContent();
   int size = h.size();
   if (h.GetHeapType() == Heap::HeapType::kMaxHeap) {

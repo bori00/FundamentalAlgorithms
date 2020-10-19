@@ -39,7 +39,7 @@ void Heap::Push(int value) {
   v_[size_ - 1] = value;
   op_assign_->count();
   int value_index = size_ - 1;
-  while (value_index > 0 && !isCorrectRelation(ParentIndex(value_index), value_index)) {
+  while (value_index > 0 && !IsCorrectRelation(ParentIndex(value_index), value_index)) {
     Swap(value_index, ParentIndex(value_index));
     value_index = ParentIndex(value_index);
   }
@@ -56,12 +56,12 @@ void Heap::Heapify(int rootIndex) {
 
 int Heap::FindSupposedRootIndex(int current_root_index) {
   int supposed_root_index = current_root_index;
-  if (LeftChildIndex(current_root_index) < size_ && !isCorrectRelation(supposed_root_index,
+  if (LeftChildIndex(current_root_index) < size_ && !IsCorrectRelation(supposed_root_index,
                                                                        LeftChildIndex(
                                                                            current_root_index))) {
     supposed_root_index = LeftChildIndex(current_root_index);
   }
-  if (RightChildIndex(current_root_index) < size_ && !isCorrectRelation(supposed_root_index,
+  if (RightChildIndex(current_root_index) < size_ && !IsCorrectRelation(supposed_root_index,
                                                                         RightChildIndex(
                                                                             current_root_index))) {
     supposed_root_index = RightChildIndex(current_root_index);
@@ -86,7 +86,11 @@ void Heap::Swap(int index_1, int index_2) {
 }
 
 int *Heap::GetContent() {
-  return v_;
+  int* v_copy = (int*) malloc(sizeof(int) * size_);
+  for (int i = 0; i < size_; i++) {
+    v_copy[i] = v_[i];
+  }
+  return v_copy;
 }
 
 int Heap::size() {
@@ -109,7 +113,7 @@ int Heap::RightChildIndex(int i) {
   return 2 * i + 2;
 }
 
-bool Heap::isCorrectRelation(int parentIndex, int childIndex) {
+bool Heap::IsCorrectRelation(int parentIndex, int childIndex) {
   op_comp_->count();
   if (heap_type_ == HeapType::kMaxHeap) {
     return v_[parentIndex] >= v_[childIndex];
