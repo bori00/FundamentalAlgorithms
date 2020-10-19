@@ -34,6 +34,8 @@ class HeapEvaluator {
   static const char *kTopDownComparisonName;
   static const char *kBottomUpAssignmentName;
   static const char *kBottomUpComparisonName;
+  static const char *kTopDownOperationName;
+  static const char *kBottomUpOperationName;
   Profiler p_;
 
 };
