@@ -72,7 +72,7 @@ void AklQuickSorter::AklSelect(int *v,
   if (no_medians > 1) {
     AklSelect(medians, no_medians, no_medians / 2, op_comp, op_assign);
     int m = medians[no_medians / 2];
-    int m_index = partition(v, no_elements, m);
+    int m_index = partition(v, no_elements, m, op_comp, op_assign);
     if (index < m_index) {
       AklSelect(v, m_index, index, op_comp, op_assign);
     } else if (index > m_index) {
@@ -91,22 +91,17 @@ void AklQuickSorter::AklSelect(int *v,
   }
 }
 
-void AklQuickSorter::swap(int *v, int i, int j) {
-  int helper = v[i];
-  v[i] = v[j];
-  v[j] = helper;
-}
-
-int AklQuickSorter::partition(int *v, int no_elements, int pivot) {
+int AklQuickSorter::partition(int *v, int no_elements, int pivot, Operation* op_comp, Operation*
+op_assign) {
   int i = 0;
   bool swapped = false;
   for (int j = 0; j < no_elements - 1; j++) {
     if (v[j] == pivot) {
-      swap(v, j, no_elements - 1);
+      swap(v, j, no_elements - 1, op_assign);
       swapped = true;
     }
     if (v[j] <= pivot) {
-      swap(v, i, j);
+      swap(v, i, j, op_assign);
       assert(v[i] <= pivot);
       i++;
     }
@@ -115,7 +110,7 @@ int AklQuickSorter::partition(int *v, int no_elements, int pivot) {
 //  if (!swapped) {
 //    cout << "Swapped = " << swapped << endl;
 //  }
-  swap(v, i, no_elements - 1);
+  swap(v, i, no_elements - 1, op_assign);
   for (int k = 0; k < i; k++) {
     if (v[k] > pivot) {
       cout << "Fail at 99" << endl;

@@ -17,10 +17,7 @@ void BubbleSorter::Sort(int *v, int no_elements, Profiler &p) {
     for (int j = 0; j < i; j++) {
       op_comp.count();
       if (v[j] > v[j + 1]) {
-        // swap
-        int helper = v[j];
-        v[j] = v[j + 1];
-        v[j + 1] = helper;
+        swap(v, j, j+1, &op_assign);
         op_assign.count(3);
         exchange_made = true;
       }

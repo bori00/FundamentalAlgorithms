@@ -18,6 +18,8 @@ class Sorter {
   virtual const char *GetAssignOpName() = 0;
 
   virtual const char *GetSorterName() = 0;
+ protected:
+  void swap(int *v, int i, int j, Operation* op_assign);
 };
 
 #endif //LAB1_SORTING_CLION_SORTER_H
