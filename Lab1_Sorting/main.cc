@@ -5,7 +5,7 @@
 #include "bubble_sorter.h"
 #include "insertion_sorter.h"
 #include "heap_evaluator.h"
-#include "quick_sorter.h"
+#include "akl_quick_sorter.h"
 #include "Profiler.h"
 #include "sorter_test.h"
 
@@ -17,11 +17,11 @@
  * and then evaluate and compare their performance.
  */
 int main(int argc, char *argv[]) {
-  QuickSorter quickSorter;
+  AklQuickSorter aklQuickSorter;
   int v[8] = {45, 102, 34, 2, 78, 22, 1003, 10};
   // FillRandomArray(v, 8, 10, 50000, false, UNSORTED);
   Profiler p;
-  quickSorter.Sort(v, 8, p);
+  aklQuickSorter.Sort(v, 8, p);
   assert(SorterTest::ArrayIsSorted(v, 8));
 //  HeapEvaluator heap_evaluator;
 //  heap_evaluator.Evaluate();

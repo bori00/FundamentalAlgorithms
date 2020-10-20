@@ -2,12 +2,12 @@
 // Created by Bori on 10/18/2020.
 //
 
-#ifndef LAB1_SORTING__QUICK_SORTER_H_
-#define LAB1_SORTING__QUICK_SORTER_H_
+#ifndef LAB1_SORTING__AKL_QUICK_SORTER_H_
+#define LAB1_SORTING__AKL_QUICK_SORTER_H_
 
 #include "sorter.h"
 
-class QuickSorter : public Sorter {
+class AklQuickSorter : public Sorter {
  public:
   void Sort(int *v, int no_elements, Profiler &p) override;
 
@@ -27,4 +27,4 @@ class QuickSorter : public Sorter {
   static const char *kSorterName;
 };
 
-#endif //LAB1_SORTING__QUICK_SORTER_H_
+#endif //LAB1_SORTING__AKL_QUICK_SORTER_H_

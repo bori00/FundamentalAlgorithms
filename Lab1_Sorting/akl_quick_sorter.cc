@@ -2,7 +2,7 @@
 // Created by Bori on 10/18/2020.
 //
 
-#include "quick_sorter.h"
+#include "akl_quick_sorter.h"
 #include "insertion_sorter.h"
 #include <stdlib.h>
 #include <assert.h>
@@ -12,12 +12,12 @@
 
 using namespace std;
 
-const char *QuickSorter::kAssignOpName = "QuickSort-Assign";
-const char *QuickSorter::kCompOpName = "QuickSort-Comp";
-const char *QuickSorter::kSorterName = "QuickSort";
+const char *AklQuickSorter::kAssignOpName = "QuickSort-Assign";
+const char *AklQuickSorter::kCompOpName = "QuickSort-Comp";
+const char *AklQuickSorter::kSorterName = "QuickSort";
 
 // todo pass operations instead, to count them recursively --> modify sorter interface too
-void QuickSorter::Sort(int *v, int no_elements, Profiler &p) {
+void AklQuickSorter::Sort(int *v, int no_elements, Profiler &p) {
   if (no_elements <= 1) {
     return;
   }
@@ -40,15 +40,15 @@ void QuickSorter::Sort(int *v, int no_elements, Profiler &p) {
   }
 }
 
-const char *QuickSorter::GetCompOpName() {
+const char *AklQuickSorter::GetCompOpName() {
   return kCompOpName;
 }
 
-const char *QuickSorter::GetAssignOpName() {
+const char *AklQuickSorter::GetAssignOpName() {
   return kAssignOpName;
 }
 
-const char *QuickSorter::GetSorterName() {
+const char *AklQuickSorter::GetSorterName() {
   return kSorterName;
 }
 
@@ -65,7 +65,7 @@ bool contains(int *v, int value, int no_elements) {
   return false;
 }
 
-void QuickSorter::AklSelect(int *v,
+void AklQuickSorter::AklSelect(int *v,
                             int no_elements,
                             int index,
                             Operation *op_comp,
@@ -107,7 +107,7 @@ void swap(int *v, int i, int j) {
   v[j] = helper;
 }
 
-int QuickSorter::partition(int *v, int no_elements, int pivot) {
+int AklQuickSorter::partition(int *v, int no_elements, int pivot) {
   assert(contains(v, pivot, no_elements));
   int i = 0;
   bool swapped = false;

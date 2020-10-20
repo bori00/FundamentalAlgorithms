@@ -10,7 +10,7 @@
 #include "bubble_sorter.h"
 #include "Profiler.h"
 #include "heap_sorter.h"
-#include "quick_sorter.h"
+#include "akl_quick_sorter.h"
 
 #define NO_RANDOM_TESTS 10
 #define MAX_ARRAY_SIZE 10000
@@ -147,34 +147,34 @@ TEST_F(SorterTest, HeapSorter_RandomArrays) {
   }
 }
 
-TEST_F(SorterTest, QuickSorter_AverageArray) {
+TEST_F(SorterTest, AklQuickSorter_AverageArray) {
   int *v = GetAverageArray();
-  QuickSorter quickSorter;
-  quickSorter.Sort(v, kArrayLength, ignoreP);
+  AklQuickSorter aklQuickSorter;
+  aklQuickSorter.Sort(v, kArrayLength, ignoreP);
   EXPECT_TRUE(SorterTest::ArrayIsSorted(v, SorterTest::kArrayLength));
 }
 
-TEST_F(SorterTest, QuickSorter_SortedArray) {
+TEST_F(SorterTest, AklQuickSorter_SortedArray) {
   int *v = GetSortedArray();
-  QuickSorter quickSorter;
-  quickSorter.Sort(v, kArrayLength, ignoreP);
+  AklQuickSorter aklQuickSorter;
+  aklQuickSorter.Sort(v, kArrayLength, ignoreP);
   EXPECT_TRUE(SorterTest::ArrayIsSorted(v, SorterTest::kArrayLength));
 }
 
-TEST_F(SorterTest, QuickSorter_InvSortedArray) {
+TEST_F(SorterTest, AklQuickSorter_InvSortedArray) {
   int *v = GetInverselySortedArray();
-  QuickSorter quickSorter;
-  quickSorter.Sort(v, kArrayLength, ignoreP);
+  AklQuickSorter aklQuickSorter;
+  aklQuickSorter.Sort(v, kArrayLength, ignoreP);
   EXPECT_TRUE(SorterTest::ArrayIsSorted(v, SorterTest::kArrayLength));
 }
 
-TEST_F(SorterTest, QuickSorter_RandomArrays) {
+TEST_F(SorterTest, AklQuickSorter_RandomArrays) {
   int v[MAX_ARRAY_SIZE];
   for (int i = 0; i < NO_RANDOM_TESTS; i++) {
     int size = rand() % MAX_ARRAY_SIZE;
     FillRandomArray(v, size, 10, 50000, false, UNSORTED);
-    QuickSorter quickSorter;
-    quickSorter.Sort(v, size, ignoreP);
+    AklQuickSorter aklQuickSorter;
+    aklQuickSorter.Sort(v, size, ignoreP);
     EXPECT_TRUE(SorterTest::ArrayIsSorted(v, size));
   }
 }
