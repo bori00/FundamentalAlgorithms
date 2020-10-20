@@ -53,10 +53,10 @@ void RandomizedQuickSorter::RandomizedQuickSelect(int *v,
                                Operation *op_comp,
                                Operation *op_assign) {
  if (no_elements > 0) {
-   int q = RandomizedPartition(v, no_elements);
-   if (q < index) {
+   int q = RandomizedPartition(v, no_elements, op_comp, op_assign);
+   if (index < q) {
      RandomizedQuickSelect(v, q, index, op_comp, op_assign);
-   } else if (q > index) {
+   } else if (q < index) {
      RandomizedQuickSelect(v + q + 1, no_elements - q - 1, index - q - 1, op_comp, op_assign);
    }
    for (int i = 0; i < index; i++) {
@@ -68,23 +68,18 @@ void RandomizedQuickSorter::RandomizedQuickSelect(int *v,
  }
 }
 
-void RandomizedQuickSorter::swap(int *v, int i, int j) {
-  int helper = v[i];
-  v[i] = v[j];
-  v[j] = helper;
-}
-
-int RandomizedQuickSorter::RandomizedPartition(int *v, int no_elements) {
+int RandomizedQuickSorter::RandomizedPartition(int *v, int no_elements, Operation* op_comp,
+    Operation* op_assign) {
   int pivot_index = rand() % no_elements;
   int pivot = v[pivot_index];
-  swap(v, pivot_index, no_elements-1);
+  swap(v, pivot_index, no_elements-1, op_assign);
   int i = 0;
   for (int j = 0; j < no_elements - 1; j++) {
     if (v[j] <= pivot) {
-      swap(v, i, j);
+      swap(v, i, j, op_assign);
       i++;
     }
   }
-  swap(v, i, no_elements - 1);
+  swap(v, i, no_elements - 1, op_assign);
   return i;
 }
