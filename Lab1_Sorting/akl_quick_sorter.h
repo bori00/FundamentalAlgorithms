@@ -18,6 +18,8 @@ class AklQuickSorter : public Sorter {
   const char *GetSorterName() override;
 
  private:
+  void swap(int *v, int i, int j);
+
   int partition(int *v, int no_elements, int pivot);
 
   void AklSelect(int *v, int no_elements, int index, Operation *op_comp, Operation *op_assign);

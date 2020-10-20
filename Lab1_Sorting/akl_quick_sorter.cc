@@ -12,9 +12,9 @@
 
 using namespace std;
 
-const char *AklQuickSorter::kAssignOpName = "QuickSort-Assign";
-const char *AklQuickSorter::kCompOpName = "QuickSort-Comp";
-const char *AklQuickSorter::kSorterName = "QuickSort";
+const char *AklQuickSorter::kAssignOpName = "AklQuickSort-Assign";
+const char *AklQuickSorter::kCompOpName = "AklQuickSort-Comp";
+const char *AklQuickSorter::kSorterName = "AklQuickSort";
 
 // todo pass operations instead, to count them recursively --> modify sorter interface too
 void AklQuickSorter::Sort(int *v, int no_elements, Profiler &p) {
@@ -35,9 +35,9 @@ void AklQuickSorter::Sort(int *v, int no_elements, Profiler &p) {
 //  }
   Sort(v, no_elements / 2, p);
   Sort(v + no_elements / 2, no_elements - (no_elements / 2), p);
-  if (!SorterTest::ArrayIsSorted(v, no_elements)) {
-    exit(111);
-  }
+//  if (!SorterTest::ArrayIsSorted(v, no_elements)) {
+//    exit(111);
+//  }
 }
 
 const char *AklQuickSorter::GetCompOpName() {
@@ -52,17 +52,8 @@ const char *AklQuickSorter::GetSorterName() {
   return kSorterName;
 }
 
-int compare(const void *a, const void *b) {
+static int compare(const void *a, const void *b) {
   return (*(int *) a - *(int *) b);
-}
-
-bool contains(int *v, int value, int no_elements) {
-  for (int i = 0; i < no_elements; i++) {
-    if (v[i] == value) {
-      return true;
-    }
-  }
-  return false;
 }
 
 void AklQuickSorter::AklSelect(int *v,
@@ -81,7 +72,6 @@ void AklQuickSorter::AklSelect(int *v,
   if (no_medians > 1) {
     AklSelect(medians, no_medians, no_medians / 2, op_comp, op_assign);
     int m = medians[no_medians / 2];
-    assert(contains(v, m, no_elements));
     int m_index = partition(v, no_elements, m);
     if (index < m_index) {
       AklSelect(v, m_index, index, op_comp, op_assign);
@@ -101,14 +91,13 @@ void AklQuickSorter::AklSelect(int *v,
   }
 }
 
-void swap(int *v, int i, int j) {
+void AklQuickSorter::swap(int *v, int i, int j) {
   int helper = v[i];
   v[i] = v[j];
   v[j] = helper;
 }
 
 int AklQuickSorter::partition(int *v, int no_elements, int pivot) {
-  assert(contains(v, pivot, no_elements));
   int i = 0;
   bool swapped = false;
   for (int j = 0; j < no_elements - 1; j++) {
