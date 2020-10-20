@@ -13,7 +13,7 @@ static Profiler p("sorting_test");
 
 class HeapTest : public ::testing::Test {
  public:
-  static bool isHeap(Heap h);
+  static bool IsHeap(Heap h);
 
  protected:
   static int *GetAverageArray() {

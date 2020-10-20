@@ -19,19 +19,19 @@ static Operation op_assign = ignorePHeap.createOperation("op_assign", 0);
 TEST_F(HeapTest, BuildHeap_BottomUp_MaxHeap_AverageArray) {
   int *v = GetAverageArray();
   Heap h(v, kArrayLength, Heap::HeapType::kMaxHeap, &op_comp, &op_assign);
-  EXPECT_TRUE(HeapTest::isHeap(h));
+  EXPECT_TRUE(HeapTest::IsHeap(h));
 }
 
 TEST_F(HeapTest, BuildHeap_BottomUp_MaxHeap_SortedArray) {
   int *v = GetSortedArray();
   Heap h(v, kArrayLength, Heap::HeapType::kMaxHeap, &op_comp, &op_assign);
-  EXPECT_TRUE(HeapTest::isHeap(h));
+  EXPECT_TRUE(HeapTest::IsHeap(h));
 }
 
 TEST_F(HeapTest, BuildHeap_BottomUp_MaxHeap_InvSortedArray) {
   int *v = GetInverselySortedArray();
   Heap h(v, kArrayLength, Heap::HeapType::kMaxHeap, &op_comp, &op_assign);
-  EXPECT_TRUE(HeapTest::isHeap(h));
+  EXPECT_TRUE(HeapTest::IsHeap(h));
 }
 
 TEST_F(HeapTest, BuildHeap_BottomUp_MaxHeap_RandomArray_Test) {
@@ -40,26 +40,26 @@ TEST_F(HeapTest, BuildHeap_BottomUp_MaxHeap_RandomArray_Test) {
     int size = rand() % MAX_ARRAY_SIZE;
     FillRandomArray(v, size);
     Heap h(v, size, Heap::HeapType::kMaxHeap, &op_comp, &op_assign);
-    EXPECT_TRUE(HeapTest::isHeap(h));
+    EXPECT_TRUE(HeapTest::IsHeap(h));
   }
 }
 
 TEST_F(HeapTest, BuildHeap_BottomUp_MinHeap_AverageArray) {
   int *v = GetAverageArray();
   Heap h(v, kArrayLength, Heap::HeapType::kMinHeap, &op_comp, &op_assign);
-  EXPECT_TRUE(HeapTest::isHeap(h));
+  EXPECT_TRUE(HeapTest::IsHeap(h));
 }
 
 TEST_F(HeapTest, BuildHeap_BottomUp_MinHeap_SortedArray) {
   int *v = GetSortedArray();
   Heap h(v, kArrayLength, Heap::HeapType::kMinHeap, &op_comp, &op_assign);
-  EXPECT_TRUE(HeapTest::isHeap(h));
+  EXPECT_TRUE(HeapTest::IsHeap(h));
 }
 
 TEST_F(HeapTest, BuildHeap_BottomUp_MinHeap_InvSortedArray) {
   int *v = GetInverselySortedArray();
   Heap h(v, kArrayLength, Heap::HeapType::kMinHeap, &op_comp, &op_assign);
-  EXPECT_TRUE(HeapTest::isHeap(h));
+  EXPECT_TRUE(HeapTest::IsHeap(h));
 }
 
 TEST_F(HeapTest, BuildHeap_BottomUp_MinHeap_RandomArray_Test) {
@@ -68,7 +68,7 @@ TEST_F(HeapTest, BuildHeap_BottomUp_MinHeap_RandomArray_Test) {
     int size = rand() % MAX_ARRAY_SIZE;
     FillRandomArray(v, size);
     Heap h(v, size, Heap::HeapType::kMinHeap, &op_comp, &op_assign);
-    EXPECT_TRUE(HeapTest::isHeap(h));
+    EXPECT_TRUE(HeapTest::IsHeap(h));
   }
 }
 
@@ -78,7 +78,7 @@ TEST_F(HeapTest, BuildHeap_TopDown_MaxHeap_AverageArray) {
   for (int i = 0; i < kArrayLength; i++) {
     h.Push(v[i]);
   }
-  EXPECT_TRUE(HeapTest::isHeap(h));
+  EXPECT_TRUE(HeapTest::IsHeap(h));
 }
 
 TEST_F(HeapTest, BuildHeap_TopDown_MaxHeap_SortedArray) {
@@ -87,7 +87,7 @@ TEST_F(HeapTest, BuildHeap_TopDown_MaxHeap_SortedArray) {
   for (int i = 0; i < kArrayLength; i++) {
     h.Push(v[i]);
   }
-  EXPECT_TRUE(HeapTest::isHeap(h));
+  EXPECT_TRUE(HeapTest::IsHeap(h));
 }
 
 TEST_F(HeapTest, BuildHeap_TopDown_MaxHeap_InvSortedArray) {
@@ -96,7 +96,7 @@ TEST_F(HeapTest, BuildHeap_TopDown_MaxHeap_InvSortedArray) {
   for (int i = 0; i < kArrayLength; i++) {
     h.Push(v[i]);
   }
-  EXPECT_TRUE(HeapTest::isHeap(h));
+  EXPECT_TRUE(HeapTest::IsHeap(h));
 }
 
 TEST_F(HeapTest, BuildHeap_TopDown_MaxHeap_RandomArray_Test) {
@@ -108,7 +108,7 @@ TEST_F(HeapTest, BuildHeap_TopDown_MaxHeap_RandomArray_Test) {
     for (int i = 0; i < size; i++) {
       h.Push(v[i]);
     }
-    EXPECT_TRUE(HeapTest::isHeap(h));
+    EXPECT_TRUE(HeapTest::IsHeap(h));
   }
 }
 
@@ -118,7 +118,7 @@ TEST_F(HeapTest, BuildHeap_TopDown_MinHeap_AverageArray) {
   for (int i = 0; i < kArrayLength; i++) {
     h.Push(v[i]);
   }
-  EXPECT_TRUE(HeapTest::isHeap(h));
+  EXPECT_TRUE(HeapTest::IsHeap(h));
 }
 
 TEST_F(HeapTest, BuildHeap_TopDown_MinHeap_SortedArray) {
@@ -127,7 +127,7 @@ TEST_F(HeapTest, BuildHeap_TopDown_MinHeap_SortedArray) {
   for (int i = 0; i < kArrayLength; i++) {
     h.Push(v[i]);
   }
-  EXPECT_TRUE(HeapTest::isHeap(h));
+  EXPECT_TRUE(HeapTest::IsHeap(h));
 }
 
 TEST_F(HeapTest, BuildHeap_TopDown_MinHeap_InvSortedArray) {
@@ -136,7 +136,7 @@ TEST_F(HeapTest, BuildHeap_TopDown_MinHeap_InvSortedArray) {
   for (int i = 0; i < kArrayLength; i++) {
     h.Push(v[i]);
   }
-  EXPECT_TRUE(HeapTest::isHeap(h));
+  EXPECT_TRUE(HeapTest::IsHeap(h));
 }
 
 TEST_F(HeapTest, BuildHeap_TopDown_MinHeap_RandomArray_Test) {
@@ -148,6 +148,6 @@ TEST_F(HeapTest, BuildHeap_TopDown_MinHeap_RandomArray_Test) {
     for (int i = 0; i < size; i++) {
       h.Push(v[i]);
     }
-    EXPECT_TRUE(HeapTest::isHeap(h));
+    EXPECT_TRUE(HeapTest::IsHeap(h));
   }
 }
