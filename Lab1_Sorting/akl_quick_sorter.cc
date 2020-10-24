@@ -6,8 +6,6 @@
 #include "insertion_sorter.h"
 #include <stdlib.h>
 #include <assert.h>
-// todo remove
-#include <iostream>
 #include "sorter_test.h"
 
 using namespace std;
@@ -16,7 +14,6 @@ const char *AklQuickSorter::kAssignOpName = "AklQuickSort-Assign";
 const char *AklQuickSorter::kCompOpName = "AklQuickSort-Comp";
 const char *AklQuickSorter::kSorterName = "AklQuickSort";
 
-// todo pass operations instead, to count them recursively --> modify sorter interface too
 void AklQuickSorter::Sort(int *v, int no_elements, Profiler &p) {
   Operation op_comp = p.createOperation(kCompOpName, no_elements);
   Operation op_assign = p.createOperation(kAssignOpName, no_elements);
@@ -46,10 +43,10 @@ void AklQuickSorter::AklSelect(int *v,
                             Operation *op_assign) {
   int medians[no_elements / 5 + 1];
   int no_medians = 0;
+  InsertionSorter insertion_sorter;
   for (int i = 0; i < no_elements; i += 5) {
     int curr_no_elements = min(no_elements - i, 5);
-    //todo change to insertion sort, count operations
-    qsort(v + i, curr_no_elements, sizeof(int), compare);
+    insertion_sorter.Sort(v + i, curr_no_elements, op_comp, op_assign);
     medians[no_medians++] = v[i + (curr_no_elements / 2)];
   }
   if (no_medians > 1) {
@@ -85,25 +82,10 @@ op_assign) {
     }
     if (v[j] <= pivot) {
       swap(v, i, j, op_assign);
-      assert(v[i] <= pivot);
       i++;
     }
   }
-  assert(v[no_elements - 1] == pivot);
-//  if (!swapped) {
-//    cout << "Swapped = " << swapped << endl;
-//  }
   swap(v, i, no_elements - 1, op_assign);
-  for (int k = 0; k < i; k++) {
-    if (v[k] > pivot) {
-      cout << "Fail at 99" << endl;
-    }
-    assert(v[k] <= pivot);
-  }
-  assert (v[i] == pivot);
-  for (int k = i + 1; k < no_elements; k++) {
-    assert(v[k] >= pivot);
-  }
   return i;
 }
 
@@ -111,20 +93,8 @@ void AklQuickSorter::SortHelper(int *v, int no_elements, Operation *op_comp, Ope
   if (no_elements <= 1) {
     return;
   }
-  // int q = partition(v, no_elements, v[no_elements / 2]);
   AklSelect(v, no_elements, no_elements / 2, op_comp, op_assign);
-//  if (q > 1) {
-//    Sort(v, q, p);
-//    assert(SorterTest::ArrayIsSorted(v, q));
-//  }
-//  if (q < no_elements - 1) {
-//    Sort(v + q + 1, no_elements - q - 1, p);
-//    assert(SorterTest::ArrayIsSorted(v + q + 1, no_elements - q - 1));
-//  }
   SortHelper(v, no_elements / 2, op_comp, op_assign);
   SortHelper(v + no_elements / 2, no_elements - (no_elements / 2), op_comp, op_assign);
-//  if (!SorterTest::ArrayIsSorted(v, no_elements)) {
-//    exit(111);
-//  }
 }
 
