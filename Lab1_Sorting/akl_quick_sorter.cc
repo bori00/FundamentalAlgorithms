@@ -121,8 +121,8 @@ void AklQuickSorter::SortHelper(int *v, int no_elements, Operation *op_comp, Ope
 //    Sort(v + q + 1, no_elements - q - 1, p);
 //    assert(SorterTest::ArrayIsSorted(v + q + 1, no_elements - q - 1));
 //  }
-  Sort(v, no_elements / 2, p);
-  Sort(v + no_elements / 2, no_elements - (no_elements / 2), p);
+  SortHelper(v, no_elements / 2, op_comp, op_assign);
+  SortHelper(v + no_elements / 2, no_elements - (no_elements / 2), op_comp, op_assign);
 //  if (!SorterTest::ArrayIsSorted(v, no_elements)) {
 //    exit(111);
 //  }
