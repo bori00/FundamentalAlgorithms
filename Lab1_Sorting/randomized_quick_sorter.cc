@@ -23,9 +23,9 @@ void RandomizedQuickSorter::SortHelper(int *v,
   if (no_elements <= 1) {
     return;
   }
-  RandomizedQuickSelect(v, no_elements, no_elements / 2, op_comp, op_assign);
-  SortHelper(v, no_elements / 2, op_comp, op_assign);
-  SortHelper(v + no_elements / 2, no_elements - (no_elements / 2), op_comp, op_assign);
+  int q = RandomizedPartition(v, no_elements, op_comp, op_assign);
+  SortHelper(v, q, op_comp, op_assign);
+  SortHelper(v + q + 1, no_elements - q - 1, op_comp, op_assign);
 }
 
 const char *RandomizedQuickSorter::GetCompOpName() {
@@ -38,22 +38,6 @@ const char *RandomizedQuickSorter::GetAssignOpName() {
 
 const char *RandomizedQuickSorter::GetSorterName() {
   return kSorterName;
-}
-
-int RandomizedQuickSorter::RandomizedQuickSelect(int *v,
-                               int no_elements,
-                               int index,
-                               Operation *op_comp,
-                               Operation *op_assign) {
- if (no_elements > 0) {
-   int q = RandomizedPartition(v, no_elements, op_comp, op_assign);
-   if (index < q) {
-     RandomizedQuickSelect(v, q, index, op_comp, op_assign);
-   } else if (q < index) {
-     RandomizedQuickSelect(v + q + 1, no_elements - q - 1, index - q - 1, op_comp, op_assign);
-   }
- }
- return v[index];
 }
 
 int RandomizedQuickSorter::RandomizedPartition(int *v, int no_elements, Operation* op_comp,

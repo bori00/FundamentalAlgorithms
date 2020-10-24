@@ -10,9 +10,6 @@ class RandomizedQuickSorter : public Sorter {
  public:
   void Sort(int *v, int no_elements, Profiler &p) override;
 
-  int RandomizedQuickSelect(int *v, int no_elements, int index, Operation *op_comp, Operation
-  *op_assign);
-
   const char *GetCompOpName() override;
 
   const char *GetAssignOpName() override;
