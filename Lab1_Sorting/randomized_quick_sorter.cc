@@ -28,7 +28,7 @@ const char *RandomizedQuickSorter::GetSorterName() {
   return kSorterName;
 }
 
-void RandomizedQuickSorter::RandomizedQuickSelect(int *v,
+int RandomizedQuickSorter::RandomizedQuickSelect(int *v,
                                int no_elements,
                                int index,
                                Operation *op_comp,
@@ -41,6 +41,7 @@ void RandomizedQuickSorter::RandomizedQuickSelect(int *v,
      RandomizedQuickSelect(v + q + 1, no_elements - q - 1, index - q - 1, op_comp, op_assign);
    }
  }
+ return v[index];
 }
 
 int RandomizedQuickSorter::RandomizedPartition(int *v, int no_elements, Operation* op_comp,
@@ -49,6 +50,7 @@ int RandomizedQuickSorter::RandomizedPartition(int *v, int no_elements, Operatio
   swap(v, pivot_index, no_elements-1, op_assign);
   int i = 0;
   for (int j = 0; j < no_elements - 1; j++) {
+    op_comp->count();
     if (v[j] <= v[no_elements - 1]) {
       swap(v, i, j, op_assign);
       i++;
