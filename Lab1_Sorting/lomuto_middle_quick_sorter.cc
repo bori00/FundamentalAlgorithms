@@ -33,6 +33,7 @@ int LomutoMiddleQuickSorter::LomutoMiddlePartition(int *v, int no_elements, Oper
   swap(v, pivot_index, no_elements - 1, op_assign);
   int i = 0;
   for (int j = 0; j < no_elements - 1; j++) {
+    op_comp->count();
     if (v[j] <= v[no_elements - 1]) {
       swap(v, i, j, op_assign);
       i++;
