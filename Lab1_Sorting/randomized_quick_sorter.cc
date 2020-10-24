@@ -16,6 +16,18 @@ void RandomizedQuickSorter::Sort(int *v, int no_elements, Profiler &p) {
   SortHelper(v, no_elements, &op_comp, &op_assign);
 }
 
+void RandomizedQuickSorter::SortHelper(int *v,
+                                       int no_elements,
+                                       Operation *op_comp,
+                                       Operation *op_assign) {
+  if (no_elements <= 1) {
+    return;
+  }
+  RandomizedQuickSelect(v, no_elements, no_elements / 2, op_comp, op_assign);
+  SortHelper(v, no_elements / 2, op_comp, op_assign);
+  SortHelper(v + no_elements / 2, no_elements - (no_elements / 2), op_comp, op_assign);
+}
+
 const char *RandomizedQuickSorter::GetCompOpName() {
   return kCompOpName;
 }
@@ -47,27 +59,15 @@ int RandomizedQuickSorter::RandomizedQuickSelect(int *v,
 int RandomizedQuickSorter::RandomizedPartition(int *v, int no_elements, Operation* op_comp,
     Operation* op_assign) {
   int pivot_index = rand() % no_elements;
-  swap(v, pivot_index, no_elements-1, op_assign);
+  Swap(v, pivot_index, no_elements-1, op_assign);
   int i = 0;
   for (int j = 0; j < no_elements - 1; j++) {
     op_comp->count();
     if (v[j] <= v[no_elements - 1]) {
-      swap(v, i, j, op_assign);
+      Swap(v, i, j, op_assign);
       i++;
     }
   }
-  swap(v, i, no_elements - 1, op_assign);
+  Swap(v, i, no_elements - 1, op_assign);
   return i;
-}
-
-void RandomizedQuickSorter::SortHelper(int *v,
-                                       int no_elements,
-                                       Operation *op_comp,
-                                       Operation *op_assign) {
-  if (no_elements <= 1) {
-    return;
-  }
-  RandomizedQuickSelect(v, no_elements, no_elements / 2, op_comp, op_assign);
-  SortHelper(v, no_elements / 2, op_comp, op_assign);
-  SortHelper(v + no_elements / 2, no_elements - (no_elements / 2), op_comp, op_assign);
 }

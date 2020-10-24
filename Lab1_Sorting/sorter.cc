@@ -4,7 +4,7 @@
 
 #include "sorter.h"
 
-void Sorter::swap(int *v, int i, int j, Operation *op_assign) {
+void Sorter::Swap(int *v, int i, int j, Operation *op_assign) {
   op_assign->count(3);
   int helper = v[i];
   v[i] = v[j];

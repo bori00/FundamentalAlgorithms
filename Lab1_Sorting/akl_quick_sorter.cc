@@ -20,6 +20,15 @@ void AklQuickSorter::Sort(int *v, int no_elements, Profiler &p) {
   SortHelper(v, no_elements, &op_comp, &op_assign);
 }
 
+void AklQuickSorter::SortHelper(int *v, int no_elements, Operation *op_comp, Operation *op_assign) {
+  if (no_elements <= 1) {
+    return;
+  }
+  AklSelect(v, no_elements, no_elements / 2, op_comp, op_assign);
+  SortHelper(v, no_elements / 2, op_comp, op_assign);
+  SortHelper(v + no_elements / 2, no_elements - (no_elements / 2), op_comp, op_assign);
+}
+
 const char *AklQuickSorter::GetCompOpName() {
   return kCompOpName;
 }
@@ -30,10 +39,6 @@ const char *AklQuickSorter::GetAssignOpName() {
 
 const char *AklQuickSorter::GetSorterName() {
   return kSorterName;
-}
-
-static int compare(const void *a, const void *b) {
-  return (*(int *) a - *(int *) b);
 }
 
 void AklQuickSorter::AklSelect(int *v,
@@ -48,9 +53,11 @@ void AklQuickSorter::AklSelect(int *v,
     int curr_no_elements = min(no_elements - i, 5);
     insertion_sorter.Sort(v + i, curr_no_elements, op_comp, op_assign);
     medians[no_medians++] = v[i + (curr_no_elements / 2)];
+    op_assign->count();
   }
   if (no_medians > 1) {
     AklSelect(medians, no_medians, no_medians / 2, op_comp, op_assign);
+    op_assign->count();
     int m = medians[no_medians / 2];
     int m_index = partition(v, no_elements, m, op_comp, op_assign);
     if (index < m_index) {
@@ -63,30 +70,27 @@ void AklQuickSorter::AklSelect(int *v,
                 op_assign);
     }
   }
+
 }
 
 int AklQuickSorter::partition(int *v, int no_elements, int pivot, Operation* op_comp, Operation*
 op_assign) {
   int i = 0;
+  bool pivot_found = false;
   for (int j = 0; j < no_elements - 1; j++) {
-    if (v[j] == pivot) {
-      swap(v, j, no_elements - 1, op_assign);
+    if (!pivot_found) {
+      op_comp->count();
+      if (v[j] == pivot) {
+        Swap(v, j, no_elements - 1, op_assign);
+        pivot_found = true;
+      }
     }
+    op_comp->count();
     if (v[j] <= pivot) {
-      swap(v, i, j, op_assign);
+      Swap(v, i, j, op_assign);
       i++;
     }
   }
-  swap(v, i, no_elements - 1, op_assign);
+  Swap(v, i, no_elements - 1, op_assign);
   return i;
 }
-
-void AklQuickSorter::SortHelper(int *v, int no_elements, Operation *op_comp, Operation *op_assign) {
-  if (no_elements <= 1) {
-    return;
-  }
-  AklSelect(v, no_elements, no_elements / 2, op_comp, op_assign);
-  SortHelper(v, no_elements / 2, op_comp, op_assign);
-  SortHelper(v + no_elements / 2, no_elements - (no_elements / 2), op_comp, op_assign);
-}
-
