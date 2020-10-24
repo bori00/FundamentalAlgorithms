@@ -8,20 +8,141 @@
 #include "akl_quick_sorter.h"
 #include "Profiler.h"
 #include "sorter_test.h"
-
+#include "randomized_quick_sorter.h"
+#include "lomuto_quick_sorter.h"
+#include "lomuto_middle_quick_sorter.h"
+#include "heap_sorter.h"
 
 int main(int argc, char *argv[]) {
-  AklQuickSorter aklQuickSorter;
-  int v[8] = {45, 102, 34, 2, 78, 22, 1003, 10};
-  // FillRandomArray(v, 8, 10, 50000, false, UNSORTED);
-  Profiler p;
-  aklQuickSorter.Sort(v, 8, p);
-  assert(SorterTest::ArrayIsSorted(v, 8));
-//  HeapEvaluator heap_evaluator;
-//  heap_evaluator.Evaluate();
+  SorterEvaluator sorter_evaluator;
+  RandomizedQuickSorter randomized_quick_sorter;
+  AklQuickSorter akl_quick_sorter;
+  LomutoQuickSorter lomuto_quick_sorter;
+  LomutoMiddleQuickSorter lomuto_middle_quick_sorter;
+  HeapSorter heap_sorter;
+  InsertionSorter insertion_sorter;
+  sorter_evaluator.AddSorter(&randomized_quick_sorter);
+  sorter_evaluator.AddSorter(&akl_quick_sorter);
+  // sorter_evaluator.AddSorter(&lomuto_quick_sorter);
+  sorter_evaluator.AddSorter(&lomuto_middle_quick_sorter);
+  sorter_evaluator.AddSorter(&heap_sorter);
+  // sorter_evaluator.AddSorter(&insertion_sorter);
+  sorter_evaluator.Evaluate();
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
+
+/**
+ * Task lab 3:
+ * - implement and exemplify the correctness of QuickSort
+ * - implement and exemplify the correctness of QuickSelect(randomized)
+ * - compare HeapSort and QuickSort
+ * - generate and evaluate the worst and best case for QuickSort
+ *
+ * ----------------------------
+ * Explanations and Theoretical Analysis
+ * 1) Partitioning algorithms
+ * I relied on Lomuto's algorithm to partition an input array in two parts such that the elements
+ * in the left part are <= a pivot value, which is <= the elements in the right part. The pivot
+ * value(one occurence of it) is not included in any of the two parts.
+ * This is done in the following way:
+ * - the pivot is moved to the rightmost place(if its position is known, and it is not already
+ * there)
+ * - the elements of the array are scanned from the left to the right
+ *      - when an element is <= pivot, it is swapped with the one to the right of the current
+ *      left part, and the size of the left part is increases
+ *      - otherwise, nothing happens
+ * - finally, the pivot is moved to the right of the left part(by a swap). The index to which it
+ * is moved defines the partition, and it is returned.
+ * To implement different versions of QuickSort, I added some small variations to the
+ * partitioning algorithm, as presented below.
+ * 2) QuickSelect
+ * I implemented a randomized QuickSelect algorithm, which, given a randomly ordered array,
+ * specifies the element which would be on index k if the array would be sorted.
+ * To implement this, I relied on a randomized version of Lomuto's partitioning algorithm, in
+ * which the pivot value is chosen randomly. After the partitioning is done, if the partitioning
+ * index q is equal to k, then I know the kth element is on the rigth position. Othwerwise, if q
+ * > k, then I need to select from the left part, and if q < k, then I need to select from the
+ * right part.
+ * 3) QuickSort
+ * In all implementations, QuickSort is a recursive algorithm which partitions the array based on
+ * some pivot value, as described above, and the recursively sorts the left and the rigth part,
+ * each having a smaller size than that of the original array.
+ * --- 3.a. LomutoQuickSort
+ * For this implementation, I used the simple partitioning scheme of Lomuto, where the last
+ * element of the array is chosen as pivot.
+ * This implementation is correct, but it has a major drawback: if the array is already sorted,
+ * then the pivot will be the smallest/largest element, so the partitioning will define one
+ * subarray of 1, and one of n-1 elements --> The wuicksort is basically reduces to selectiosort,
+ * with a complexity of n^2.
+ * --- 3.b. LomutoMiddleQuickSort
+ * This implementation is similar to LomutoQuickSort, but the middle element is chosen as pivot
+ * (and it is swapped with the last one before the partitioning starts, so that the
+ *   Lomuto's algorithm hold).
+ * This implementation solves the issue of ascendingly/descendingly sorted arrays, however, it's
+ * easy to see that for any n we can still generate an input array of length n for which the
+ * algorithm would enter the worst case(ex.: n = 10, a[] = {1, 2, 5, 3, 4, 10, 21, 22, 25, 23,
+ * 24})
+ * --> The n^2 complexity is not avoided.
+ * ).
+ * --- 3.c. RandomizedQuickSort
+ * This implementation of QuickSort differs from the previous ones in one single thin: this pivot
+ * is chosen randomly each time partitioning must be done. This simple change makes it basically
+ * impossible to generate an input for the worst case, unless we know what random choices are
+ * going to be made in advance(see chapter notes for chapter 7, Introduction to Algorithms).
+ * Thus, randomizing the pivot choice may contribute a lot to avoiding the worst case, however,
+ * it still can't guarantee that.
+ * --- 3.d. QuickSort based on AklSelect
+ * We can see that in order to achieve the O(nlog_2_n) complexity of quicksort we should make sure
+ * that the array is always cut into two equal halves. To do so, we need AklSelect algorithm,
+ * which, given an input array, selects the element at a desired index in guaranteed linear time.
+ * With this algorithm, we can always partition the array in two equal halves, so quicksort's
+ * complexity is O(nlogn).
+ *
+ * HeapSort vs. QuickSort
+ * As the theoretical analysis of the two algorithms show us, HeapSort is by default an O(nlogn),
+ * so an optimal sorting algorithm, whereas quicksort may have an n^2 complexity in worst case in
+ * 3.a, b, c cases(and however the pivot is chosen, if Lomuto's or Hoare's partitioning algorithm
+ * is applied). Thus, we may think that unless we can statistically show that the worst case of
+ * quicksort appears very rarely or not at all, we should prefer heapsort instead.
+ * However, we can also see that with AklSelect quicksort can be made optimal too, so there's no
+ * asymptoric difference between the two algorithms.
+ *
+ * ----------------------------
+ * Chart analysis and comparison in a real case
+ * When looking at the charts, we may be surprised to see that
+ * - AklQuickSort is actually the slowest sorting algorithm out of the all QuickSorts and HeapSort
+ * --> This highlights a major limitation of the Big-O notation: it ignores the multiplicative
+ * constants which may lead to relevant differences, especially between algorithms of the same
+ * complexity. It is easy to acknoledge, that AklSelect is a very complex algorithm, with lots of
+ * computations, despite having a linear complexity. This is why in averagy case it performs
+ * terribly well: it takes ~5 times more operations than a randomized implementation of quicksort.
+ * - In average case, all the other implementations of QuickSort(excep AklQuickSort) behave
+ * significantly(~1.5 times) better than HeapSort
+ * --- Worst case
+ * As expected, LomutoQuickSort's complexity becomes quadratic when the array is already sorted
+ * (in whatever order), because the partition is always done as (1 -- n-1). As an experiment, I
+ * compared it with InsertionSort, and in some cases InsertionSort actually behaved better.
+ * --- Best case
+ * We can see what happens in the best case of quicksort, if the input array is already sorted in
+ * ascending order and the pivot is the middle element(LomutoMiddleQuickSort implementation).
+ * Except for moving the pivot, no swaps are needed, and the number of comparisons is still
+ * ~nlogn --> In this case, the difference between QuickSort and HeapSort is even larger,
+ * LomutoMiddleQuickSort clearly outperforms HeapSort.
+ *
+ * ----------------------------
+ * Conclusions
+ * The charts have made it clear that the Big-O notation is not all that matters, AklQuickSort
+ * should never be used in practice: if we expect a really large amount of inputs to be almost
+ * sorted, we should maybe try insertionsort or shellsort instead.
+ * If this is not the case, then QuickSort is for sure the best choice: it's multiplicative
+ * constants in the complexity are so small, that it outperforms heapsort, and with an
+ * easy-to-implement randomizatuion it can me made almost optimal. For that, we should remark
+ * that if there exists a ratio r such that the partitioning ratio is almost <= r, then the
+ * complexity of quicksort is n*log_1/r_n, which is in fact closer to n*log_2_n than to n^2.
+ * Remark that win the worst case of heapsort(ascending array), a randomized quicksort works
+ * undoubtedly better.
+ */
 
 /**
  * Task lab 2:
