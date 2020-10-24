@@ -63,22 +63,14 @@ void AklQuickSorter::AklSelect(int *v,
                 op_assign);
     }
   }
-  for (int i = 0; i < index; i++) {
-    assert(v[i] <= v[index]);
-  }
-  for (int i = index + 1; i < no_elements; i++) {
-    assert(v[i] >= v[index]);
-  }
 }
 
 int AklQuickSorter::partition(int *v, int no_elements, int pivot, Operation* op_comp, Operation*
 op_assign) {
   int i = 0;
-  bool swapped = false;
   for (int j = 0; j < no_elements - 1; j++) {
     if (v[j] == pivot) {
       swap(v, j, no_elements - 1, op_assign);
-      swapped = true;
     }
     if (v[j] <= pivot) {
       swap(v, i, j, op_assign);

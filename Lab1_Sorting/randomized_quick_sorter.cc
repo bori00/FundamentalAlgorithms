@@ -10,7 +10,6 @@ const char *RandomizedQuickSorter::kAssignOpName = "RandomizedQuickSort-Assign";
 const char *RandomizedQuickSorter::kCompOpName = "RandomizedQuickSort-Comp";
 const char *RandomizedQuickSorter::kSorterName = "RandomizedQuickSort";
 
-// todo pass operations instead, to count them recursively --> modify sorter interface too
 void RandomizedQuickSorter::Sort(int *v, int no_elements, Profiler &p) {
   Operation op_comp = p.createOperation(kCompOpName, no_elements);
   Operation op_assign = p.createOperation(kAssignOpName, no_elements);
@@ -29,15 +28,6 @@ const char *RandomizedQuickSorter::GetSorterName() {
   return kSorterName;
 }
 
-bool contains(int *v, int value, int no_elements) {
-  for (int i = 0; i < no_elements; i++) {
-    if (v[i] == value) {
-      return true;
-    }
-  }
-  return false;
-}
-
 void RandomizedQuickSorter::RandomizedQuickSelect(int *v,
                                int no_elements,
                                int index,
@@ -50,23 +40,16 @@ void RandomizedQuickSorter::RandomizedQuickSelect(int *v,
    } else if (q < index) {
      RandomizedQuickSelect(v + q + 1, no_elements - q - 1, index - q - 1, op_comp, op_assign);
    }
-   for (int i = 0; i < index; i++) {
-     assert(v[i] <= v[index]);
-   }
-   for (int i = index + 1; i < no_elements; i++) {
-     assert(v[i] >= v[index]);
-   }
  }
 }
 
 int RandomizedQuickSorter::RandomizedPartition(int *v, int no_elements, Operation* op_comp,
     Operation* op_assign) {
   int pivot_index = rand() % no_elements;
-  int pivot = v[pivot_index];
   swap(v, pivot_index, no_elements-1, op_assign);
   int i = 0;
   for (int j = 0; j < no_elements - 1; j++) {
-    if (v[j] <= pivot) {
+    if (v[j] <= v[no_elements - 1]) {
       swap(v, i, j, op_assign);
       i++;
     }
@@ -85,8 +68,4 @@ void RandomizedQuickSorter::SortHelper(int *v,
   RandomizedQuickSelect(v, no_elements, no_elements / 2, op_comp, op_assign);
   SortHelper(v, no_elements / 2, op_comp, op_assign);
   SortHelper(v + no_elements / 2, no_elements - (no_elements / 2), op_comp, op_assign);
-  if (!SorterTest::ArrayIsSorted(v, no_elements)) {
-    v[0] = 1;
-    //exit(111);
-  }
 }

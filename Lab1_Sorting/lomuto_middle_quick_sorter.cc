@@ -30,7 +30,6 @@ const char *LomutoMiddleQuickSorter::GetSorterName() {
 int LomutoMiddleQuickSorter::LomutoMiddlePartition(int *v, int no_elements, Operation *op_comp,
                                                    Operation *op_assign) {
   int pivot_index = no_elements / 2;
-  int pivot = v[pivot_index];
   swap(v, pivot_index, no_elements - 1, op_assign);
   int i = 0;
   for (int j = 0; j < no_elements - 1; j++) {
@@ -53,8 +52,4 @@ void LomutoMiddleQuickSorter::SortHelper(int *v,
   int q = LomutoMiddlePartition(v, no_elements, op_comp, op_assign);
   SortHelper(v, q, op_comp, op_assign);
   SortHelper(v + q + 1, no_elements - q - 1, op_comp, op_assign);
-  if (!SorterTest::ArrayIsSorted(v, no_elements)) {
-    v[0] = 1;
-    exit(111);
-  }
 }

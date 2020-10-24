@@ -50,8 +50,4 @@ void LomutoQuickSorter::SortHelper(int *v,
   int q = LomutoPartition(v, no_elements, op_comp, op_assign);
   SortHelper(v, q, op_comp, op_assign);
   SortHelper(v + q + 1, no_elements - q - 1, op_comp, op_assign);
-  if (!SorterTest::ArrayIsSorted(v, no_elements)) {
-    v[0] = 1;
-    exit(111);
-  }
 }
