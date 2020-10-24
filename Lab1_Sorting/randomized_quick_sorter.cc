@@ -12,18 +12,9 @@ const char *RandomizedQuickSorter::kSorterName = "RandomizedQuickSort";
 
 // todo pass operations instead, to count them recursively --> modify sorter interface too
 void RandomizedQuickSorter::Sort(int *v, int no_elements, Profiler &p) {
-  if (no_elements <= 1) {
-    return;
-  }
   Operation op_comp = p.createOperation(kCompOpName, no_elements);
   Operation op_assign = p.createOperation(kAssignOpName, no_elements);
-  RandomizedQuickSelect(v, no_elements, no_elements / 2, &op_comp, &op_assign);
-  Sort(v, no_elements / 2, p);
-  Sort(v + no_elements / 2, no_elements - (no_elements / 2), p);
-  if (!SorterTest::ArrayIsSorted(v, no_elements)) {
-    v[0] = 1;
-    //exit(111);
-  }
+  SortHelper(v, no_elements, &op_comp, &op_assign);
 }
 
 const char *RandomizedQuickSorter::GetCompOpName() {
@@ -82,4 +73,20 @@ int RandomizedQuickSorter::RandomizedPartition(int *v, int no_elements, Operatio
   }
   swap(v, i, no_elements - 1, op_assign);
   return i;
+}
+
+void RandomizedQuickSorter::SortHelper(int *v,
+                                       int no_elements,
+                                       Operation *op_comp,
+                                       Operation *op_assign) {
+  if (no_elements <= 1) {
+    return;
+  }
+  RandomizedQuickSelect(v, no_elements, no_elements / 2, op_comp, op_assign);
+  Sort(v, no_elements / 2, p);
+  Sort(v + no_elements / 2, no_elements - (no_elements / 2), p);
+  if (!SorterTest::ArrayIsSorted(v, no_elements)) {
+    v[0] = 1;
+    //exit(111);
+  }
 }

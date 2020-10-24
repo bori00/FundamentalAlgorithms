@@ -18,26 +18,9 @@ const char *AklQuickSorter::kSorterName = "AklQuickSort";
 
 // todo pass operations instead, to count them recursively --> modify sorter interface too
 void AklQuickSorter::Sort(int *v, int no_elements, Profiler &p) {
-  if (no_elements <= 1) {
-    return;
-  }
   Operation op_comp = p.createOperation(kCompOpName, no_elements);
   Operation op_assign = p.createOperation(kAssignOpName, no_elements);
-  // int q = partition(v, no_elements, v[no_elements / 2]);
-  AklSelect(v, no_elements, no_elements / 2, &op_comp, &op_assign);
-//  if (q > 1) {
-//    Sort(v, q, p);
-//    assert(SorterTest::ArrayIsSorted(v, q));
-//  }
-//  if (q < no_elements - 1) {
-//    Sort(v + q + 1, no_elements - q - 1, p);
-//    assert(SorterTest::ArrayIsSorted(v + q + 1, no_elements - q - 1));
-//  }
-  Sort(v, no_elements / 2, p);
-  Sort(v + no_elements / 2, no_elements - (no_elements / 2), p);
-//  if (!SorterTest::ArrayIsSorted(v, no_elements)) {
-//    exit(111);
-//  }
+  SortHelper(v, no_elements, &op_comp, &op_assign);
 }
 
 const char *AklQuickSorter::GetCompOpName() {
@@ -122,5 +105,26 @@ op_assign) {
     assert(v[k] >= pivot);
   }
   return i;
+}
+
+void AklQuickSorter::SortHelper(int *v, int no_elements, Operation *op_comp, Operation *op_assign) {
+  if (no_elements <= 1) {
+    return;
+  }
+  // int q = partition(v, no_elements, v[no_elements / 2]);
+  AklSelect(v, no_elements, no_elements / 2, op_comp, op_assign);
+//  if (q > 1) {
+//    Sort(v, q, p);
+//    assert(SorterTest::ArrayIsSorted(v, q));
+//  }
+//  if (q < no_elements - 1) {
+//    Sort(v + q + 1, no_elements - q - 1, p);
+//    assert(SorterTest::ArrayIsSorted(v + q + 1, no_elements - q - 1));
+//  }
+  Sort(v, no_elements / 2, p);
+  Sort(v + no_elements / 2, no_elements - (no_elements / 2), p);
+//  if (!SorterTest::ArrayIsSorted(v, no_elements)) {
+//    exit(111);
+//  }
 }
 
