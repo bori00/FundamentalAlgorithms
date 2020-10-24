@@ -33,15 +33,15 @@ void SorterEvaluator::AddSorter(Sorter *sorter) {
 }
 
 void SorterEvaluator::EvaluateWorstCase() {
-  EvaluateCase(1, DESCENDING, "WorstCase");
+  EvaluateCase(1, DESCENDING, "Descending Array");
 }
 
 void SorterEvaluator::EvaluateBestCase() {
-  EvaluateCase(1, ASCENDING, "BestCase");
+  EvaluateCase(1, ASCENDING, "Ascending Array");
 }
 
 void SorterEvaluator::EvaluateAverageCase() {
-  EvaluateCase(kAverageCaseNoTests, UNSORTED, "AverageCase");
+  EvaluateCase(kAverageCaseNoTests, UNSORTED, "Random(Average) Array");
 }
 
 void SorterEvaluator::EvaluateCase(int no_tests, int order, const char *title) {
