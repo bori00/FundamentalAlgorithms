@@ -43,16 +43,16 @@ TEST_F(SorterTest, SelectionSorter_InvSortedArray) {
   EXPECT_TRUE(SorterTest::ArrayIsSorted(v, SorterTest::kArrayLength));
 }
 
-//TEST_F(SorterTest, SelectionSorter_RandomArrays) {
-//  int v[MAX_ARRAY_SIZE];
-//  for (int i = 0; i < NO_RANDOM_TESTS; i++) {
-//    int size = rand() % MAX_ARRAY_SIZE;
-//    FillRandomArray(v, size);
-//    SelectionSorter selectionSorter;
-//    selectionSorter.Sort(v, size, ignoreP);
-//    EXPECT_TRUE(SorterTest::ArrayIsSorted(v, size));
-//  }
-//}
+TEST_F(SorterTest, SelectionSorter_RandomArrays) {
+  int v[MAX_ARRAY_SIZE];
+  for (int i = 0; i < NO_RANDOM_TESTS; i++) {
+    int size = rand() % MAX_ARRAY_SIZE;
+    FillRandomArray(v, size);
+    SelectionSorter selectionSorter;
+    selectionSorter.Sort(v, size, ignoreP);
+    EXPECT_TRUE(SorterTest::ArrayIsSorted(v, size));
+  }
+}
 
 TEST_F(SorterTest, InsertionSorter_AverageArray) {
   int *v = GetAverageArray();
@@ -75,16 +75,16 @@ TEST_F(SorterTest, InsertionSorter_InvSortedArray) {
   EXPECT_TRUE(SorterTest::ArrayIsSorted(v, SorterTest::kArrayLength));
 }
 
-//TEST_F(SorterTest, InsertionnSorter_RandomArrays) {
-//  int v[MAX_ARRAY_SIZE];
-//  for (int i = 0; i < NO_RANDOM_TESTS; i++) {
-//    int size = rand() % MAX_ARRAY_SIZE;
-//    FillRandomArray(v, size);
-//    InsertionSorter insertionSorter;
-//    insertionSorter.Sort(v, size, ignoreP);
-//    EXPECT_TRUE(SorterTest::ArrayIsSorted(v, size));
-//  }
-//}
+TEST_F(SorterTest, InsertionnSorter_RandomArrays) {
+  int v[MAX_ARRAY_SIZE];
+  for (int i = 0; i < NO_RANDOM_TESTS; i++) {
+    int size = rand() % MAX_ARRAY_SIZE;
+    FillRandomArray(v, size);
+    InsertionSorter insertionSorter;
+    insertionSorter.Sort(v, size, ignoreP);
+    EXPECT_TRUE(SorterTest::ArrayIsSorted(v, size));
+  }
+}
 
 TEST_F(SorterTest, BubbleSorter_AverageArray) {
   int *v = GetAverageArray();
@@ -107,16 +107,16 @@ TEST_F(SorterTest, BubbleSorter_InvSortedArray) {
   EXPECT_TRUE(SorterTest::ArrayIsSorted(v, SorterTest::kArrayLength));
 }
 
-//TEST_F(SorterTest, BubbleSorter_RandomArrays) {
-//  int v[MAX_ARRAY_SIZE];
-//  for (int i = 0; i < NO_RANDOM_TESTS; i++) {
-//    int size = rand() % MAX_ARRAY_SIZE;
-//    FillRandomArray(v, size);
-//    BubbleSorter bubbleSorter;
-//    bubbleSorter.Sort(v, size, ignoreP);
-//    EXPECT_TRUE(SorterTest::ArrayIsSorted(v, size));
-//  }
-//}
+TEST_F(SorterTest, BubbleSorter_RandomArrays) {
+  int v[MAX_ARRAY_SIZE];
+  for (int i = 0; i < NO_RANDOM_TESTS; i++) {
+    int size = rand() % MAX_ARRAY_SIZE;
+    FillRandomArray(v, size);
+    BubbleSorter bubbleSorter;
+    bubbleSorter.Sort(v, size, ignoreP);
+    EXPECT_TRUE(SorterTest::ArrayIsSorted(v, size));
+  }
+}
 
 TEST_F(SorterTest, HeapSorter_AverageArray) {
   int *v = GetAverageArray();
