@@ -13,6 +13,7 @@
 #include "akl_quick_sorter.h"
 #include "randomized_quick_sorter.h"
 #include "lomuto_quick_sorter.h"
+#include "lomuto_middle_quick_sorter.h"
 
 #define NO_RANDOM_TESTS 10
 #define MAX_ARRAY_SIZE 10000
@@ -241,6 +242,38 @@ TEST_F(SorterTest, LomutoQuickSorter_RandomArrays) {
     FillRandomArray(v, size, 10, 50000, false, UNSORTED);
     LomutoQuickSorter lomutoQuickSorter;
     lomutoQuickSorter.Sort(v, size, ignoreP);
+    EXPECT_TRUE(SorterTest::ArrayIsSorted(v, size));
+  }
+}
+
+TEST_F(SorterTest, LomutoMiddleQuickSorter_AverageArray) {
+  int *v = GetAverageArray();
+  LomutoMiddleQuickSorter lomutoMiddleQuickSorter;
+  lomutoMiddleQuickSorter.Sort(v, kArrayLength, ignoreP);
+  EXPECT_TRUE(SorterTest::ArrayIsSorted(v, SorterTest::kArrayLength));
+}
+
+TEST_F(SorterTest, LomutoMiddleQuickSorter_SortedArray) {
+  int *v = GetSortedArray();
+  LomutoMiddleQuickSorter lomutoMiddleQuickSorter;
+  lomutoMiddleQuickSorter.Sort(v, kArrayLength, ignoreP);
+  EXPECT_TRUE(SorterTest::ArrayIsSorted(v, SorterTest::kArrayLength));
+}
+
+TEST_F(SorterTest, LomutoMiddleQuickSorter_InvSortedArray) {
+  int *v = GetInverselySortedArray();
+  LomutoMiddleQuickSorter lomutoMiddleQuickSorter;
+  lomutoMiddleQuickSorter.Sort(v, kArrayLength, ignoreP);
+  EXPECT_TRUE(SorterTest::ArrayIsSorted(v, SorterTest::kArrayLength));
+}
+
+TEST_F(SorterTest, LomutoMiddleMiddleQuickSorter_RandomArrays) {
+  int v[MAX_ARRAY_SIZE];
+  for (int i = 0; i < NO_RANDOM_TESTS; i++) {
+    int size = rand() % MAX_ARRAY_SIZE;
+    FillRandomArray(v, size, 10, 50000, false, UNSORTED);
+    LomutoMiddleQuickSorter lomutoMiddleQuickSorter;
+    lomutoMiddleQuickSorter.Sort(v, size, ignoreP);
     EXPECT_TRUE(SorterTest::ArrayIsSorted(v, size));
   }
 }

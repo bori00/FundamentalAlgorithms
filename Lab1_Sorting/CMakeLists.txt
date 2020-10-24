@@ -13,6 +13,7 @@ add_executable(Lab1_Sorting main.cc sorter.h sorter.cc selection_sorter.h select
         sorter_test.cc sorter_tests.cc Profiler.h sorter_evaluator.h sorter_evaluator.cc heap.cc heap.h
         heap_test.h heap_test.cc heap_tests.cc heap_sorter.h heap_sorter.cc heap_evaluator.cc
         heap_evaluator.h akl_quick_sorter.h akl_quick_sorter.cc randomized_quick_sorter.h
-        randomized_quick_sorter.cc lomuto_quick_sorter.cc lomuto_quick_sorter.h)
+        randomized_quick_sorter.cc lomuto_quick_sorter.cc lomuto_quick_sorter.h
+        lomuto_middle_quick_sorter.h lomuto_middle_quick_sorter.cc)
 
 target_link_libraries(Lab1_Sorting gtest gtest_main)

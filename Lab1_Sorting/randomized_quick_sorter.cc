@@ -83,8 +83,8 @@ void RandomizedQuickSorter::SortHelper(int *v,
     return;
   }
   RandomizedQuickSelect(v, no_elements, no_elements / 2, op_comp, op_assign);
-  Sort(v, no_elements / 2, p);
-  Sort(v + no_elements / 2, no_elements - (no_elements / 2), p);
+  SortHelper(v, no_elements / 2, op_comp, op_assign);
+  SortHelper(v + no_elements / 2, no_elements - (no_elements / 2), op_comp, op_assign);
   if (!SorterTest::ArrayIsSorted(v, no_elements)) {
     v[0] = 1;
     //exit(111);
