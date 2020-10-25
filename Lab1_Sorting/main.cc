@@ -103,8 +103,9 @@ int main(int argc, char *argv[]) {
  * As the theoretical analysis of the two algorithms show us, HeapSort is by default an O(nlogn),
  * so an optimal sorting algorithm, whereas quicksort may have an n^2 complexity in worst case in
  * 3.a, b, c cases(and however the pivot is chosen, if Lomuto's or Hoare's partitioning algorithm
- * is applied). Thus, we may think that unless we can statistically show that the worst case of
- * quicksort appears very rarely or not at all, we should prefer heapsort instead.
+ * is applied). Thus, we may think that unless we can statistically show that
+ * the  worst case of quicksort appears very rarely or not at all, we should prefer heapsort
+ * instead.
  * However, we can also see that with AklSelect quicksort can be made optimal too, so there's no
  * asymptoric difference between the two algorithms.
  *
@@ -114,7 +115,7 @@ int main(int argc, char *argv[]) {
  * - AklQuickSort is actually the slowest sorting algorithm out of the all QuickSorts and HeapSort
  * --> This highlights a major limitation of the Big-O notation: it ignores the multiplicative
  * constants which may lead to relevant differences, especially between algorithms of the same
- * complexity. It is easy to acknoledge, that AklSelect is a very complex algorithm, with lots of
+ * complexity. It is easy to acknowledge, that AklSelect is a very complex algorithm, with lots of
  * computations, despite having a linear complexity. This is why in averagy case it performs
  * terribly well: it takes ~5 times more operations than a randomized implementation of quicksort.
  * - In average case, all the other implementations of QuickSort(excep AklQuickSort) behave
@@ -122,7 +123,8 @@ int main(int argc, char *argv[]) {
  * --- Worst case
  * As expected, LomutoQuickSort's complexity becomes quadratic when the array is already sorted
  * (in whatever order), because the partition is always done as (1 -- n-1). As an experiment, I
- * compared it with InsertionSort, and in some cases InsertionSort actually behaved better.
+ * compared it with InsertionSort, and in some cases InsertionSort actually behaved better, so
+ * its clear that HeapSort is to be preferred in this case.
  * --- Best case
  * We can see what happens in the best case of quicksort, if the input array is already sorted in
  * ascending order and the pivot is the middle element(LomutoMiddleQuickSort implementation).
@@ -137,11 +139,9 @@ int main(int argc, char *argv[]) {
  * sorted, we should maybe try insertionsort or shellsort instead.
  * If this is not the case, then QuickSort is for sure the best choice: it's multiplicative
  * constants in the complexity are so small, that it outperforms heapsort, and with an
- * easy-to-implement randomizatuion it can me made almost optimal. For that, we should remark
+ * easy-to-implement randomization it can me made almost optimal. For that, we should remark
  * that if there exists a ratio r such that the partitioning ratio is almost <= r, then the
  * complexity of quicksort is n*log_1/r_n, which is in fact closer to n*log_2_n than to n^2.
- * Remark that win the worst case of heapsort(ascending array), a randomized quicksort works
- * undoubtedly better.
  */
 
 /**
