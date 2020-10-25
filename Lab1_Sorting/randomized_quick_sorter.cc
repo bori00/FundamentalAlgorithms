@@ -40,10 +40,10 @@ const char *RandomizedQuickSorter::GetSorterName() {
   return kSorterName;
 }
 
-int RandomizedQuickSorter::RandomizedPartition(int *v, int no_elements, Operation* op_comp,
-    Operation* op_assign) {
+int RandomizedQuickSorter::RandomizedPartition(int *v, int no_elements, Operation *op_comp,
+                                               Operation *op_assign) {
   int pivot_index = rand() % no_elements;
-  Swap(v, pivot_index, no_elements-1, op_assign);
+  Swap(v, pivot_index, no_elements - 1, op_assign);
   int i = 0;
   for (int j = 0; j < no_elements - 1; j++) {
     op_comp->count();

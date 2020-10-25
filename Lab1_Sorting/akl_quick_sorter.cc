@@ -42,10 +42,10 @@ const char *AklQuickSorter::GetSorterName() {
 }
 
 void AklQuickSorter::AklSelect(int *v,
-                            int no_elements,
-                            int index,
-                            Operation *op_comp,
-                            Operation *op_assign) {
+                               int no_elements,
+                               int index,
+                               Operation *op_comp,
+                               Operation *op_assign) {
   int medians[no_elements / 5 + 1];
   int no_medians = 0;
   InsertionSorter insertion_sorter;
@@ -70,10 +70,9 @@ void AklQuickSorter::AklSelect(int *v,
                 op_assign);
     }
   }
-
 }
 
-int AklQuickSorter::partition(int *v, int no_elements, int pivot, Operation* op_comp, Operation*
+int AklQuickSorter::partition(int *v, int no_elements, int pivot, Operation *op_comp, Operation *
 op_assign) {
   int i = 0;
   bool pivot_found = false;

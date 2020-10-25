@@ -18,7 +18,7 @@ int RandomizedQuickSelector::select(int *v, int no_elements, int index) {
 
 int RandomizedQuickSelector::RandomizedPartition(int *v, int no_elements) {
   int pivot_index = rand() % no_elements;
-  Swap(v, pivot_index, no_elements-1);
+  Swap(v, pivot_index, no_elements - 1);
   int i = 0;
   for (int j = 0; j < no_elements - 1; j++) {
     if (v[j] <= v[no_elements - 1]) {

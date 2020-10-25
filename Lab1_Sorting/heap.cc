@@ -86,7 +86,7 @@ void Heap::Swap(int index_1, int index_2) {
 }
 
 int *Heap::GetContent() {
-  int* v_copy = (int*) malloc(sizeof(int) * size_);
+  int *v_copy = (int *) malloc(sizeof(int) * size_);
   for (int i = 0; i < size_; i++) {
     v_copy[i] = v_[i];
   }

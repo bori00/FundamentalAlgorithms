@@ -19,7 +19,7 @@ class RandomizedQuickSorter : public Sorter {
  private:
   void SortHelper(int *v, int no_elements, Operation *op_comp, Operation *op_assign);
 
-  int RandomizedPartition(int *v, int no_elements, Operation* op_comp, Operation* op_assign);
+  int RandomizedPartition(int *v, int no_elements, Operation *op_comp, Operation *op_assign);
 
   static const char *kAssignOpName;
   static const char *kCompOpName;

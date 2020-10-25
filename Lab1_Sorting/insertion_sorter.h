@@ -14,7 +14,7 @@ class InsertionSorter : public Sorter {
  public:
   void Sort(int *v, int no_elements, Profiler &p) override;
 
-  void Sort(int *v, int no_elements, Operation* op_comp, Operation* op_assign);
+  void Sort(int *v, int no_elements, Operation *op_comp, Operation *op_assign);
 
   const char *GetCompOpName() override;
 

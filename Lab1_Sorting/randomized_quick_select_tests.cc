@@ -21,7 +21,9 @@ TEST_F(RandomizedQuickSelectTest, RandomizedQuickSelect_AverageArray_FirstElemen
   RandomizedQuickSelector randomizedQuickSelector;
   int selected_value = randomizedQuickSelector.select(v, kArrayLength, index);
   EXPECT_TRUE(RandomizedQuickSelectTest::CorrectSelectedElement(v,
-      RandomizedQuickSelectTest::kArrayLength, index, selected_value));
+                                                                RandomizedQuickSelectTest::kArrayLength,
+                                                                index,
+                                                                selected_value));
 }
 
 TEST_F(RandomizedQuickSelectTest, RandomizedQuickSelect_AverageArray_MiddleElement) {
@@ -30,7 +32,9 @@ TEST_F(RandomizedQuickSelectTest, RandomizedQuickSelect_AverageArray_MiddleEleme
   RandomizedQuickSelector randomizedQuickSelector;
   int selected_value = randomizedQuickSelector.select(v, kArrayLength, index);
   EXPECT_TRUE(RandomizedQuickSelectTest::CorrectSelectedElement(v,
-                                                                RandomizedQuickSelectTest::kArrayLength, index, selected_value));
+                                                                RandomizedQuickSelectTest::kArrayLength,
+                                                                index,
+                                                                selected_value));
 }
 
 TEST_F(RandomizedQuickSelectTest, RandomizedQuickSelect_AverageArray_LastElement) {
@@ -39,7 +43,9 @@ TEST_F(RandomizedQuickSelectTest, RandomizedQuickSelect_AverageArray_LastElement
   RandomizedQuickSelector randomizedQuickSelector;
   int selected_value = randomizedQuickSelector.select(v, kArrayLength, index);
   EXPECT_TRUE(RandomizedQuickSelectTest::CorrectSelectedElement(v,
-                                                                RandomizedQuickSelectTest::kArrayLength, index, selected_value));
+                                                                RandomizedQuickSelectTest::kArrayLength,
+                                                                index,
+                                                                selected_value));
 }
 
 TEST_F(RandomizedQuickSelectTest, RandomizedQuickSelect_SortedArray_FirstElement) {
@@ -48,7 +54,9 @@ TEST_F(RandomizedQuickSelectTest, RandomizedQuickSelect_SortedArray_FirstElement
   RandomizedQuickSelector randomizedQuickSelector;
   int selected_value = randomizedQuickSelector.select(v, kArrayLength, index);
   EXPECT_TRUE(RandomizedQuickSelectTest::CorrectSelectedElement(v,
-                                                                RandomizedQuickSelectTest::kArrayLength, index, selected_value));
+                                                                RandomizedQuickSelectTest::kArrayLength,
+                                                                index,
+                                                                selected_value));
 }
 
 TEST_F(RandomizedQuickSelectTest, RandomizedQuickSelect_SortedArray_MiddleElement) {
@@ -57,16 +65,20 @@ TEST_F(RandomizedQuickSelectTest, RandomizedQuickSelect_SortedArray_MiddleElemen
   RandomizedQuickSelector randomizedQuickSelector;
   int selected_value = randomizedQuickSelector.select(v, kArrayLength, index);
   EXPECT_TRUE(RandomizedQuickSelectTest::CorrectSelectedElement(v,
-                                                                RandomizedQuickSelectTest::kArrayLength, index, selected_value));
+                                                                RandomizedQuickSelectTest::kArrayLength,
+                                                                index,
+                                                                selected_value));
 }
 
 TEST_F(RandomizedQuickSelectTest, RandomizedQuickSelect_SortedArray_LastElement) {
-  int index = kArrayLength -1;
+  int index = kArrayLength - 1;
   int *v = GetSortedArray();
   RandomizedQuickSelector randomizedQuickSelector;
   int selected_value = randomizedQuickSelector.select(v, kArrayLength, index);
   EXPECT_TRUE(RandomizedQuickSelectTest::CorrectSelectedElement(v,
-                                                                RandomizedQuickSelectTest::kArrayLength, index, selected_value));
+                                                                RandomizedQuickSelectTest::kArrayLength,
+                                                                index,
+                                                                selected_value));
 }
 
 TEST_F(RandomizedQuickSelectTest, RandomizedQuickSelect_InvSortedArray_FirstElement) {
@@ -75,7 +87,9 @@ TEST_F(RandomizedQuickSelectTest, RandomizedQuickSelect_InvSortedArray_FirstElem
   RandomizedQuickSelector randomizedQuickSelector;
   int selected_value = randomizedQuickSelector.select(v, kArrayLength, index);
   EXPECT_TRUE(RandomizedQuickSelectTest::CorrectSelectedElement(v,
-                                                                RandomizedQuickSelectTest::kArrayLength, index, selected_value));
+                                                                RandomizedQuickSelectTest::kArrayLength,
+                                                                index,
+                                                                selected_value));
 }
 
 TEST_F(RandomizedQuickSelectTest, RandomizedQuickSelect_InvSortedArray_MiddleElement) {
@@ -84,16 +98,20 @@ TEST_F(RandomizedQuickSelectTest, RandomizedQuickSelect_InvSortedArray_MiddleEle
   RandomizedQuickSelector randomizedQuickSelector;
   int selected_value = randomizedQuickSelector.select(v, kArrayLength, index);
   EXPECT_TRUE(RandomizedQuickSelectTest::CorrectSelectedElement(v,
-                                                                RandomizedQuickSelectTest::kArrayLength, index, selected_value));
+                                                                RandomizedQuickSelectTest::kArrayLength,
+                                                                index,
+                                                                selected_value));
 }
 
 TEST_F(RandomizedQuickSelectTest, RandomizedQuickSelect_InvSortedArray_LastElement) {
-  int index = kArrayLength -1;
+  int index = kArrayLength - 1;
   int *v = GetInverselySortedArray();
   RandomizedQuickSelector randomizedQuickSelector;
   int selected_value = randomizedQuickSelector.select(v, kArrayLength, index);
   EXPECT_TRUE(RandomizedQuickSelectTest::CorrectSelectedElement(v,
-                                                                RandomizedQuickSelectTest::kArrayLength, index, selected_value));
+                                                                RandomizedQuickSelectTest::kArrayLength,
+                                                                index,
+                                                                selected_value));
 }
 
 TEST_F(RandomizedQuickSelectTest, RandomizedQuickSelect_RandomArray_RandomElement) {

@@ -20,7 +20,7 @@ class Sorter {
   virtual const char *GetSorterName() = 0;
 
  protected:
-  void Swap(int *v, int i, int j, Operation* op_assign);
+  void Swap(int *v, int i, int j, Operation *op_assign);
 };
 
 #endif //LAB1_SORTING_CLION_SORTER_H

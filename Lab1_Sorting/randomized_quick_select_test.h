@@ -7,9 +7,9 @@
 
 #include "gtest/gtest.h"
 
-class RandomizedQuickSelectTest : public ::testing::Test{
+class RandomizedQuickSelectTest : public ::testing::Test {
  public:
-  static bool CorrectSelectedElement(int* v, int no_elements, int index, int selected_value);
+  static bool CorrectSelectedElement(int *v, int no_elements, int index, int selected_value);
 
  protected:
   static int *GetAverageArray() {
