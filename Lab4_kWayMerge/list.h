@@ -28,15 +28,17 @@ class List {
     }
   }
 
-  void PushBack(Node<T> node) {
+  void PushBack(Node<T>* node) {
     if (last != nullptr) {
       last->setNext(node);
+      last = node;
     } else {
       first = last = node;
     }
+    last ->setNext(nullptr);
   }
 
-  Node<T>* PopFront() {
+  Node<T>* PopFrontNode() {
     Node<T>* result = this->first;
     if (this->first != nullptr) {
       if (this->last == this->first) {
@@ -47,10 +49,9 @@ class List {
     return result;
   }
 
-  Node<T>* GetFront() {
-    return first;
+  T GetFrontValue() {
+   return PopFrontNode().getData();
   }
-
 
  private:
   Node<T>* first;

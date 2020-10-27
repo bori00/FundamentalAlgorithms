@@ -12,7 +12,6 @@ class Node {
 
  public:
   explicit Node(){
-    this->data = nullptr;
     this->next = nullptr;
   }
 
@@ -28,7 +27,8 @@ class Node {
   }
 
   void setNext(Node* node) {
-    this->next = next;
+    this->next = node;
+    int a = 2;
   }
 
   T getData() {
@@ -58,15 +58,6 @@ class Node {
   friend bool operator <=(const Node<T> &node1, const Node<T> &node2) {
     return node1.data <= node2.data;
   }
-
-  friend bool operator ==(const Node<T> &node1, const Node<T> &node2) {
-    return node1.data == node2.data;
-  }
-
-  friend bool operator !=(const Node<T> &node1, const Node<T> &node2) {
-    return node1.data != node2.data;
-  }
-
 };
 
 #endif //LAB4_KWAYMERGE__NODE_H_
