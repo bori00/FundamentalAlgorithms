@@ -7,7 +7,7 @@
 #include "node.h"
 
 template<class T>
-Heap<T>::Heap(T *content,
+Heap<T>::Heap(T** content,
            int no_elements,
            Heap::HeapType heap_type,
            Operation *op_comp,
@@ -38,7 +38,7 @@ Heap<T>::Heap(Heap::HeapType heap_type, Operation *op_comp, Operation *op_assign
 }
 
 template<class T>
-void Heap<T>::Push(T value) {
+void Heap<T>::Push(T* value) {
   size_++;
   v_[size_ - 1] = value;
   op_assign_->count();
@@ -76,9 +76,9 @@ int Heap<T>::FindSupposedRootIndex(int current_root_index) {
 }
 
 template<class T>
-T Heap<T>::Pop() {
+T* Heap<T>::Pop() {
   op_assign_->count(2);
-  T top_value = v_[0];
+  T* top_value = v_[0];
   v_[0] = v_[size_ - 1];
   size_--;
   Heapify(0);
@@ -87,15 +87,15 @@ T Heap<T>::Pop() {
 
 template<class T>
 void Heap<T>::Swap(int index_1, int index_2) {
-  T helper = v_[index_1];
+  T* helper = v_[index_1];
   v_[index_1] = v_[index_2];
   v_[index_2] = helper;
   op_assign_->count(3);
 }
 
 template<class T>
-T *Heap<T>::GetContent() {
-  T *v_copy = (T *) malloc(sizeof(T) * size_);
+T** Heap<T>::GetContent() {
+  T** v_copy = (T**) malloc(sizeof(T*) * size_);
   for (int i = 0; i < size_; i++) {
     v_copy[i] = v_[i];
   }
@@ -131,9 +131,9 @@ template<class T>
 bool Heap<T>::IsCorrectRelation(int parentIndex, int childIndex) {
   op_comp_->count();
   if (heap_type_ == HeapType::kMaxHeap) {
-    return v_[parentIndex] >= v_[childIndex];
+    return *v_[parentIndex] >= *v_[childIndex];
   } else {
-    return v_[parentIndex] <= v_[childIndex];
+    return *v_[parentIndex] <= *v_[childIndex];
   }
 }
 

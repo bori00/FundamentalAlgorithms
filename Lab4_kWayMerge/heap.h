@@ -12,12 +12,12 @@ using namespace std;
 #include "Profiler.h"
 
 template <class T>
-class Heap {
+class Heap{
  public:
   enum class HeapType { kMaxHeap, kMinHeap };
 
   /** This corresponds to the build_heap() method, which builds the heap from the given content. */
-  Heap(T *content, int no_elements, HeapType heap_type, Operation *op_comp, Operation *op_assign);
+  Heap(T** content, int no_elements, HeapType heap_type, Operation *op_comp, Operation *op_assign);
 
   /** This corresponds to the build_heap() method, and builds an empty heap. */
   Heap(HeapType heap_type, Operation *op_comp, Operation *op_assign);
@@ -26,12 +26,12 @@ class Heap {
    * Inserts @param value into the heap(unless the maximum size is exceeded) by preserving the
    * heap structure.
    */
-  void Push(T value);
+  void Push(T* value);
 
   /** Removes and returns the top element of the heap by preserving the heap structure. */
-  T Pop();
+  T* Pop();
 
-  T *GetContent();
+  T** GetContent();
 
   int size();
 
@@ -58,7 +58,7 @@ class Heap {
 
   static const int kMaxSize = 1e5;
   int size_;
-  T v_[kMaxSize];
+  T* v_[kMaxSize];
   HeapType heap_type_;
   Operation *op_comp_;
   Operation *op_assign_;
