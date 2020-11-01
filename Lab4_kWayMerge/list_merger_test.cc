@@ -35,9 +35,11 @@ bool ListMergerTest::IsSorted(List<int> l) {
   while (!l.IsEmpty()) {
     value = l.PopFrontValue();
     if (value < prev_value) {
+      delete &l;
       return false;
     }
     prev_value = value;
   }
+  delete &l;
   return true;
 }

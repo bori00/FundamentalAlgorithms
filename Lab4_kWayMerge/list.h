@@ -39,6 +39,16 @@ class List {
     }
   }
 
+  ~List() {
+    Node<T>* node = first;
+    Node<T>* next;
+    while (node != nullptr) {
+      next = node->getNext();
+      delete node;
+      node = next;
+    }
+  }
+
   void PushBack(T data) {
     auto* new_node = new Node<T>(data, op_assign, op_pointer_assign);
     if (last != nullptr) {
