@@ -6,15 +6,20 @@
 #define LAB4_KWAYMERGE__LIST_H_
 
 #include "node.h"
+#include "Profiler.h"
 template<class T>
 class List {
  public:
-  List() {
+  List(Operation* op_assign, Operation* op_pointer_assign) {
     this->first = nullptr;
     this->last = nullptr;
+    this->op_pointer_assign = op_pointer_assign;
+    this->op_assign = op_assign;
   }
 
-  explicit List(T v[], int no_elements) {
+  List(T v[], int no_elements, Operation* op_assign, Operation* op_pointer_assign) {
+    this->op_pointer_assign = op_pointer_assign;
+    this->op_assign = op_assign;
     this->first = nullptr;
     this->last = nullptr;
     for (int i = 0; i < no_elements; i++) {
@@ -22,7 +27,9 @@ class List {
     }
   }
 
-  List(const List<T>& l2) {
+  List(const List<T>& l2, Operation* op_assign, Operation* op_pointer_assign) {
+    this->op_pointer_assign = op_pointer_assign;
+    this->op_assign = op_assign;
     this->first = nullptr;
     this->last = nullptr;
     Node<T>* nodeToCopy = l2.first;
@@ -33,12 +40,14 @@ class List {
   }
 
   void PushBack(T data) {
-    auto* new_node = new Node<T>(data);
+    auto* new_node = new Node<T>(data, op_assign, op_pointer_assign);
     if (last != nullptr) {
       last->setNext(new_node);
       last = new_node;
+      op_pointer_assign->count();
     } else {
       first = last = new_node;
+      op_pointer_assign->count(2);
     }
   }
 
@@ -46,19 +55,25 @@ class List {
     if (last != nullptr) {
       last->setNext(node);
       last = node;
+      op_pointer_assign->count(2);
     } else {
       first = last = node;
+      op_pointer_assign->count(2);
     }
     last->setNext(nullptr);
+    op_pointer_assign->count();
   }
 
   Node<T>* PopFrontNode() {
     Node<T>* result = this->first;
+    op_pointer_assign->count();
     if (this->first != nullptr) {
       if (this->last == this->first) {
         this->last = nullptr;
+        op_pointer_assign->count();
       }
       this->first = this->first->getNext();
+      op_pointer_assign->count();
     }
     return result;
   }
@@ -74,6 +89,8 @@ class List {
  private:
   Node<T>* first;
   Node<T>* last;
+  Operation* op_pointer_assign;
+  Operation* op_assign;
 };
 
 #endif //LAB4_KWAYMERGE__LIST_H_

@@ -5,28 +5,44 @@
 #ifndef LAB4_KWAYMERGE__NODE_H_
 #define LAB4_KWAYMERGE__NODE_H_
 
+#include "Profiler.h"
+
 template<class T>
 class Node {
   T data;
   Node* next;
+  Operation* op_assign;
+  Operation* op_pointer_assign;
 
  public:
-  explicit Node(){
+   Node(Operation* op_assign, Operation* op_pointer_assign){
     this->next = nullptr;
+    this->op_assign = op_assign;
+    this->op_pointer_assign = op_pointer_assign;
+    op_pointer_assign->count();
   }
 
-  explicit Node(T data) {
+  Node(T data, Operation* op_assign, Operation* op_pointer_assign) {
     this->data = data;
     this->next = nullptr;
+    this->op_assign = op_assign;
+    this->op_pointer_assign = op_pointer_assign;
+    op_pointer_assign->count();
+    op_assign->count();
   }
 
-  explicit Node(T data, Node* next) {
+  Node(T data, Node* next, Operation* op_assign, Operation* op_pointer_assign) {
     this->data = data;
     this->next = next;
+    this->op_assign = op_assign;
+    this->op_pointer_assign = op_pointer_assign;
+    op_pointer_assign->count();
+    op_assign->count();
   }
 
   void setNext(Node* node) {
     this->next = node;
+    op_pointer_assign->count();
   }
 
   T getData() {

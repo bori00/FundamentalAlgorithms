@@ -98,6 +98,7 @@ T** Heap<T>::GetContent() {
   T** v_copy = (T**) malloc(sizeof(T*) * size_);
   for (int i = 0; i < size_; i++) {
     v_copy[i] = v_[i];
+    op_assign_->count();
   }
   return v_copy;
 }
