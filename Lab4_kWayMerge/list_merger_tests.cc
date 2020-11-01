@@ -6,17 +6,13 @@
 #include "list_merger_test.h"
 #include "list_merger.h"
 
-Profiler ignoreP("ignore");
-Operation op_comp = ignoreP.createOperation("comp", 1);
-Operation op_assign = ignoreP.createOperation("assign", 1);
-
 TEST_F(ListMergerTest, 2arrays) {
   ListMerger<int> listMerger;
   int no_lists = 2;
   for (int i = 1; i <= no_lists; i++) {
     listMerger.AddList(GetList(i));
   }
-  List<int> result = listMerger.merge(&op_comp, &op_assign);
+  List<int> result = listMerger.merge(&op_comp, &op_assign, &op_pointer_assign);
   EXPECT_TRUE(IsSorted(result));
 }
 
@@ -26,7 +22,7 @@ TEST_F(ListMergerTest, 3arrays) {
   for (int i = 1; i <= no_lists; i++) {
     listMerger.AddList(GetList(i));
   }
-  List<int> result = listMerger.merge(&op_comp, &op_assign);
+  List<int> result = listMerger.merge(&op_comp, &op_assign, &op_pointer_assign);
   EXPECT_TRUE(IsSorted(result));
 }
 
@@ -36,7 +32,7 @@ TEST_F(ListMergerTest, 4arrays) {
   for (int i = 1; i <= no_lists; i++) {
     listMerger.AddList(GetList(i));
   }
-  List<int> result = listMerger.merge(&op_comp, &op_assign);
+  List<int> result = listMerger.merge(&op_comp, &op_assign, &op_pointer_assign);
   EXPECT_TRUE(IsSorted(result));
 }
 
@@ -46,7 +42,7 @@ TEST_F(ListMergerTest, 5arrays) {
   for (int i = 1; i <= no_lists; i++) {
     listMerger.AddList(GetList(i));
   }
-  List<int> result = listMerger.merge(&op_comp, &op_assign);
+  List<int> result = listMerger.merge(&op_comp, &op_assign, &op_pointer_assign);
   EXPECT_TRUE(IsSorted(result));
 }
 
@@ -56,6 +52,6 @@ TEST_F(ListMergerTest, random_arrays) {
   for (int i = 1; i <= no_lists; i++) {
     listMerger.AddList(GetRandomList());
   }
-  List<int> result = listMerger.merge(&op_comp, &op_assign);
+  List<int> result = listMerger.merge(&op_comp, &op_assign, &op_pointer_assign);
   EXPECT_TRUE(IsSorted(result));
 }

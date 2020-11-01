@@ -7,6 +7,7 @@
 
 #include "gtest/gtest.h"
 #include "list.h"
+#include "Profiler.h"
 
 class ListMergerTest : public ::testing::Test {
  public:
@@ -28,6 +29,12 @@ class ListMergerTest : public ::testing::Test {
   int array5[6] = {-100, -50, -10, 0, 10, 20};
   int array5_size = 5;
   int kMaxSize = 10000;
+
+ protected:
+  Profiler* ignoreP = new Profiler("ignoreP");
+  Operation op_comp = ignoreP->createOperation("comp", 1);
+  Operation op_assign = ignoreP->createOperation("assign", 1);
+  Operation op_pointer_assign = ignoreP->createOperation("pointer-assign", 1);
 };
 
 #endif //LAB4_KWAYMERGE__LIST_MERGER_TEST_H_
