@@ -34,10 +34,13 @@ class ListMerger {
    * Remark that the original lists are destroyed by that.
    */
   List<T>* merge(Operation* op_comp, Operation* op_assign, Operation* op_pointer_assign) {
-    Heap<Node<T>> min_heap(Heap<Node<T>>::HeapType::kMinHeap, op_comp, op_pointer_assign);
+    Node<T>** heap_content = (Node<T>**) malloc(sizeof(Node<T>*)*no_lists);
     for (int i = 0; i < no_lists; i++) {
-      min_heap.Push(lists[i]->PopFrontNode());
+      heap_content[i] = lists[i]->PopFrontNode();
+      op_pointer_assign->count();
     }
+    Heap<Node<T>> min_heap(heap_content, no_lists, Heap<Node<T>>::HeapType::kMinHeap, op_comp,
+        op_pointer_assign);
     List<T>* result = new List<int>(op_assign, op_pointer_assign);
     while (min_heap.size() > 0) {
       op_pointer_assign->count();
