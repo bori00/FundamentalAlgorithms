@@ -19,7 +19,7 @@ class Node {
     this->next = nullptr;
     this->op_assign = op_assign;
     this->op_pointer_assign = op_pointer_assign;
-    op_pointer_assign->count();
+    this->op_pointer_assign->count();
   }
 
   Node(T data, Operation* op_assign, Operation* op_pointer_assign) {
@@ -27,8 +27,8 @@ class Node {
     this->next = nullptr;
     this->op_assign = op_assign;
     this->op_pointer_assign = op_pointer_assign;
-    op_pointer_assign->count();
-    op_assign->count();
+    this->op_pointer_assign->count();
+    this->op_assign->count();
   }
 
   Node(T data, Node* next, Operation* op_assign, Operation* op_pointer_assign) {
@@ -36,8 +36,8 @@ class Node {
     this->next = next;
     this->op_assign = op_assign;
     this->op_pointer_assign = op_pointer_assign;
-    op_pointer_assign->count();
-    op_assign->count();
+    this->op_pointer_assign->count();
+    this->op_assign->count();
   }
 
   void setNext(Node* node) {
