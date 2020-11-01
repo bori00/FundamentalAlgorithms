@@ -21,14 +21,12 @@ class Node {
   }
 
   explicit Node(T data, Node* next) {
-    // todo use the other constructor
     this->data = data;
     this->next = next;
   }
 
   void setNext(Node* node) {
     this->next = node;
-    int a = 2;
   }
 
   T getData() {
