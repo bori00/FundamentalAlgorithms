@@ -15,47 +15,19 @@ class Node {
   Operation* op_pointer_assign;
 
  public:
-   Node(Operation* op_assign, Operation* op_pointer_assign){
-    this->next = nullptr;
-    this->op_assign = op_assign;
-    this->op_pointer_assign = op_pointer_assign;
-    this->op_pointer_assign->count();
-  }
+   Node(Operation* op_assign, Operation* op_pointer_assign);
 
-  Node(T data, Operation* op_assign, Operation* op_pointer_assign) {
-    this->data = data;
-    this->next = nullptr;
-    this->op_assign = op_assign;
-    this->op_pointer_assign = op_pointer_assign;
-    this->op_pointer_assign->count();
-    this->op_assign->count();
-  }
+  Node(T data, Operation* op_assign, Operation* op_pointer_assign);
 
-  Node(T data, Node* next, Operation* op_assign, Operation* op_pointer_assign) {
-    this->data = data;
-    this->next = next;
-    this->op_assign = op_assign;
-    this->op_pointer_assign = op_pointer_assign;
-    this->op_pointer_assign->count();
-    this->op_assign->count();
-  }
+  Node(T data, Node* next, Operation* op_assign, Operation* op_pointer_assign);
 
-  void setNext(Node* node) {
-    this->next = node;
-    op_pointer_assign->count();
-  }
+  void setNext(Node* node);
 
-  T getData() {
-    return this->data;
-  }
+  T getData();
 
-  Node<T>* getNext() {
-    return this->next;
-  }
+  Node<T>* getNext();
 
-  bool hasNext() {
-    return this->next != nullptr;
-  }
+  bool hasNext();
 
   friend bool operator >(const Node<T> &node1, const Node<T> &node2) {
     return node1.data > node2.data;

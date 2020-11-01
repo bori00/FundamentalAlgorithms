@@ -48,7 +48,7 @@ TEST_F(ListMergerTest, 5arrays) {
 
 TEST_F(ListMergerTest, random_arrays) {
   ListMerger<int> listMerger;
-  int no_lists = 10;
+  int no_lists = 100;
   for (int i = 1; i <= no_lists; i++) {
     listMerger.AddList(GetRandomList());
   }
