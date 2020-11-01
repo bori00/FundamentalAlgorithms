@@ -6,13 +6,21 @@
 #define LAB4_KWAYMERGE__LIST_MERGER_EVALUATOR_H_
 
 #include "list.h"
+#include "Profiler.h"
+
 class ListMergerEvaluator {
  public:
+  ListMergerEvaluator();
+
+  void Evaluate();
+
+ private:
   void EvaluateConstantK(int k);
 
   void EvaluateConstantN();
 
- private:
+  char* GetOpName(char* op_name, int k);
+
   static List<int>** GenerateLists(int n, int k, Operation* op_assign, Operation*
   op_pointer_assign);
 
@@ -24,8 +32,11 @@ class ListMergerEvaluator {
   int kMinN = 100;
   int kMaxN = 10000;
   int kIncrementN = 100;
+  int k1 = 5, k2 = 10, k3 = 100;
 
   int kNoMeasurements = 5;
+
+  Profiler p_;
 };
 
 #endif //LAB4_KWAYMERGE__LIST_MERGER_EVALUATOR_H_
