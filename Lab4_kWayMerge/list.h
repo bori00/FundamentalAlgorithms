@@ -15,8 +15,11 @@ class List {
   }
 
   explicit List(T v[], int no_elements) {
-    this->first = new Node<T>(v[0]);
-    this->last = new Node<T>(v[no_elements-1]);
+    this->first = nullptr;
+    this->last = nullptr;
+    for (int i = 0; i < no_elements; i++) {
+      this->PushBack(v[i]);
+    }
   }
 
   void PushBack(T data) {
