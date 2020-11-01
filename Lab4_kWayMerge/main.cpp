@@ -26,7 +26,8 @@ int main(int argc, char *argv[]) {
  * 1. build a minheap with the (current) smallest elements of each array. Instead of just the
  * data, store pointers to nodes in the heap, each node containing the actual data and a pointer to
  * the element following this one in its original list.  This results in a heap of k elements, so the
- * build heap procedure is O(k), and each operation(insert, pop) is O(logk).
+ * build heap procedure is O(k) (we apply the bottom-up approach), and each operation(insert, pop)
+ * is O(logk).
  * 2. As long as the heap is not empty:
  *    2.a. Remove the smallest element from the heap (O(log k))
  *    2.b. Insert in the heap the element following after this one in the original array (O(logk))
