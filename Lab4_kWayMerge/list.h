@@ -22,10 +22,21 @@ class List {
     }
   }
 
+  List(const List<T>& l2) {
+    this->first = nullptr;
+    this->last = nullptr;
+    Node<T>* nodeToCopy = l2.first;
+    while (nodeToCopy != nullptr) {
+      this->PushBack(nodeToCopy->getData());
+      nodeToCopy = nodeToCopy->getNext();
+    }
+  }
+
   void PushBack(T data) {
     auto* new_node = new Node<T>(data);
     if (last != nullptr) {
       last->setNext(new_node);
+      last = new_node;
     } else {
       first = last = new_node;
     }
@@ -38,7 +49,7 @@ class List {
     } else {
       first = last = node;
     }
-    last ->setNext(nullptr);
+    last->setNext(nullptr);
   }
 
   Node<T>* PopFrontNode() {
@@ -52,8 +63,12 @@ class List {
     return result;
   }
 
-  T GetFrontValue() {
-   return PopFrontNode().getData();
+  T PopFrontValue() {
+   return PopFrontNode()->getData();
+  }
+
+  bool IsEmpty() {
+    return first == nullptr;
   }
 
  private:
