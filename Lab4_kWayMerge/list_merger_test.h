@@ -19,16 +19,16 @@ class ListMergerTest : public ::testing::Test {
 
  private:
   int array1[5] = {3, 6, 10, 17, 18};
-  int array1_size = 5;
+  const int array1_size = 5;
   int array2[10] = {102, 200, 305, 1000, 2500, 2501, 2501, 2501, 3008, 30010};
-  int array2_size = 10;
+  const int array2_size = 10;
   int array3[1] = {0};
-  int array3_size = 1;
+  const int array3_size = 1;
   int array4[5] = {3, 6, 10, 17, 18};
-  int array4_size = 5;
+  const int array4_size = 5;
   int array5[6] = {-100, -50, -10, 0, 10, 20};
-  int array5_size = 5;
-  int kMaxSize = 10000;
+  const int array5_size = 5;
+  const int kMaxSize = 10000;
 
  protected:
   Profiler* ignoreP = new Profiler("ignoreP");

@@ -24,17 +24,17 @@ class ListMergerEvaluator {
   static List<int>** GenerateLists(int n, int k, Operation* op_assign, Operation*
   op_pointer_assign);
 
-  int kConstN = 10000;
-  int kMinK = 10;
-  int kMaxK = 500;
-  int kIncrementK = 10;
+  const int kConstN = 10000;
+  const int kMinK = 10;
+  const int kMaxK = 500;
+  const int kIncrementK = 10;
 
-  int kMinN = 100;
-  int kMaxN = 10000;
-  int kIncrementN = 100;
-  int k1 = 5, k2 = 10, k3 = 100;
+  const int kMinN = 100;
+  const int kMaxN = 10000;
+  const int kIncrementN = 100;
+  const int k1 = 5, k2 = 10, k3 = 100;
 
-  int kNoMeasurements = 5;
+  const int kNoMeasurements = 5;
 
   Profiler p_;
 };
