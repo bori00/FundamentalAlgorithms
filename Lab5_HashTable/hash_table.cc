@@ -3,13 +3,14 @@
 //
 
 #include <iostream>
+#include <assert.h>
 #include "hash_table.h"
 
 using namespace std;
 
 template<class K, class V, class Hasher>
 HashTable<K, V, Hasher>::HashTable() {
-  for (int i = 0; i <kSize; i++) {
+  for (int i = 0; i <kTableSize; i++) {
     v[i] = nullptr;
   }
 }
@@ -18,21 +19,25 @@ template<class K, class V,  class Hasher>
 bool HashTable<K, V, Hasher>::search(K key, int* no_probes) {
   bool found = false;
   int hashcode = hasher_(key);
-  for (int i = 0; i < kSize && !found; i++) {
+  for (int i = 0; i < kTableSize && !found; i++) {
     (*no_probes)++;
     int probe_index = hash(hashcode, i);
-    if (v[probe_index] != nullptr && v[probe_index]->key == key) {
-      found = true;
+    if (v[probe_index] == nullptr) {
+      return false;
+    } else if (v[probe_index]->key == key) {
+      return true;
     }
   }
-  return found;
+  return false;
 }
 
 template<class K, class V, class Hasher>
 void HashTable<K, V, Hasher>::insert(K key, V value) {
   bool inserted = false;
   int hashcode = hasher_(key);
-  for (int i = 0; i < kSize && !inserted; i++) {
+  // todo remove
+  assert(hashcode == key);
+  for (int i = 0; i < kTableSize && !inserted; i++) {
     int probe_index = hash(hashcode, i);
     if (v[probe_index] == nullptr || v[probe_index]->key == key) {
       v[probe_index] = new Entry(key, value);
@@ -47,7 +52,7 @@ void HashTable<K, V, Hasher>::insert(K key, V value) {
 
 template<class K, class V, class Hasher>
 int HashTable<K, V, Hasher>::hash(int h, int i) {
-  return (h + kC1*i + kC2 *i) % kSize;
+  return (abs(h) + kC1*i + kC2 *i) % kTableSize;
 }
 
 template class HashTable<int, string, hash<int>>;

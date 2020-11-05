@@ -14,6 +14,8 @@ class HashTable {
 
   bool search(K key, int* no_probes);
 
+  static const int kTableSize = 9973;
+
  private:
   class Entry {
    public:
@@ -27,9 +29,8 @@ class HashTable {
 
   static const int kC1 = 1;
   static const int kC2 = 1;
-  static const int kSize = 9973;
 
   Hasher hasher_;
-  Entry* v[kSize];
+  Entry* v[kTableSize];
 };
 #endif //LAB5_HASHTABLE__HASH_TABLE_H_
