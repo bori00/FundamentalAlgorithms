@@ -4,35 +4,34 @@
 
 #include <iostream>
 #include "hash_table.h"
+#include "entry.h"
 
 using namespace std;
 
-template<class T>
-HashTable<T>::HashTable() {
+template<class T, class Hasher>
+HashTable<T, Hasher>::HashTable() {
   for (int i = 0; i <kSize; i++) {
     v[i] = nullptr;
   }
 }
 
-template<class T>
-bool HashTable<T>::search(T t) {
+template<class T, class Hasher>
+bool HashTable<T, Hasher>::search(T* t) {
   bool found = false;
-  // todo
-  int hashcode = 3;
+  int hashcode = hasher_(*t);
   for (int i = 0; i < kSize && !found; i++) {
     int probe_index = hash(hashcode, i);
-    if (v[probe_index] == t) {
+    if (v[probe_index] != nullptr && *v[probe_index] == *t) {
       found = true;
     }
   }
   return found;
 }
 
-template<class T>
-void HashTable<T>::insert(T t) {
+template<class T, class Hasher>
+void HashTable<T, Hasher>::insert(T* t) {
   bool inserted = false;
-  // todo
-  int hashcode = 3;
+  int hashcode = hasher_(*t);
   for (int i = 0; i < kSize && !inserted; i++) {
     int probe_index = hash(hashcode, i);
     if (v[probe_index] == nullptr) {
@@ -46,8 +45,10 @@ void HashTable<T>::insert(T t) {
   }
 }
 
-template<class T>
-int HashTable<T>::hash(int h, int i) {
+template<class T, class Hasher>
+int HashTable<T, Hasher>::hash(int h, int i) {
   return (h + kC1*i + kC2 *i) % kSize;
 }
+
+template class HashTable<Entry, EntryHasher>;
 
