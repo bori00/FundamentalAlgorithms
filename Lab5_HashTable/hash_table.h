@@ -10,15 +10,17 @@ class HashTable {
  public:
   HashTable();
 
-  void insert(K k, V v);
+  void insert(K key, V value);
 
-  bool search(K k);
+  bool search(K key);
 
  private:
   class Entry {
    public:
     K key;
     V value;
+
+    Entry(K key, V value) : key(key), value(value) {}
   };
 
   int hash(int h, int i);
