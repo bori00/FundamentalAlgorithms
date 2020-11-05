@@ -5,14 +5,14 @@
 #ifndef LAB5_HASHTABLE__HASH_TABLE_H_
 #define LAB5_HASHTABLE__HASH_TABLE_H_
 
-template<class T>
+template<class T, class Hasher>
 class HashTable {
  public:
   HashTable();
 
-  void insert(T t);
+  void insert(T* t);
 
-  bool search(T t);
+  bool search(T* t);
 
  private:
   int hash(int h, int i);
@@ -20,6 +20,8 @@ class HashTable {
   static const int kC1 = 1;
   static const int kC2 = 1;
   static const int kSize = 9973;
-  T v[kSize];
+
+  Hasher hasher_;
+  T* v[kSize];
 };
 #endif //LAB5_HASHTABLE__HASH_TABLE_H_
