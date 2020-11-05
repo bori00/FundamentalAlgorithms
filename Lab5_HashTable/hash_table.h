@@ -12,7 +12,7 @@ class HashTable {
 
   void insert(K key, V value);
 
-  bool search(K key);
+  bool search(K key, int* no_probes);
 
  private:
   class Entry {

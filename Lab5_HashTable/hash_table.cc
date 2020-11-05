@@ -15,10 +15,11 @@ HashTable<K, V, Hasher>::HashTable() {
 }
 
 template<class K, class V,  class Hasher>
-bool HashTable<K, V, Hasher>::search(K key) {
+bool HashTable<K, V, Hasher>::search(K key, int* no_probes) {
   bool found = false;
   int hashcode = hasher_(key);
   for (int i = 0; i < kSize && !found; i++) {
+    (*no_probes)++;
     int probe_index = hash(hashcode, i);
     if (v[probe_index] != nullptr && v[probe_index]->key == key) {
       found = true;
