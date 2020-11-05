@@ -21,9 +21,8 @@ class HashTableEvaluator {
 
   static const int kSearchFoundElements = 1500;
   static const int kSearchedNotFoundElements = 1500;
-  static const int kNoLoadFactors = 5;
-
-  float kLoadFactors[5] = {0.8, 0.85, 0.9, 0.95, 0.99};
+  static const int kNoLoadFactors = 7;
+  float kLoadFactors[kNoLoadFactors] = {0.6, 0.7, 0.8, 0.85, 0.9, 0.95, 0.99};
 };
 
 #endif //LAB5_HASHTABLE__HASH_TABLE_EVALUATOR_H_
