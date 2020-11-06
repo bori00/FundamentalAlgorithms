@@ -14,7 +14,8 @@ using namespace std;
 
 void HashTableEvaluator::Evaluate() {
   ofstream g(kOutputFileName);
-  // g << "1, 2, 3, 4, 5, 6" << "\n";
+  g << "Load factor, Avg Effort(found), Max Effort (found), Avg Effort(not found), Max Effort"
+    << "(not found)" << endl;
   for (float kLoadFactor : kLoadFactors) {
     EvaluateWithLoadFactor(kLoadFactor);
   }
