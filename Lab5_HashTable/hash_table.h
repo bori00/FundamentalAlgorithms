@@ -14,7 +14,7 @@ class HashTable {
 
   bool search(K key, int* no_probes);
 
-  static const int kTableSize = 9973;
+  static const int kTableSize = 10007;
 
  private:
   class Entry {
