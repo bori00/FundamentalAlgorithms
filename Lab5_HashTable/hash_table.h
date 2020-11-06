@@ -27,8 +27,8 @@ class HashTable {
 
   int hash(int h, int i);
 
-  static const int kC1 = 1;
-  static const int kC2 = 1;
+  static const int kC1 = 13;
+  static const int kC2 = 11;
 
   Hasher hasher_;
   Entry* v[kTableSize];
