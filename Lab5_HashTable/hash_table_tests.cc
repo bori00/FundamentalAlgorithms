@@ -9,9 +9,9 @@
 using namespace std;
 
 TEST(HashTable, InsertIntStringElements) {
-  int no_elements = 9;
-  int keys[9] = {5, 101, 387, 1004, 298, 10012, -101, 10108};
-  string values[9] = {"five", "onehundredone", "threehundredeightyseven", "onethousandfour",
+  int no_elements = 8;
+  int keys[8] = {5, 101, 387, 1004, 298, 10012, -101, 10108};
+  string values[8] = {"five", "onehundredone", "threehundredeightyseven", "onethousandfour",
                       "twohundredninetyeight", "tenthousandtwelve", "minusonehundredone",
                                                                     "tenthousandonehundredeight"};
   HashTable<int, string, hash<int>> hash_table;
@@ -23,7 +23,7 @@ TEST(HashTable, InsertIntStringElements) {
 TEST(HashTable, InsertStringIntElements) {
   int no_elements = 5;
   int values[5] = {5, 101, 387, 1004, 298};
-  string keys[5] = {"five", "onehundredone", "threehundredeightyseven", "onethousandfour, "
+  string keys[5] = {"five", "onehundredone", "threehundredeightyseven", "onethousandfour",
                                                                           "twohundredninetyeight"};
   HashTable<string, int, hash<string>> hash_table;
   for (int i = 0; i < no_elements; i++) {
@@ -32,9 +32,9 @@ TEST(HashTable, InsertStringIntElements) {
 }
 
 TEST(HashTable, SearchExistingIntStringElements) {
-  int no_elements = 9;
-  int keys[9] = {5, 101, 387, 1004, 298, 10012, -101, 10108};
-  string values[9] = {"five", "onehundredone", "threehundredeightyseven", "onethousandfour",
+  int no_elements = 8;
+  int keys[8] = {5, 101, 387, 1004, 298, 10012, -101, 10108};
+  string values[8] = {"five", "onehundredone", "threehundredeightyseven", "onethousandfour",
                       "twohundredninetyeight", "tenthousandtwelve", "minusonehundredone",
                       "tenthousandonehundredeight"};
   HashTable<int, string, hash<int>> hash_table;
@@ -50,7 +50,7 @@ TEST(HashTable, SearchExistingIntStringElements) {
 TEST(HashTable, SearchExistingStringIntElements) {
   int no_elements = 5;
   int values[5] = {5, 101, 387, 1004, 298};
-  string keys[5] = {"five", "onehundredone", "threehundredeightyseven", "onethousandfour, "
+  string keys[5] = {"five", "onehundredone", "threehundredeightyseven", "onethousandfour",
                                                                         "twohundredninetyeight"};
   HashTable<string, int, hash<string>> hash_table;
   for (int i = 0; i < no_elements; i++) {
@@ -63,10 +63,10 @@ TEST(HashTable, SearchExistingStringIntElements) {
 }
 
 TEST(HashTable, SearchNotExistingIntStringElements) {
-  int no_elements = 9, no_not_elements = 4;
-  int keys[9] = {5, 101, 387, 1004, 298, 10012, -101, 10108};
+  int no_elements = 8, no_not_elements = 4;
+  int keys[8] = {5, 101, 387, 1004, 298, 10012, -101, 10108};
   int not_keys[4] = {7, -387, 105, 20019};
-  string values[9] = {"five", "onehundredone", "threehundredeightyseven", "onethousandfour",
+  string values[8] = {"five", "onehundredone", "threehundredeightyseven", "onethousandfour",
                       "twohundredninetyeight", "tenthousandtwelve", "minusonehundredone",
                       "tenthousandonehundredeight"};
   HashTable<int, string, hash<int>> hash_table;
@@ -82,7 +82,7 @@ TEST(HashTable, SearchNotExistingIntStringElements) {
 TEST(HashTable, SearchNotExistingStringIntElements) {
   int no_elements = 5, no_not_elements = 5;
   int values[5] = {5, 101, 387, 1004, 298};
-  string keys[5] = {"five", "onehundredone", "threehundredeightyseven", "onethousandfour, "
+  string keys[5] = {"five", "onehundredone", "threehundredeightyseven", "onethousandfour",
                                                                         "twohundredninetyeight"};
   string not_keys[5] = {"a", "aa", "abc", "abcd", "ada"};
   HashTable<string, int, hash<string>> hash_table;
@@ -96,9 +96,9 @@ TEST(HashTable, SearchNotExistingStringIntElements) {
 }
 
 TEST(HashTable, GetExistingIntStringElements) {
-  int no_elements = 9;
-  int keys[9] = {5, 101, 387, 1004, 298, 10012, -101, 10108};
-  string values[9] = {"five", "onehundredone", "threehundredeightyseven", "onethousandfour",
+  int no_elements = 8;
+  int keys[8] = {5, 101, 387, 1004, 298, 10012, -101, 10108};
+  string values[8] = {"five", "onehundredone", "threehundredeightyseven", "onethousandfour",
                       "twohundredninetyeight", "tenthousandtwelve", "minusonehundredone",
                       "tenthousandonehundredeight"};
   HashTable<int, string, hash<int>> hash_table;
@@ -125,10 +125,10 @@ TEST(HashTable, GetExistingStringIntElements) {
 }
 
 TEST(HashTable, GetNotExistingIntStringElements) {
-  int no_elements = 9, no_not_elements = 4;
-  int keys[9] = {5, 101, 387, 1004, 298, 10012, -101, 10108};
+  int no_elements = 8, no_not_elements = 4;
+  int keys[8] = {5, 101, 387, 1004, 298, 10012, -101, 10108};
   int not_keys[4] = {7, -387, 105, 20019};
-  string values[9] = {"five", "onehundredone", "threehundredeightyseven", "onethousandfour",
+  string values[8] = {"five", "onehundredone", "threehundredeightyseven", "onethousandfour",
                       "twohundredninetyeight", "tenthousandtwelve", "minusonehundredone",
                       "tenthousandonehundredeight"};
   HashTable<int, string, hash<int>> hash_table;
@@ -144,7 +144,7 @@ TEST(HashTable, GetNotExistingIntStringElements) {
 TEST(HashTable, GetNotExistingStringIntElements) {
   int no_elements = 5, no_not_elements = 5;
   int values[5] = {5, 101, 387, 1004, 298};
-  string keys[5] = {"five", "onehundredone", "threehundredeightyseven", "onethousandfour, "
+  string keys[5] = {"five", "onehundredone", "threehundredeightyseven", "onethousandfour",
                                                                         "twohundredninetyeight"};
   string not_keys[5] = {"a", "aa", "abc", "abcd", "ada"};
   HashTable<string, int, hash<string>> hash_table;
