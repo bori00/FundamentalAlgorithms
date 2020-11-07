@@ -68,5 +68,15 @@ int HashTable<K, V, Hasher>::hash(int h, int i) {
   return (abs(h) + kC1*i + kC2*i*i) % kTableSize;
 }
 
+template<class K, class V, class Hasher>
+void HashTable<K, V, Hasher>::printContent() {
+  for (int i = 0; i < kTableSize; i++) {
+    if (v[i] != nullptr) {
+      cout << i << ": " << *v[i] << endl;
+    }
+  }
+}
+
 template class HashTable<int, string, hash<int>>;
 template class HashTable<string, int, hash<string>>;
+

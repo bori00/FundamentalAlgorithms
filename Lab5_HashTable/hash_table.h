@@ -5,6 +5,10 @@
 #ifndef LAB5_HASHTABLE__HASH_TABLE_H_
 #define LAB5_HASHTABLE__HASH_TABLE_H_
 
+#include <iostream>
+
+using namespace std;
+
 template<class K, class V, class Hasher>
 class HashTable {
  public:
@@ -16,6 +20,8 @@ class HashTable {
 
   V* get(K key);
 
+  void printContent();
+
   static const int kTableSize = 10007;
 
  private:
@@ -25,6 +31,11 @@ class HashTable {
     V value;
 
     Entry(K key, V value) : key(key), value(value) {}
+
+    friend ostream & operator << (ostream &out, const Entry &e) {
+      out << "(k = " << e.key << ", v = " << e.value << ")";
+      return out;
+    }
   };
 
   int hash(int h, int i);
