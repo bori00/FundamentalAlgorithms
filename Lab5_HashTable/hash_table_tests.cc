@@ -157,4 +157,17 @@ TEST(HashTable, GetNotExistingStringIntElements) {
   }
 }
 
+TEST(HashTable, GetOverridenStringElements) {
+  int no_elements = 6;
+  int keys[6] = {5, 101, 387, 1004, 298, 101};
+  string values[6] = {"five", "onehundredone", "threehundredeightyseven", "onethousandfour",
+                                                                        "twohundredninetyeight",
+                                                                        "overriden"};
+  HashTable<int, string, hash<int>> hash_table;
+  for (int i = 0; i < no_elements; i++) {
+    hash_table.insert(keys[i], values[i]);
+  }
+  string expected_result = "overriden";
+  EXPECT_EQ(expected_result, *hash_table.get(101));
+}
 
