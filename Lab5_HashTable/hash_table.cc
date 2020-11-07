@@ -32,6 +32,21 @@ bool HashTable<K, V, Hasher>::search(K key, int* no_probes) {
 }
 
 template<class K, class V, class Hasher>
+V* HashTable<K, V, Hasher>::get(K key) {
+  int hashcode = hasher_(key);
+  for (int i = 0; i < kTableSize; i++) {
+    int probe_index = hash(hashcode, i);
+    if (v[probe_index] == nullptr) {
+      return nullptr; // not found
+    } else if (v[probe_index]->key == key) {
+      return &v[probe_index]->value;
+    }
+  }
+  return nullptr;
+}
+
+
+template<class K, class V, class Hasher>
 void HashTable<K, V, Hasher>::insert(K key, V value) {
   bool inserted = false;
   int hashcode = hasher_(key);
@@ -54,4 +69,4 @@ int HashTable<K, V, Hasher>::hash(int h, int i) {
 }
 
 template class HashTable<int, string, hash<int>>;
-
+template class HashTable<string, int, hash<string>>;

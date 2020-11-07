@@ -14,6 +14,8 @@ class HashTable {
 
   bool search(K key, int* no_probes);
 
+  V* get(K key);
+
   static const int kTableSize = 10007;
 
  private:
