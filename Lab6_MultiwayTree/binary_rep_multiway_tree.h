@@ -11,6 +11,8 @@ class BinaryRepMultiwayTree {
  public:
   explicit BinaryRepMultiwayTree(MultiwayTree m_tree);
 
+  void PrettyPrint();
+
  private:
   class BinaryNode {
    public:
@@ -27,6 +29,8 @@ class BinaryRepMultiwayTree {
 
   BinaryNode* getBinaryRepSubtree(MultiwayTree::MultiWayNode* multiway_root, BinaryNode*
   first_sibling);
+
+  static void PrettyPrintHelper(BinaryNode* node, int level);
 
   BinaryNode* root_;
 };
