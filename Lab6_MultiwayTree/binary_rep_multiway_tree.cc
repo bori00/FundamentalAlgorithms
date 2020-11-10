@@ -26,13 +26,13 @@ void BinaryRepMultiwayTree::PrettyPrint() {
   PrettyPrintHelper(this->root_, 0);
 }
 
-void BinaryRepMultiwayTree::PrettyPrintHelper(BinaryRepMultiwayTree::BinaryNode *node, int level) {
+void BinaryRepMultiwayTree::PrettyPrintHelper(BinaryNode *node, int level) {
   if (node != nullptr) {
+    PrettyPrintHelper(node->first_sibling_, level);
     for (int i = 0; i < level; i++) {
       cout << "  ";
     }
     cout << node->data_ << endl;
     PrettyPrintHelper(node->first_child_, level + 1);
-    PrettyPrintHelper(node->first_sibling_, level);
   }
 }
