@@ -9,7 +9,7 @@
 #include "parent_array_multiway_tree.h"
 class MultiwayTree {
  public:
-  MultiwayTree(ParentArrayMultiwayTree parent_tree);
+  explicit MultiwayTree(ParentArrayMultiwayTree parent_tree);
 
   void PrettyPrint();
 
@@ -19,10 +19,6 @@ class MultiwayTree {
     int data;
     int no_children = 0;
     MultiWayNode** children;
-
-    MultiWayNode(int data) {
-      this->data = data;
-    }
 
     MultiWayNode(int data, int no_children) {
       this->data = data;

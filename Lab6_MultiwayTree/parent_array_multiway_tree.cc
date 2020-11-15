@@ -22,6 +22,10 @@ ParentArrayMultiwayTree::ParentArrayMultiwayTree(int *parents, int no_nodes) {
 
 void ParentArrayMultiwayTree::Print() {
   for (int i = 0; i < no_nodes_; i++) {
-    cout << "Parent of node " << i << " is: " << parents_[i] << endl;
+    if (parents_[i] >= 0) {
+      cout << "Parent of node " << i + 1 << " is: " << parents_[i] + 1 << endl;
+    } else {
+      cout << "Node " << i + 1 << " is the root" << endl;
+    }
   }
 }
