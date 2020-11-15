@@ -32,7 +32,7 @@ void BinaryRepMultiwayTree::PrettyPrintHelper(BinaryNode *node, int level) {
     for (int i = 0; i < level; i++) {
       cout << "  ";
     }
-    cout << node->data_ << endl;
+    cout << node->data_ + 1 << endl;
     PrettyPrintHelper(node->first_child_, level + 1);
   }
 }

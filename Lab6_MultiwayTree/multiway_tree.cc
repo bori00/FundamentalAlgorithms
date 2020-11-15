@@ -45,7 +45,7 @@ void MultiwayTree::PrettyPrintHelper(MultiwayTree::MultiWayNode *node, int level
   for (int i = 0; i < level; i++) {
     cout << "  ";
   }
-  cout << node->data << endl;
+  cout << node->data + 1 << endl;
   for (int i = node->no_children - 1; i >= 0; i--) {
     PrettyPrintHelper(node->children[i], level + 1);
   }
