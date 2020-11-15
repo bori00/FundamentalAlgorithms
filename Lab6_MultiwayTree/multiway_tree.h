@@ -16,14 +16,17 @@ class MultiwayTree {
  private:
   class MultiWayNode {
    public:
-    int data;
-    int no_children = 0;
-    MultiWayNode** children;
+    int data_;
+    int no_children_ = 0;
+    MultiWayNode** children_;
 
-    MultiWayNode(int data, int no_children) {
-      this->data = data;
-      this->no_children = no_children;
-      this->children = (MultiWayNode**) malloc(sizeof(MultiWayNode*)*no_children);
+    MultiWayNode(int data) {
+      this->data_ = data;
+      this->no_children_ = 0;
+    }
+
+    void allocateDataFrorChildren() {
+      this->children_ = (MultiWayNode**) malloc(sizeof(MultiWayNode*)*no_children_);
     }
   };
 

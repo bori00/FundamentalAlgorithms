@@ -10,27 +10,30 @@
 using namespace std;
 
 MultiwayTree::MultiwayTree(ParentArrayMultiwayTree parent_tree) {
+  // instantiate
+  vector<MultiWayNode*> nodes(parent_tree.no_nodes_);
+  for (int i = 0; i < parent_tree.no_nodes_; i++) {
+    nodes[i] = new MultiWayNode(i);
+  }
   // count no children
   vector<int> no_inserted_children (parent_tree.no_nodes_, 0);
-  vector<int> no_children(parent_tree.no_nodes_, 0);
-  int root_index;
+  int root_index = -1;
   for (int i = 0; i < parent_tree.no_nodes_; i++) {
     if (parent_tree.parents_[i] == -1) {
       root_index = i;
     } else {
-      no_children[parent_tree.parents_[i]]++;
+      nodes[parent_tree.parents_[i]]->no_children_++;
     }
   }
-  // initialise nodes
-  vector<MultiWayNode*> nodes(parent_tree.no_nodes_);
+  // allocate the necessary space for children
   for (int i = 0; i < parent_tree.no_nodes_; i++) {
-    nodes[i] = new MultiWayNode(i, no_children[i]);
+    nodes[i]->allocateDataFrorChildren();
   }
   // insert children
   for (int i = 0; i < parent_tree.no_nodes_; i++) {
     int parent = parent_tree.parents_[i];
     if (parent_tree.parents_[i] > -1) {
-      nodes[parent]->children[no_inserted_children[parent]] = nodes[i];
+      nodes[parent]->children_[no_inserted_children[parent]] = nodes[i];
       no_inserted_children[parent]++;
     }
   }
@@ -45,8 +48,8 @@ void MultiwayTree::PrettyPrintHelper(MultiwayTree::MultiWayNode *node, int level
   for (int i = 0; i < level; i++) {
     cout << "  ";
   }
-  cout << node->data + 1 << endl;
-  for (int i = 0; i < node->no_children; i++) {
-    PrettyPrintHelper(node->children[i], level + 1);
+  cout << node->data_ + 1 << endl;
+  for (int i = 0; i < node->no_children_; i++) {
+    PrettyPrintHelper(node->children_[i], level + 1);
   }
 }
