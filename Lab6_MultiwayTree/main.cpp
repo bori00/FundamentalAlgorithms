@@ -105,10 +105,20 @@ int main() {
   cout << "--------------Tree 5--------------" << endl;
   demo(parents_5, 8);
 
-  // invalid treee
+  // invalid tree: multiple roots
 //  int parents_6[8] = {2, 3, 8, -1, 6, 8, 8, -1};
-//  cout << "--------------Tree 7--------------" << endl;
+//  cout << "--------------Tree 6--------------" << endl;
 //  demo(parents_6, 8);
+
+  // invalid tree: no roots
+//  int parents_7[8] = {2, 3, 8, 2, 6, 8, 8, 7};
+//  cout << "--------------Tree 7--------------" << endl;
+//  demo(parents_7, 8);
+
+  // invalid tree: circle
+//  int parents_8[4] = {-1, 3, 4, 2};
+//  cout << "--------------Tree 8--------------" << endl;
+//  demo(parents_8, 4);
   return 0;
 }
 

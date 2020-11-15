@@ -21,13 +21,17 @@ MultiwayTree::MultiwayTree(ParentArrayMultiwayTree parent_tree) {
   for (int i = 0; i < parent_tree.no_nodes_; i++) {
     if (parent_tree.parents_[i] == -1) {
       if (root_index != -1) {
-        cerr << "Error: Multiple roots in the tree";
+        cerr << "Error: Multiple roots in the tree" << endl;
         exit(1);
       }
       root_index = i;
     } else {
       nodes[parent_tree.parents_[i]]->no_children_++;
     }
+  }
+  if (root_index == -1) {
+    cerr << "Error: No root in the tree" << endl;
+    exit(2);
   }
   // allocate the necessary space for children
   for (int i = 0; i < parent_tree.no_nodes_; i++) {
@@ -42,6 +46,10 @@ MultiwayTree::MultiwayTree(ParentArrayMultiwayTree parent_tree) {
     }
   }
   this->root_ = nodes[root_index];
+  if (!ValidTree(parent_tree.no_nodes_)) {
+    cerr << "Error: not a valid tree, it contains a circle." << endl;
+    exit(3);
+  }
 }
 
 void MultiwayTree::PrettyPrint() {
@@ -56,4 +64,32 @@ void MultiwayTree::PrettyPrintHelper(MultiwayTree::MultiWayNode *node, int level
   for (int i = 0; i < node->no_children_; i++) {
     PrettyPrintHelper(node->children_[i], level + 1);
   }
+}
+
+bool MultiwayTree::ValidTree(int no_expected_nodes) {
+  vector<bool> visited(no_expected_nodes, false);
+  if (!DFS(root_, visited)) {
+    return false;
+  }
+  for (int i = 0; i < no_expected_nodes; i++) {
+    if (!visited[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool MultiwayTree::DFS(MultiwayTree::MultiWayNode* root, vector<bool> &visited) {
+  if (visited.at(root->data_)) {
+    return false; // invalid tree
+  }
+  visited.at(root->data_) = true;
+  bool valid;
+  for (int i = 0; i < root->no_children_; i++) {
+    valid = DFS (root->children_[i], visited);
+    if (!valid) {
+      return false;
+    }
+  }
+  return true;
 }

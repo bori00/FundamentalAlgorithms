@@ -6,7 +6,11 @@
 #define LAB6_MULTIWAYTREE__MULTIWAY_TREE_H_
 
 #include <stdlib.h>
+#include <vector>
 #include "parent_array_multiway_tree.h"
+
+using namespace std;
+
 class MultiwayTree {
  public:
   explicit MultiwayTree(ParentArrayMultiwayTree parent_tree);
@@ -29,6 +33,11 @@ class MultiwayTree {
       this->children_ = (MultiWayNode**) malloc(sizeof(MultiWayNode*)*no_children_);
     }
   };
+
+  bool ValidTree(int no_expected_nodes);
+
+  /** Returns false if tree is invalid. */
+  bool DFS(MultiWayNode* root, vector<bool>& visited);
 
   static void PrettyPrintHelper(MultiWayNode* node, int level);
 
