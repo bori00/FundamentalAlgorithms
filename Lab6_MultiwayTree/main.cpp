@@ -104,6 +104,11 @@ int main() {
   int parents_5[8] = {2, 3, 8, 5, 6, 8, 8, -1};
   cout << "--------------Tree 5--------------" << endl;
   demo(parents_5, 8);
+
+  // invalid treee
+//  int parents_6[8] = {2, 3, 8, -1, 6, 8, 8, -1};
+//  cout << "--------------Tree 7--------------" << endl;
+//  demo(parents_6, 8);
   return 0;
 }
 

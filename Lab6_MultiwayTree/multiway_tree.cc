@@ -20,6 +20,10 @@ MultiwayTree::MultiwayTree(ParentArrayMultiwayTree parent_tree) {
   int root_index = -1;
   for (int i = 0; i < parent_tree.no_nodes_; i++) {
     if (parent_tree.parents_[i] == -1) {
+      if (root_index != -1) {
+        cerr << "Error: Multiple roots in the tree";
+        exit(1);
+      }
       root_index = i;
     } else {
       nodes[parent_tree.parents_[i]]->no_children_++;
