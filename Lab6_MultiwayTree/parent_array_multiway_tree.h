@@ -9,6 +9,8 @@ class ParentArrayMultiwayTree {
  public:
   ParentArrayMultiwayTree(int* parents, int no_nodes);
 
+  void Print();
+
  private:
   int no_nodes_;
   int* parents_;
