@@ -4,6 +4,7 @@
 
 
 #include <iostream>
+#include <assert.h>
 #include "os_tree.h"
 
 using namespace std;
@@ -30,6 +31,7 @@ void OSTree::PrettyPrint() {
 }
 
 int OSTree::Select(int index) {
+  assert(this->root->size_ >= index);
   return this->root->Select(index);
 }
 
@@ -62,7 +64,6 @@ void OSTree::Node::ComputeSize() {
 }
 
 OSTree::Node* OSTree::Node::Delete(int value, Node* parent) {
-  this->size_--;
   if (this->data_ == value) {
     if (this->left_ == nullptr) { // replace the node by (not necessarily existing) right child
       if (parent == nullptr) {
@@ -88,6 +89,7 @@ OSTree::Node* OSTree::Node::Delete(int value, Node* parent) {
       }
     } else { // both children exist: replace node's data by successor's data
       this->data_ = this->right_->DeleteMin(this);
+      this->size_--;
       return this;
     }
   } else {
@@ -96,6 +98,7 @@ OSTree::Node* OSTree::Node::Delete(int value, Node* parent) {
     } else {
       this->right_->Delete(value, this);
     }
+    this->size_--;
     return this;
   }
 }
@@ -109,15 +112,26 @@ int OSTree::Node::DeleteMin(Node* parent) {
     }
     return this->data_;
   } else {
+    this->size_--;
     return this->left_->DeleteMin(this);
   }
 }
 
 int OSTree::Node::Select(int index) {
-  int left_size = 0;
+  int left_size = 0, right_size = 0;
   if (this->left_ != nullptr) {
     left_size = this->left_->size_;
   }
+  if (this->right_ != nullptr) {
+    right_size = this->right_->size_;
+  }
+  if (this->size_ != left_size + right_size + 1) {
+    cout << "Incosistent sizes: " << endl;
+    cout << "This: " << this->size_ << endl;
+    cout << "Left: " << this->left_->size_ << endl;
+    cout << "Right: " << this->right_->size_ << endl;
+  }
+  assert(this->size_ == left_size + right_size + 1);
   if (index == left_size + 1) {
     return this->data_;
   } else if (index <= left_size) {
