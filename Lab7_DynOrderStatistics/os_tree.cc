@@ -34,7 +34,7 @@ int OSTree::Select(int index) {
 }
 
 void OSTree::Delete(int value) {
-  return this->root->Delete(value);
+  this->root = this->root->Delete(value, nullptr);
 }
 
 void OSTree::Node::PrettyPrint(int level) {
@@ -61,28 +61,42 @@ void OSTree::Node::ComputeSize() {
   this->size_ = size + 1;
 }
 
-void OSTree::Node::Delete(int value, Node* parent) {
+OSTree::Node* OSTree::Node::Delete(int value, Node* parent) {
   this->size_--;
   if (this->data_ == value) {
     if (this->left_ == nullptr) { // replace the node by (not necessarily existing) right child
-      if (parent->left_ == this) {
-        parent->left_  = this->right_;
+      if (parent == nullptr) {
+        return this->right_;
       } else {
-        parent->right_ = this->right_;
+        if (parent->left_ == this) {
+          parent->left_ = this->right_;
+        } else {
+          parent->right_ = this->right_;
+        }
+        return this;
       }
     } else if (this->right_ == nullptr) { // replace node by left child
-      if (parent->left_ == this) {
-        parent->left_  = this->left_;
+      if (parent == nullptr) {
+        return this->left_;
       } else {
-        parent->right_ = this->left_;
+        if (parent->left_ == this) {
+          parent->left_ = this->left_;
+        } else {
+          parent->right_ = this->left_;
+        }
+        return this;
       }
     } else { // both children exist: replace node's data by successor's data
       this->data_ = this->right_->DeleteMin(this);
+      return this;
     }
-  } else if (this->data_ < value) {
-    this->left_->Delete(value, this);
   } else {
-    this->right_->Delete(value, this);
+    if (this->data_ > value) {
+      this->left_->Delete(value, this);
+    } else {
+      this->right_->Delete(value, this);
+    }
+    return this;
   }
 }
 

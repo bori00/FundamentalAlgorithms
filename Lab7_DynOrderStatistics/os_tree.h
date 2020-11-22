@@ -42,7 +42,12 @@ class OSTree {
 
     int Select(int index);
 
-    void Delete(int value, Node* parent);
+    /**
+     * Deletes the node with data = @param value from the tree rooted at this node.
+     * @returns the new root of this subtree, needed in case the root of the entire tree was
+     * deleted.
+     */
+    Node* Delete(int value, Node* parent);
 
     /**
      * Deletes the minimum value of the tree rooted at this node and returns its value.
