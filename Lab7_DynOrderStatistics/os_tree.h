@@ -5,14 +5,17 @@
 #ifndef LAB7_DYNORDERSTATISTICS__OS_TREE_H_
 #define LAB7_DYNORDERSTATISTICS__OS_TREE_H_
 
+#include "Profiler.h"
+
 class OSTree {
  public:
   /** Builds a perfectly balanced OS tree containing elements in the interval [1..n]. */
   explicit OSTree(int n);
 
-  int Select(int index);
+  int Select(int index, Operation* op_comp, Operation* op_assign);
 
-  void Delete(int value);
+  void Delete(int value, Operation* op_comp, Operation* op_assign, Operation* op_pointer_comp,
+      Operation* op_pointer_assign);
 
   void PrettyPrint();
 
@@ -40,20 +43,22 @@ class OSTree {
 
     void PrettyPrint(int level);
 
-    int Select(int index);
+    int Select(int index, Operation* op_comp, Operation* op_assign);
 
     /**
      * Deletes the node with data = @param value from the tree rooted at this node.
      * @returns the new root of this subtree, needed in case the root of the entire tree was
      * deleted.
      */
-    Node* Delete(int value, Node* parent);
+    Node* Delete(int value, Node* parent, Operation* op_comp, Operation* op_assign, Operation* op_pointer_comp,
+                 Operation* op_pointer_assign);
 
     /**
      * Deletes the minimum value of the tree rooted at this node and returns its value.
      * @param parent is required not to be nullptr.
      */
-    int DeleteMin(Node* parent);
+    int DeleteMin(Node* parent, Operation* op_pointer_comp,
+                  Operation* op_pointer_assign);
 
    private:
     void ComputeSize();

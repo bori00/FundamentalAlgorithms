@@ -30,13 +30,14 @@ void OSTree::PrettyPrint() {
   this->root->PrettyPrint(0);
 }
 
-int OSTree::Select(int index) {
+int OSTree::Select(int index, Operation* op_comp, Operation* op_assign) {
   assert(this->root->size_ >= index);
-  return this->root->Select(index);
+  return this->root->Select(index, op_comp, op_assign);
 }
 
-void OSTree::Delete(int value) {
-  this->root = this->root->Delete(value, nullptr);
+void OSTree::Delete(int value, Operation* op_comp, Operation* op_assign, Operation* op_pointer_comp,
+                    Operation* op_pointer_assign) {
+  this->root = this->root->Delete(value, nullptr, op_comp, op_assign, op_pointer_comp, op_pointer_assign);
 }
 
 void OSTree::Node::PrettyPrint(int level) {
@@ -63,12 +64,18 @@ void OSTree::Node::ComputeSize() {
   this->size_ = size + 1;
 }
 
-OSTree::Node* OSTree::Node::Delete(int value, Node* parent) {
+OSTree::Node* OSTree::Node::Delete(int value, Node* parent, Operation* op_comp,
+                                    Operation* op_assign, Operation* op_pointer_comp,
+                                   Operation* op_pointer_assign) {
+  op_comp->count();
   if (this->data_ == value) {
+    op_pointer_comp->count(2);
     if (this->left_ == nullptr) { // replace the node by (not necessarily existing) right child
       if (parent == nullptr) {
         return this->right_;
       } else {
+        op_pointer_comp->count();
+        op_pointer_assign->count();
         if (parent->left_ == this) {
           parent->left_ = this->right_;
         } else {
@@ -77,9 +84,12 @@ OSTree::Node* OSTree::Node::Delete(int value, Node* parent) {
         return this;
       }
     } else if (this->right_ == nullptr) { // replace node by left child
+      op_pointer_comp->count();
       if (parent == nullptr) {
         return this->left_;
       } else {
+        op_pointer_comp->count();
+        op_pointer_assign->count();
         if (parent->left_ == this) {
           parent->left_ = this->left_;
         } else {
@@ -88,23 +98,30 @@ OSTree::Node* OSTree::Node::Delete(int value, Node* parent) {
         return this;
       }
     } else { // both children exist: replace node's data by successor's data
-      this->data_ = this->right_->DeleteMin(this);
+      op_pointer_comp->count();
+      this->data_ = this->right_->DeleteMin(this, op_pointer_comp, op_pointer_assign);
       this->size_--;
+      op_assign->count();
       return this;
     }
   } else {
+    op_comp->count();
     if (this->data_ > value) {
-      this->left_->Delete(value, this);
+      this->left_->Delete(value, this, op_comp, op_assign, op_pointer_comp, op_pointer_assign);
     } else {
-      this->right_->Delete(value, this);
+      this->right_->Delete(value, this, op_comp, op_assign, op_pointer_comp, op_pointer_assign);
     }
     this->size_--;
     return this;
   }
 }
 
-int OSTree::Node::DeleteMin(Node* parent) {
+int OSTree::Node::DeleteMin(Node* parent, Operation* op_pointer_comp,
+                            Operation* op_pointer_assign) {
+  op_pointer_comp->count();
   if (this->left_ == nullptr) {
+    op_pointer_assign->count();
+    op_pointer_comp->count();
     if (parent->left_ == this) {
       parent->left_ = this->right_;
     } else {
@@ -113,30 +130,27 @@ int OSTree::Node::DeleteMin(Node* parent) {
     return this->data_;
   } else {
     this->size_--;
-    return this->left_->DeleteMin(this);
+    return this->left_->DeleteMin(this, op_pointer_comp,
+                                  op_pointer_assign);
   }
 }
 
-int OSTree::Node::Select(int index) {
-  int left_size = 0, right_size = 0;
+int OSTree::Node::Select(int index, Operation* op_comp, Operation* op_assign) {
+  int left_size;
+  op_assign->count();
   if (this->left_ != nullptr) {
     left_size = this->left_->size_;
+  } else {
+    left_size = 0;
   }
-  if (this->right_ != nullptr) {
-    right_size = this->right_->size_;
-  }
-  if (this->size_ != left_size + right_size + 1) {
-    cout << "Incosistent sizes: " << endl;
-    cout << "This: " << this->size_ << endl;
-    cout << "Left: " << this->left_->size_ << endl;
-    cout << "Right: " << this->right_->size_ << endl;
-  }
-  assert(this->size_ == left_size + right_size + 1);
   if (index == left_size + 1) {
+    op_comp->count();
     return this->data_;
   } else if (index <= left_size) {
-    return this->left_->Select(index);
+    op_comp->count(2);
+    return this->left_->Select(index, op_comp, op_assign);
   } else {
-    return this->right_->Select(index - left_size - 1);
+    op_comp->count(2);
+    return this->right_->Select(index - left_size - 1, op_comp, op_assign);
   }
 }
