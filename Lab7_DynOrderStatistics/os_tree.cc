@@ -38,6 +38,7 @@ int OSTree::Select(int index, Operation* op_comp, Operation* op_assign) {
 void OSTree::Delete(int value, Operation* op_comp, Operation* op_assign, Operation* op_pointer_comp,
                     Operation* op_pointer_assign) {
   this->root = this->root->Delete(value, nullptr, op_comp, op_assign, op_pointer_comp, op_pointer_assign);
+  op_pointer_assign->count();
 }
 
 void OSTree::Node::PrettyPrint(int level) {

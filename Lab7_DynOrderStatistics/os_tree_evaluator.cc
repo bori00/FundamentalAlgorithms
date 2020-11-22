@@ -34,8 +34,8 @@ void OSTreeEvaluator::Evaluate() {
   p.divideValues("Selection Assignments (on size)", kNoTests);
   p.divideValues("Deletion Comparisons", kNoTests);
   p.divideValues("Deletion Assignments", kNoTests);
-  p.divideValues("Deletion Comparisons (on pointers)", kNoTests);
-  p.divideValues("Deletion Assignments (on pointers)", kNoTests);
+  p.divideValues("Deletion Comparisons-(on pointers)", kNoTests);
+  p.divideValues("Deletion Assignments-(on pointers)", kNoTests);
   p.addSeries("Selection", "Selection Comparisons (on size)", "Selection Assignments (on size)");
   p.addSeries("Deletion", "Deletion Comparisons", "Deletion Assignments");
   p.showReport();
