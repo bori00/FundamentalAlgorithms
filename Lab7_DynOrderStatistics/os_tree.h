@@ -42,7 +42,13 @@ class OSTree {
 
     int Select(int index);
 
-    void Delete(int value);
+    void Delete(int value, Node* parent);
+
+    /**
+     * Deletes the minimum value of the tree rooted at this node and returns its value.
+     * @param parent is required not to be nullptr.
+     */
+    int DeleteMin(Node* parent);
 
    private:
     void ComputeSize();

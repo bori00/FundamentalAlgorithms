@@ -61,14 +61,41 @@ void OSTree::Node::ComputeSize() {
   this->size_ = size + 1;
 }
 
-void OSTree::Node::Delete(int value) {
+void OSTree::Node::Delete(int value, Node* parent) {
   this->size_--;
   if (this->data_ == value) {
-    // delete from here
+    if (this->left_ == nullptr) { // replace the node by (not necessarily existing) right child
+      if (parent->left_ == this) {
+        parent->left_  = this->right_;
+      } else {
+        parent->right_ = this->right_;
+      }
+    } else if (this->right_ == nullptr) { // replace node by left child
+      if (parent->left_ == this) {
+        parent->left_  = this->left_;
+      } else {
+        parent->right_ = this->left_;
+      }
+    } else { // both children exist: replace node's data by successor's data
+      this->data_ = this->right_->DeleteMin(this);
+    }
   } else if (this->data_ < value) {
-    this->left_->Delete(value);
+    this->left_->Delete(value, this);
   } else {
-    this->right_->Delete(value);
+    this->right_->Delete(value, this);
+  }
+}
+
+int OSTree::Node::DeleteMin(Node* parent) {
+  if (this->left_ == nullptr) {
+    if (parent->left_ == this) {
+      parent->left_ = this->right_;
+    } else {
+      parent->right_ = this->right_;
+    }
+    return this->data_;
+  } else {
+    return this->left_->DeleteMin(this);
   }
 }
 
