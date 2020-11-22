@@ -12,6 +12,8 @@ void OSTreeEvaluator::Evaluate() {
   Profiler p("OSTree evaluation");
   for (int size = kMinSize; size < kMaxSize; size += kStepSize) {
     cout << "Evaluate size " << size << endl;
+    Operation op_comp_build = p.createOperation("Build Comparisons", size);
+    Operation op_assign_build = p.createOperation("Build Assignments", size);
     Operation op_comp_select = p.createOperation("Selection Comparisons (on size)", size);
     Operation op_assign_select = p.createOperation("Selection Assignments (on size)", size);
     Operation op_comp_delete = p.createOperation("Deletion Comparisons", size);
@@ -21,7 +23,7 @@ void OSTreeEvaluator::Evaluate() {
     Operation op_assign_delete_pointer = p.createOperation("Deletion Assignments-(on pointers)",
         size);
     for (int testNr = 0; testNr < kNoTests; testNr++) {
-      OSTree os_tree(size);
+      OSTree os_tree(size, &op_comp_build, &op_assign_build);
       for (int rem_size = size; rem_size > 0; rem_size--) {
         int selection_index = rand() % rem_size + 1;
         int value = os_tree.Select(selection_index, &op_comp_select, &op_assign_select);
@@ -30,6 +32,8 @@ void OSTreeEvaluator::Evaluate() {
       }
     }
   }
+  p.divideValues("Build Comparisons", kNoTests);
+  p.divideValues("Build Assignments", kNoTests);
   p.divideValues("Selection Comparisons (on size)", kNoTests);
   p.divideValues("Selection Assignments (on size)", kNoTests);
   p.divideValues("Deletion Comparisons", kNoTests);
@@ -38,5 +42,6 @@ void OSTreeEvaluator::Evaluate() {
   p.divideValues("Deletion Assignments-(on pointers)", kNoTests);
   p.addSeries("Selection", "Selection Comparisons (on size)", "Selection Assignments (on size)");
   p.addSeries("Deletion", "Deletion Comparisons", "Deletion Assignments");
+  p.addSeries("Build", "Build Comparisons", "Build Assignments");
   p.showReport();
 }

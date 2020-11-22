@@ -12,30 +12,32 @@ Operation op_comp_delete = p.createOperation("ignorecompdelete", 0);
 Operation op_assign_delete = p.createOperation("ignoreassigndelete", 0);
 Operation op_pointer_comp_delete = p.createOperation("ignorecompdeletepointer", 0);
 Operation op_pointer_assign_delete = p.createOperation("ignoreassigndeletepointer", 0);
+Operation op_comp_build = p.createOperation("Build Comparisons", 0);
+Operation op_assign_build = p.createOperation("Build Assignments", 0);
 
 TEST(OSTree, select_1) {
-  OSTree os_tree(10);
+  OSTree os_tree(10, &op_comp_build, &op_assign_build);
   EXPECT_EQ(4, os_tree.Select(4, &op_comp_select, &op_assign_select));
 }
 
 TEST(OSTree, select_2) {
-  OSTree os_tree(19);
+  OSTree os_tree(19, &op_comp_build, &op_assign_build);
   EXPECT_EQ(7, os_tree.Select(7, &op_comp_select, &op_assign_select));
 }
 
 
 TEST(OSTree, select_3) {
-  OSTree os_tree(1001);
+  OSTree os_tree(1001, &op_comp_build, &op_assign_build);
   EXPECT_EQ(523, os_tree.Select(523, &op_comp_select, &op_assign_select));
 }
 
 TEST(OSTree, select_4) {
-  OSTree os_tree(1000);
+  OSTree os_tree(1000, &op_comp_build, &op_assign_build);
   EXPECT_EQ(500, os_tree.Select(500, &op_comp_select, &op_assign_select));
 }
 
 TEST(OSTree, select_after_delete_1) {
-  OSTree os_tree(10);
+  OSTree os_tree(10, &op_comp_build, &op_assign_build);
   os_tree.Delete(2, &op_comp_delete, &op_assign_delete, &op_pointer_comp_delete,
                  &op_pointer_assign_delete);
   os_tree.Delete(8, &op_comp_delete, &op_assign_delete, &op_pointer_comp_delete,
@@ -46,7 +48,7 @@ TEST(OSTree, select_after_delete_1) {
 }
 
 TEST(OSTree, select_after_delete_2) {
-  OSTree os_tree(25);
+  OSTree os_tree(25, &op_comp_build, &op_assign_build);
   os_tree.Delete(1, &op_comp_delete, &op_assign_delete, &op_pointer_comp_delete,
                  &op_pointer_assign_delete);
   os_tree.Delete(10, &op_comp_delete, &op_assign_delete, &op_pointer_comp_delete,
@@ -63,7 +65,7 @@ TEST(OSTree, select_after_delete_2) {
 }
 
 TEST(OSTree, select_after_delete_3) {
-  OSTree os_tree(25);
+  OSTree os_tree(25, &op_comp_build, &op_assign_build);
   os_tree.Delete(1, &op_comp_delete, &op_assign_delete, &op_pointer_comp_delete,
                  &op_pointer_assign_delete);
   os_tree.Delete(10, &op_comp_delete, &op_assign_delete, &op_pointer_comp_delete,

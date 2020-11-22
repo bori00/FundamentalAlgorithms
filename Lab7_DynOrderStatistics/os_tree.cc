@@ -9,20 +9,25 @@
 
 using namespace std;
 
-OSTree::OSTree(int n) {
-  this->root = BuildTree(1, n);
+OSTree::OSTree(int n, Operation* op_comp, Operation* op_assign) {
+  this->root = BuildTree(1, n, op_comp, op_assign);
 }
 
-OSTree::Node *OSTree::BuildTree(int min, int max) {
-  if (min > max) return nullptr;
+OSTree::Node *OSTree::BuildTree(int min, int max, Operation* op_comp, Operation* op_assign) {
   int middle = (min + max) / 2;
-  Node* left = nullptr, *right = nullptr;
+  Node* left, *right;
   if (min <= middle - 1) {
-    left = BuildTree(min, middle - 1);
+    left = BuildTree(min, middle - 1, op_comp, op_assign);
+  } else {
+    left = nullptr;
   }
   if (max >= middle + 1) {
-    right = BuildTree(middle + 1, max);
+    right = BuildTree(middle + 1, max, op_comp, op_assign);
+  } else {
+    right = nullptr;
   }
+  op_comp->count(2);
+  op_assign->count(2);
   return new Node(middle, left, right);
 }
 

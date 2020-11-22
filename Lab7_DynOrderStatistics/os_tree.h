@@ -10,7 +10,7 @@
 class OSTree {
  public:
   /** Builds a perfectly balanced OS tree containing elements in the interval [1..n]. */
-  explicit OSTree(int n);
+  OSTree(int n, Operation* op_comp, Operation* op_assign);
 
   int Select(int index, Operation* op_comp, Operation* op_assign);
 
@@ -68,7 +68,7 @@ class OSTree {
    * Builds a perfectly balanced OS tree containing elements in the interval [min..max], and
    * returns the root
    */
-  Node* BuildTree(int min, int max);
+  Node* BuildTree(int min, int max, Operation* op_comp, Operation* op_assign);
 
   Node* root;
 };
