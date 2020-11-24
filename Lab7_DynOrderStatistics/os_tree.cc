@@ -87,7 +87,7 @@ OSTree::Node* OSTree::Node::Delete(int value, Node* parent, Operation* op_comp,
         } else {
           parent->right_ = this->right_;
         }
-        return this;
+        return this->right_;
       }
     } else if (this->right_ == nullptr) { // replace node by left child
       op_pointer_comp->count();
@@ -101,7 +101,7 @@ OSTree::Node* OSTree::Node::Delete(int value, Node* parent, Operation* op_comp,
         } else {
           parent->right_ = this->left_;
         }
-        return this;
+        return this->left_;
       }
     } else { // both children exist: replace node's data by successor's data
       op_pointer_comp->count();
