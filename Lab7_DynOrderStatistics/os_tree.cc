@@ -77,39 +77,15 @@ OSTree::Node* OSTree::Node::Delete(int value, Node* parent, Operation* op_comp,
   if (this->data_ == value) {
     op_pointer_comp->count(2);
     if (this->left_ == nullptr) { // replace the node by (not necessarily existing) right child
-      op_pointer_comp->count(2);
+      op_pointer_comp->count(1);
       Node* rightChild = this->right_;
-      if (parent == nullptr) {
-        delete this;
-        return rightChild;
-      } else {
-        op_pointer_comp->count();
-        op_pointer_assign->count();
-        if (parent->left_ == this) {
-          parent->left_ = this->right_;
-        } else {
-          parent->right_ = this->right_;
-        }
-        delete this;
-        return rightChild;
-      }
+      delete this;
+      return rightChild;
     } else if (this->right_ == nullptr) { // replace node by left child
-      op_pointer_comp->count(2);
+      op_pointer_comp->count(1);
       Node* leftChild = this->left_;
-      if (parent == nullptr) {
-        delete this;
-        return leftChild;
-      } else {
-        op_pointer_comp->count();
-        op_pointer_assign->count();
-        if (parent->left_ == this) {
-          parent->left_ = this->left_;
-        } else {
-          parent->right_ = this->left_;
-        }
-        delete this;
-        return leftChild;
-      }
+      delete this;
+      return leftChild;
     } else { // both children exist: replace node's data by successor's data
       op_pointer_comp->count();
       this->data_ = this->right_->DeleteMin(this, op_pointer_comp, op_pointer_assign);
@@ -120,9 +96,11 @@ OSTree::Node* OSTree::Node::Delete(int value, Node* parent, Operation* op_comp,
   } else {
     op_comp->count();
     if (this->data_ > value) {
-      this->left_->Delete(value, this, op_comp, op_assign, op_pointer_comp, op_pointer_assign);
+      this->left_ = this->left_->Delete(value, this, op_comp, op_assign, op_pointer_comp,
+          op_pointer_assign);
     } else {
-      this->right_->Delete(value, this, op_comp, op_assign, op_pointer_comp, op_pointer_assign);
+      this->right_ = this->right_->Delete(value, this, op_comp, op_assign, op_pointer_comp,
+          op_pointer_assign);
     }
     this->size_--;
     return this;
