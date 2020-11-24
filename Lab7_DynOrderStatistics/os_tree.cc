@@ -140,7 +140,9 @@ int OSTree::Node::DeleteMin(Node* parent, Operation* op_pointer_comp,
     } else {
       parent->right_ = this->right_;
     }
-    return this->data_;
+    int data = this->data_;
+    delete this;
+    return data;
   } else {
     this->size_--;
     return this->left_->DeleteMin(this, op_pointer_comp,
