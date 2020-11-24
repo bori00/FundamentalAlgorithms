@@ -75,14 +75,15 @@ OSTree::Node* OSTree::Node::Delete(int value, Node* parent, Operation* op_comp,
                                    Operation* op_pointer_assign) {
   op_comp->count();
   if (this->data_ == value) {
-    op_pointer_comp->count(2);
+    op_pointer_comp->count(1);
     if (this->left_ == nullptr) { // replace the node by (not necessarily existing) right child
-      op_pointer_comp->count(1);
+      op_pointer_assign->count(1);
       Node* rightChild = this->right_;
       delete this;
       return rightChild;
     } else if (this->right_ == nullptr) { // replace node by left child
       op_pointer_comp->count(1);
+      op_pointer_assign->count(1);
       Node* leftChild = this->left_;
       delete this;
       return leftChild;
