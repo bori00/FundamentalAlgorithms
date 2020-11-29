@@ -30,7 +30,7 @@ void Graph::AddUniqueEdges(int no_edges) {
     n2 = rand() % no_nodes_;
     if (n1 != n2 && edge_set.find(Edge(n1, n2, 0)) == edge_set.end()) {
       weight = rand() % Edge::kMaxWeight;
-      // edge_set.insert(Edge(n1, n2, weight));
+      edge_set.insert(Edge(n1, n2, weight));
       this->edges.emplace_back(n1, n2, weight);
       no_edges--;
     }
