@@ -5,6 +5,11 @@
 #ifndef LAB8_DISJOINTSETS__GRAPH_H_
 #define LAB8_DISJOINTSETS__GRAPH_H_
 
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
 class Graph {
  public:
   explicit Graph(int n);
@@ -13,13 +18,34 @@ class Graph {
 
  private:
   class Edge {
-    int n1_, n2_, w_;
-
    public:
+    int n1_, n2_, w_;
+    static const int kMaxWeight = 1000000;
+
     Edge(int n_1, int n_2, int w);
+
+    friend bool operator == (const Edge &e1, const Edge &e2) {
+      return e1.n1_ == e2.n2_ && e1.n2_ == e2.n2_;
+    }
+
+    class EdgeHash{
+     public:
+      std::size_t operator()(const Edge &e) const {
+        std::hash<int> hashVal;
+        return hashVal(e.n1_) + hashVal(e.n2_);
+      }
+    };
   };
 
-  int no_nodes;
+  int no_nodes_;
+  vector<Edge> edges;
+
+  void FillWithRandomTree(int n);
+
+  void AddUniqueEdges(int no_edges);
+
+ public:
+  void AddEdge(Edge e);
 };
 
 #endif //LAB8_DISJOINTSETS__GRAPH_H_
