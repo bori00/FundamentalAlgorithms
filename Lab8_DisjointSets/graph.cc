@@ -4,7 +4,9 @@
 
 #include <cstdlib>
 #include <unordered_set>
+#include <algorithm>
 #include "graph.h"
+#include "disjoint_set.h"
 
 Graph::Graph(int n) {
   this->no_nodes_ = n;
@@ -13,7 +15,7 @@ Graph::Graph(int n) {
 Graph Graph::GenerateRandomGraph(int n) {
   Graph* g = new Graph(n);
   g->FillWithRandomTree(n);
-  g->AddUniqueEdges(3*n);
+  g->AddUniqueEdges(3 * n + 1);
   return *g;
 }
 
@@ -45,6 +47,27 @@ void Graph::FillWithRandomTree(int n) {
     int w = rand() % Graph::Edge::kMaxWeight;
     this->AddEdge(Edge(n1, n2, w));
   }
+}
+
+vector<Graph::Edge> Graph::Kruskal() {
+  vector<Edge> kruskal_tree;
+  sort(this->edges.begin(), this->edges.end(), Graph::Edge::SmallerWeight);
+  DisjointSet disjoint_set;
+  for (int i = 0; i < this->no_nodes_ - 1; i++) {
+    disjoint_set.MakeSet(i);
+  }
+  int edge_index = 0, no_tree_edges = 0;
+  while (no_tree_edges < this->no_nodes_-1) {
+    if (disjoint_set.FindSet(edges.at(edge_index).n1_) != disjoint_set.FindSet(edges.at
+    (edge_index).n2_)) {
+      disjoint_set.Union(edges.at(edge_index).n1_, edges.at(edge_index).n2_);
+      kruskal_tree.push_back(edges.at(edge_index));
+      no_tree_edges++;
+    }
+    no_tree_edges++;
+    edge_index++;
+  }
+  return kruskal_tree;
 }
 
 Graph::Edge::Edge(int n_1, int n_2, int w) : n1_(n_1), n2_(n_2), w_(w) {}

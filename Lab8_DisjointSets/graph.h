@@ -16,7 +16,7 @@ class Graph {
 
   static Graph GenerateRandomGraph(int n);
 
- private:
+  //todo make fields private
   class Edge {
    public:
     int n1_, n2_, w_;
@@ -28,6 +28,10 @@ class Graph {
       return e1.n1_ == e2.n2_ && e1.n2_ == e2.n2_;
     }
 
+    static bool SmallerWeight(Edge e1, Edge e2) {
+      return e1.w_ < e2.w_;
+    }
+
     class EdgeHash{
      public:
       std::size_t operator()(const Edge &e) const {
@@ -36,6 +40,10 @@ class Graph {
       }
     };
   };
+
+  vector<Edge> Kruskal();
+
+ private:
 
   int no_nodes_;
   vector<Edge> edges;
