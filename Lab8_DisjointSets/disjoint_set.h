@@ -7,6 +7,8 @@
 
 class DisjointSet {
  public:
+  DisjointSet();
+
   void MakeSet(int value);
 
   int FindSet(int value);

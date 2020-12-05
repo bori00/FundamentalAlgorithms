@@ -31,3 +31,9 @@ void DisjointSet::Union(int value1, int value2) {
     }
   }
 }
+
+DisjointSet::DisjointSet() {
+  for (int i = 0; i < kMaxSize; i++) {
+    sets[i] = nullptr;
+  }
+}
