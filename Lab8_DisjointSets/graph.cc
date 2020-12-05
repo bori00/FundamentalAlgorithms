@@ -24,6 +24,7 @@ Graph Graph::GenerateRandomGraph(int n) {
 }
 
 void Graph::AddUniqueEdges(int no_edges) {
+  srand (time(NULL));
   unordered_set<Graph::Edge, Edge::EdgeHash> edge_set;
   for (Edge e : this->edges) {
     edge_set.insert(e);
