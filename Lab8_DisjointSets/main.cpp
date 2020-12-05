@@ -7,18 +7,22 @@ using namespace std;
 void disjoint_sets_demo1();
 void disjoint_sets_demo2();
 void disjoint_sets_demo3();
+void kruskal_demo1();
+void kruskal_demo2();
+void kruskal_demo3();
 
 int main() {
   disjoint_sets_demo1();
   disjoint_sets_demo2();
   disjoint_sets_demo3();
-  Graph g = Graph::GenerateRandomGraph(10);
-  vector<Graph::Edge> kruskal_tree = g.Kruskal();
+  kruskal_demo1();
+  kruskal_demo2();
+  kruskal_demo3();
   return 0;
 }
 
 void disjoint_sets_demo1() {
-  cout << "---------Demo 1---------" << endl;
+  cout << "---------Disjoint Sets: Demo 1---------" << endl;
   cout << "Sets with values from 0 to 9" << endl;
   DisjointSet disjoint_set;
   for (int i = 0; i < 10; i++) {
@@ -43,7 +47,7 @@ void disjoint_sets_demo1() {
 }
 
 void disjoint_sets_demo2() {
-  cout << "---------Demo 1---------" << endl;
+  cout << "---------Disjoint Sets: Demo 1---------" << endl;
   cout << "Sets with values from 0 to 8" << endl;
   DisjointSet disjoint_set;
   for (int i = 0; i < 9; i++) {
@@ -70,7 +74,7 @@ void disjoint_sets_demo2() {
 }
 
 void disjoint_sets_demo3() {
-  cout << "---------Demo 3---------" << endl;
+  cout << "---------Disjoint Sets: Demo 3---------" << endl;
   cout << "Sets with values from 0 to 100" << endl;
   DisjointSet disjoint_set;
   for (int i = 0; i < 100; i++) {
@@ -86,4 +90,61 @@ void disjoint_sets_demo3() {
     cout << disjoint_set.FindSet(i) << " ";
   }
   cout << endl;
+}
+
+void kruskal_demo1() {
+  cout << "---------Kruskal: Demo 1---------" << endl;
+  cout << "(see attached doc for drawing)" << endl;
+  Graph g(8);
+  g.AddEdge(Graph::Edge(0, 1, 15));
+  g.AddEdge(Graph::Edge(0, 4, 12));
+  g.AddEdge(Graph::Edge(0, 5, 20));
+  g.AddEdge(Graph::Edge(0, 7, 10));
+  g.AddEdge(Graph::Edge(1, 2, 12));
+  g.AddEdge(Graph::Edge(1, 4, 10));
+  g.AddEdge(Graph::Edge(2, 5, 15));
+  g.AddEdge(Graph::Edge(3, 7, 3));
+  g.AddEdge(Graph::Edge(4, 5, 18));
+  g.AddEdge(Graph::Edge(5, 7, 8));
+  g.AddEdge(Graph::Edge(6, 7, 5));
+  vector<Graph::Edge> edges = g.Kruskal();
+  cout << "Edges of Kruskal Tree: " << endl;
+  for (Graph::Edge edge : edges) {
+    cout << edge.n1_ << " " << edge.n2_ << " " << edge.w_ << endl;
+  }
+}
+
+void kruskal_demo2() {
+  cout << "---------Kruskal: Demo 2---------" << endl;
+  cout << "(see attached doc for drawing)" << endl;
+  Graph g(6);
+  g.AddEdge(Graph::Edge(0, 2, 10));
+  g.AddEdge(Graph::Edge(0, 3, 10));
+  g.AddEdge(Graph::Edge(0, 5, 10));
+  g.AddEdge(Graph::Edge(1, 3, 2));
+  g.AddEdge(Graph::Edge(1, 4, 3));
+  g.AddEdge(Graph::Edge(2, 3, 10));
+  g.AddEdge(Graph::Edge(3, 4, 5));
+  g.AddEdge(Graph::Edge(4, 5, 15));
+  vector<Graph::Edge> edges = g.Kruskal();
+  cout << "Edges of Kruskal Tree: " << endl;
+  for (Graph::Edge edge : edges) {
+    cout << edge.n1_ << " " << edge.n2_ << " " << edge.w_ << endl;
+  }
+}
+
+void kruskal_demo3() {
+  cout << "---------Kruskal: Demo 3---------" << endl;
+  cout << "(see attached doc for drawing)" << endl;
+  Graph g(5);
+  for (int i = 0; i < 6; i++) {
+    for (int j = i + 1; j < 6; j++) {
+      g.AddEdge(Graph::Edge(i, j, 1));
+    }
+  }
+  vector<Graph::Edge> edges = g.Kruskal();
+  cout << "Edges of Kruskal Tree: " << endl;
+  for (Graph::Edge edge : edges) {
+    cout << edge.n1_ << " " << edge.n2_ << " " << edge.w_ << endl;
+  }
 }
