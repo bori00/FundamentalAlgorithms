@@ -6,6 +6,7 @@
 #include <unordered_set>
 #include <algorithm>
 #include <math.h>
+#include <assert.h>
 #include "graph.h"
 #include "disjoint_set.h"
 
@@ -27,17 +28,18 @@ void Graph::AddUniqueEdges(int no_edges) {
   for (Edge e : this->edges) {
     edge_set.insert(e);
   }
-  int n1, n2, weight = 0;
-  while (no_edges > 0) {
+  int n1, n2, weight = 0, no_inserted_edges = 0;
+  while (no_edges > no_inserted_edges) {
     n1 = rand() % no_nodes_;
     n2 = rand() % no_nodes_;
     if (n1 != n2 && edge_set.find(Edge(n1, n2, 0)) == edge_set.end()) {
       weight = rand() % Edge::kMaxWeight;
       edge_set.insert(Edge(n1, n2, weight));
       this->edges.emplace_back(n1, n2, weight);
-      no_edges--;
+      no_inserted_edges++;
     }
   }
+  assert(edge_set.size() == 4*this->no_nodes_);
 }
 
 void Graph::AddEdge(Graph::Edge e) {
@@ -53,7 +55,7 @@ void Graph::FillWithRandomTree(int n) {
 }
 
 vector<Graph::Edge> Graph::Kruskal(Operation* sort_op, Operation* make_set_op, Operation* find_set_op,
-                                   Operation* union_set_op) {
+                                   Operation* union_set_op, Operation* other_op) {
   vector<Edge> kruskal_tree;
   sort(this->edges.begin(), this->edges.end(), Graph::Edge::SmallerWeight);
   sort_op->count(this->edges.size()*log2(this->edges.size()));
@@ -63,6 +65,7 @@ vector<Graph::Edge> Graph::Kruskal(Operation* sort_op, Operation* make_set_op, O
   }
   int edge_index = 0, no_tree_edges = 0;
   while (no_tree_edges < this->no_nodes_ - 1) {
+    other_op->count();
     if (disjoint_set.FindSet(edges.at(edge_index).n1_) != disjoint_set.FindSet(edges.at
     (edge_index).n2_)) {
       disjoint_set.Union(edges.at(edge_index).n1_, edges.at(edge_index).n2_);

@@ -1,6 +1,7 @@
 #include <iostream>
 #include "disjoint_set.h"
 #include "graph.h"
+#include "kruskal_evaluator.h"
 
 using namespace std;
 
@@ -18,6 +19,7 @@ int main() {
   kruskal_demo1();
   kruskal_demo2();
   kruskal_demo3();
+  KruskalEvaluator::Evaluate();
   return 0;
 }
 
@@ -110,7 +112,7 @@ void kruskal_demo1() {
   g.AddEdge(Graph::Edge(4, 5, 18));
   g.AddEdge(Graph::Edge(5, 7, 8));
   g.AddEdge(Graph::Edge(6, 7, 5));
-  vector<Graph::Edge> edges = g.Kruskal(&ignore_op, &ignore_op, &ignore_op, &ignore_op);
+  vector<Graph::Edge> edges = g.Kruskal(&ignore_op, &ignore_op, &ignore_op, &ignore_op, &ignore_op);
   cout << "Edges of Kruskal Tree: " << endl;
   for (Graph::Edge edge : edges) {
     cout << edge.n1_ << " " << edge.n2_ << " " << edge.w_ << endl;
@@ -129,7 +131,7 @@ void kruskal_demo2() {
   g.AddEdge(Graph::Edge(2, 3, 10));
   g.AddEdge(Graph::Edge(3, 4, 5));
   g.AddEdge(Graph::Edge(4, 5, 15));
-  vector<Graph::Edge> edges = g.Kruskal(&ignore_op, &ignore_op, &ignore_op, &ignore_op);
+  vector<Graph::Edge> edges = g.Kruskal(&ignore_op, &ignore_op, &ignore_op, &ignore_op, &ignore_op);
   cout << "Edges of Kruskal Tree: " << endl;
   for (Graph::Edge edge : edges) {
     cout << edge.n1_ << " " << edge.n2_ << " " << edge.w_ << endl;
@@ -145,7 +147,7 @@ void kruskal_demo3() {
       g.AddEdge(Graph::Edge(i, j, 1));
     }
   }
-  vector<Graph::Edge> edges = g.Kruskal(&ignore_op, &ignore_op, &ignore_op, &ignore_op);
+  vector<Graph::Edge> edges = g.Kruskal(&ignore_op, &ignore_op, &ignore_op, &ignore_op, &ignore_op);
   cout << "Edges of Kruskal Tree: " << endl;
   for (Graph::Edge edge : edges) {
     cout << edge.n1_ << " " << edge.n2_ << " " << edge.w_ << endl;

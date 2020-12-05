@@ -42,7 +42,7 @@ class Graph {
   };
 
   vector<Edge> Kruskal(Operation* sort_op, Operation* make_set_op, Operation* find_set_op,
-      Operation* union_set_op);
+      Operation* union_set_op, Operation* other_op);
 
  private:
   int no_nodes_;
