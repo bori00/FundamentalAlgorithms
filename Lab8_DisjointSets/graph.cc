@@ -5,8 +5,11 @@
 #include <cstdlib>
 #include <unordered_set>
 #include <algorithm>
+#include <math.h>
 #include "graph.h"
 #include "disjoint_set.h"
+
+using namespace std;
 
 Graph::Graph(int n) {
   this->no_nodes_ = n;
@@ -49,10 +52,12 @@ void Graph::FillWithRandomTree(int n) {
   }
 }
 
-vector<Graph::Edge> Graph::Kruskal() {
+vector<Graph::Edge> Graph::Kruskal(Operation* sort_op, Operation* make_set_op, Operation* find_set_op,
+                                   Operation* union_set_op) {
   vector<Edge> kruskal_tree;
   sort(this->edges.begin(), this->edges.end(), Graph::Edge::SmallerWeight);
-  DisjointSet disjoint_set;
+  sort_op->count(this->edges.size()*log2(this->edges.size()));
+  DisjointSet disjoint_set(make_set_op, find_set_op, union_set_op);
   for (int i = 0; i < this->no_nodes_; i++) {
     disjoint_set.MakeSet(i);
   }

@@ -5,9 +5,10 @@
 #ifndef LAB8_DISJOINTSETS__DISJOINT_SET_H_
 #define LAB8_DISJOINTSETS__DISJOINT_SET_H_
 
+#include "Profiler.h"
 class DisjointSet {
  public:
-  DisjointSet();
+  DisjointSet(Operation* make_set_op, Operation* find_set_op, Operation* union_op);
 
   void MakeSet(int value);
 
@@ -32,7 +33,8 @@ class DisjointSet {
   };
 
   static const int kMaxSize = 10001;
-  Node* sets[kMaxSize];
+  Node* sets[kMaxSize]{};
+  Operation* make_set_op, *find_set_op, *union_op;
 };
 
 #endif //LAB8_DISJOINTSETS__DISJOINT_SET_H_

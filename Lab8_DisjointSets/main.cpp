@@ -21,10 +21,13 @@ int main() {
   return 0;
 }
 
+Profiler ignore_p("ignore");
+Operation ignore_op = ignore_p.createOperation("ignore", 0);
+
 void disjoint_sets_demo1() {
   cout << "---------Disjoint Sets: Demo 1---------" << endl;
   cout << "Sets with values from 0 to 9" << endl;
-  DisjointSet disjoint_set;
+  DisjointSet disjoint_set(&ignore_op, &ignore_op, &ignore_op);
   for (int i = 0; i < 10; i++) {
     disjoint_set.MakeSet(i);
   }
@@ -49,7 +52,7 @@ void disjoint_sets_demo1() {
 void disjoint_sets_demo2() {
   cout << "---------Disjoint Sets: Demo 1---------" << endl;
   cout << "Sets with values from 0 to 8" << endl;
-  DisjointSet disjoint_set;
+  DisjointSet disjoint_set(&ignore_op, &ignore_op, &ignore_op);
   for (int i = 0; i < 9; i++) {
     disjoint_set.MakeSet(i);
   }
@@ -76,7 +79,7 @@ void disjoint_sets_demo2() {
 void disjoint_sets_demo3() {
   cout << "---------Disjoint Sets: Demo 3---------" << endl;
   cout << "Sets with values from 0 to 100" << endl;
-  DisjointSet disjoint_set;
+  DisjointSet disjoint_set(&ignore_op, &ignore_op, &ignore_op);
   for (int i = 0; i < 100; i++) {
     disjoint_set.MakeSet(i);
   }
@@ -107,7 +110,7 @@ void kruskal_demo1() {
   g.AddEdge(Graph::Edge(4, 5, 18));
   g.AddEdge(Graph::Edge(5, 7, 8));
   g.AddEdge(Graph::Edge(6, 7, 5));
-  vector<Graph::Edge> edges = g.Kruskal();
+  vector<Graph::Edge> edges = g.Kruskal(&ignore_op, &ignore_op, &ignore_op, &ignore_op);
   cout << "Edges of Kruskal Tree: " << endl;
   for (Graph::Edge edge : edges) {
     cout << edge.n1_ << " " << edge.n2_ << " " << edge.w_ << endl;
@@ -126,7 +129,7 @@ void kruskal_demo2() {
   g.AddEdge(Graph::Edge(2, 3, 10));
   g.AddEdge(Graph::Edge(3, 4, 5));
   g.AddEdge(Graph::Edge(4, 5, 15));
-  vector<Graph::Edge> edges = g.Kruskal();
+  vector<Graph::Edge> edges = g.Kruskal(&ignore_op, &ignore_op, &ignore_op, &ignore_op);
   cout << "Edges of Kruskal Tree: " << endl;
   for (Graph::Edge edge : edges) {
     cout << edge.n1_ << " " << edge.n2_ << " " << edge.w_ << endl;
@@ -142,7 +145,7 @@ void kruskal_demo3() {
       g.AddEdge(Graph::Edge(i, j, 1));
     }
   }
-  vector<Graph::Edge> edges = g.Kruskal();
+  vector<Graph::Edge> edges = g.Kruskal(&ignore_op, &ignore_op, &ignore_op, &ignore_op);
   cout << "Edges of Kruskal Tree: " << endl;
   for (Graph::Edge edge : edges) {
     cout << edge.n1_ << " " << edge.n2_ << " " << edge.w_ << endl;

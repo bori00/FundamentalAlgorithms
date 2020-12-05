@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <iostream>
+#include "Profiler.h"
 
 using namespace std;
 
@@ -16,7 +17,6 @@ class Graph {
 
   static Graph GenerateRandomGraph(int n);
 
-  //todo make fields private
   class Edge {
    public:
     int n1_, n2_, w_;
@@ -41,7 +41,8 @@ class Graph {
     };
   };
 
-  vector<Edge> Kruskal();
+  vector<Edge> Kruskal(Operation* sort_op, Operation* make_set_op, Operation* find_set_op,
+      Operation* union_set_op);
 
  private:
   int no_nodes_;
