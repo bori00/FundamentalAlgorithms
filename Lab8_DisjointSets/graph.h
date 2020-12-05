@@ -44,7 +44,6 @@ class Graph {
   vector<Edge> Kruskal();
 
  private:
-
   int no_nodes_;
   vector<Edge> edges;
 

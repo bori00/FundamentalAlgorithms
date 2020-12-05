@@ -53,18 +53,17 @@ vector<Graph::Edge> Graph::Kruskal() {
   vector<Edge> kruskal_tree;
   sort(this->edges.begin(), this->edges.end(), Graph::Edge::SmallerWeight);
   DisjointSet disjoint_set;
-  for (int i = 0; i < this->no_nodes_ - 1; i++) {
+  for (int i = 0; i < this->no_nodes_; i++) {
     disjoint_set.MakeSet(i);
   }
   int edge_index = 0, no_tree_edges = 0;
-  while (no_tree_edges < this->no_nodes_-1) {
+  while (no_tree_edges < this->no_nodes_ - 1) {
     if (disjoint_set.FindSet(edges.at(edge_index).n1_) != disjoint_set.FindSet(edges.at
     (edge_index).n2_)) {
       disjoint_set.Union(edges.at(edge_index).n1_, edges.at(edge_index).n2_);
       kruskal_tree.push_back(edges.at(edge_index));
       no_tree_edges++;
     }
-    no_tree_edges++;
     edge_index++;
   }
   return kruskal_tree;
