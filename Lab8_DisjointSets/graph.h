@@ -25,7 +25,7 @@ class Graph {
     Edge(int n_1, int n_2, int w);
 
     friend bool operator == (const Edge &e1, const Edge &e2) {
-      return e1.n1_ == e2.n2_ && e1.n2_ == e2.n2_;
+      return e1.n1_ == e2.n1_ && e1.n2_ == e2.n2_;
     }
 
     static bool SmallerWeight(Edge e1, Edge e2) {
