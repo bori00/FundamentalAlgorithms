@@ -2,6 +2,8 @@
 #include <string.h>
 #include "bfs.h"
 
+#include <queue>
+
 bool is_in_grid(const Grid* grid, Point p)
 {
     return p.row >= 0 && p.row < grid->rows && p.col >= 0 && p.col < grid->cols;
@@ -137,6 +139,31 @@ void bfs(Graph *graph, Node *s, Operation *op)
     // for counting the number of operations, the optional op parameter is received
     // since op can be NULL (when we are calling the bfs for display purposes), you should check it before counting:
     // if(op != NULL) op->count();
+    std::queue<Node*> bfs_queue;
+	for (int i = 0; i < graph->nrNodes; i++)
+	{
+        graph->v[i]->color = COLOR_WHITE;
+	}
+    s->color = COLOR_GRAY;
+    s->dist = 0;
+    bfs_queue.push(s);
+	while (!bfs_queue.empty())
+	{
+        Node* curr_node = bfs_queue.front();
+		// process neighbors
+		for (int i = 0; i < curr_node->adjSize; i++)
+		{
+			if (curr_node->adj[i]->color == COLOR_WHITE)
+			{
+                bfs_queue.push(curr_node->adj[i]);
+                curr_node->adj[i]->parent = curr_node;
+                curr_node->adj[i]->color = COLOR_GRAY;
+                curr_node->adj[i]->dist = curr_node->dist + 1;
+			}
+		}
+        bfs_queue.pop();
+        curr_node->color = COLOR_BLACK;
+	}
 }
 
 void print_bfs_tree(Graph *graph)
