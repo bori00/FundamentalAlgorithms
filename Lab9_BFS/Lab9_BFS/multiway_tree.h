@@ -7,6 +7,8 @@
 
 #include <stdlib.h>
 #include <vector>
+
+#include "bfs.h"
 #include "parent_array_multiway_tree.h"
 
 using namespace std;
@@ -17,8 +19,10 @@ class MultiwayTree {
 
   void PrettyPrint();
 
+  void PrettyPrint(Point* repr);
+
  private:
-  class MultiWayNode {
+  static class MultiWayNode {
    public:
     int data_;
     int no_children_ = 0;
@@ -40,6 +44,8 @@ class MultiwayTree {
   bool DFS(MultiWayNode* root, vector<bool>& visited);
 
   static void PrettyPrintHelper(MultiWayNode* node, int level);
+
+  static void PrettyPrintHelper(MultiWayNode* node, int level, Point* repr);
 
   MultiWayNode* root_;
 

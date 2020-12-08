@@ -56,13 +56,27 @@ void MultiwayTree::PrettyPrint() {
   PrettyPrintHelper(root_, 0);
 }
 
-void MultiwayTree::PrettyPrintHelper(MultiwayTree::MultiWayNode *node, int level) {
+void MultiwayTree::PrettyPrint(Point* repr) {
+    PrettyPrintHelper(root_, 0, repr);
+}
+
+void MultiwayTree::PrettyPrintHelper(MultiwayTree::MultiWayNode* node, int level) {
+    for (int i = 0; i < level; i++) {
+        cout << "  ";
+    }
+    cout << node->data_ << endl;
+    for (int i = 0; i < node->no_children_; i++) {
+        PrettyPrintHelper(node->children_[i], level + 1);
+    }
+}
+
+void MultiwayTree::PrettyPrintHelper(MultiwayTree::MultiWayNode *node, int level, Point* repr) {
   for (int i = 0; i < level; i++) {
     cout << "  ";
   }
-  cout << node->data_ + 1 << endl;
+  cout << "(" << repr[node->data_].row << ", " << repr[node->data_].col << ") " << endl;
   for (int i = 0; i < node->no_children_; i++) {
-    PrettyPrintHelper(node->children_[i], level + 1);
+    PrettyPrintHelper(node->children_[i], level + 1, repr);
   }
 }
 

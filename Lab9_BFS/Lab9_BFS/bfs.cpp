@@ -229,7 +229,7 @@ void print_bfs_tree(Graph *graph)
         // you can adapt the code for transforming and printing multi-way trees from the previous labs
         ParentArrayMultiwayTree parent_array_multiway_tree(p, n);
         MultiwayTree multiway_tree(parent_array_multiway_tree);
-        multiway_tree.PrettyPrint();
+        multiway_tree.PrettyPrint(repr);
     }
 
     if(p != NULL){
