@@ -4,6 +4,9 @@
 
 #include <queue>
 
+#include "parent_array_multiway_tree.h"
+#include "multiway_tree.h"
+
 bool is_in_grid(const Grid* grid, Point p)
 {
     return p.row >= 0 && p.row < grid->rows && p.col >= 0 && p.col < grid->cols;
@@ -164,7 +167,6 @@ void bfs(Graph *graph, Node *s, Operation *op)
         bfs_queue.pop();
         curr_node->color = COLOR_BLACK;
 	}
-	// test
 }
 
 void print_bfs_tree(Graph *graph)
@@ -225,6 +227,9 @@ void print_bfs_tree(Graph *graph)
         // the parrent array is p (p[k] is the parent for node k or -1 if k is the root)
         // when printing the node k, print repr[k] (it contains the row and column for that point)
         // you can adapt the code for transforming and printing multi-way trees from the previous labs
+        ParentArrayMultiwayTree parent_array_multiway_tree(p, n);
+        MultiwayTree multiway_tree(parent_array_multiway_tree);
+        multiway_tree.PrettyPrint();
     }
 
     if(p != NULL){
