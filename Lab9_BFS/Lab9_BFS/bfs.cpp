@@ -248,6 +248,15 @@ void print_bfs_tree(Graph *graph)
     }
 }
 
+void reverse_array(Node* array[], int size) {
+    for (int i = 0; i < size / 2; i++)
+    {
+        Node* helper = array[i];
+        array[i] = array[size - i - 1];
+        array[size - i - 1] = helper;
+    }
+}
+
 int shortest_path(Graph *graph, Node *start, Node *end, Node *path[])
 {
     // TODO: compute the shortest path between the nodes start and end in the given graph
@@ -255,7 +264,21 @@ int shortest_path(Graph *graph, Node *start, Node *end, Node *path[])
     // the number of nodes filled in the path array should be returned
     // if end is not reachable from start, return -1
     // note: the size of the array path is guaranteed to be at least 1000
-    return -1;
+    bfs(graph, start, nullptr);
+	if (end->color == COLOR_WHITE){
+        return -1;
+	} else {
+        Node* curr_node = end;
+        int no_nodes = 0;
+		while (curr_node != NULL)
+		{
+            path[no_nodes] = curr_node;
+            curr_node = curr_node->parent;
+            no_nodes++;
+		}
+        reverse_array(path, no_nodes);
+        return no_nodes;
+	}
 }
 
 
