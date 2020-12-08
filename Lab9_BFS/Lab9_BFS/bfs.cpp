@@ -146,26 +146,32 @@ void bfs(Graph *graph, Node *s, Operation *op)
 	for (int i = 0; i < graph->nrNodes; i++)
 	{
         graph->v[i]->color = COLOR_WHITE;
+        if (op != NULL) op->count();
 	}
     s->color = COLOR_GRAY;
     s->dist = 0;
     bfs_queue.push(s);
+    if (op != NULL) op->count(3);
 	while (!bfs_queue.empty())
 	{
         Node* curr_node = bfs_queue.front();
+        if (op != NULL) op->count();
 		// process neighbors
 		for (int i = 0; i < curr_node->adjSize; i++)
 		{
+            if (op != NULL) op->count();
 			if (curr_node->adj[i]->color == COLOR_WHITE)
 			{
                 bfs_queue.push(curr_node->adj[i]);
                 curr_node->adj[i]->parent = curr_node;
                 curr_node->adj[i]->color = COLOR_GRAY;
                 curr_node->adj[i]->dist = curr_node->dist + 1;
+                if (op != NULL) op->count(4);
 			}
 		}
         bfs_queue.pop();
         curr_node->color = COLOR_BLACK;
+        if (op != NULL) op->count();
 	}
 }
 
