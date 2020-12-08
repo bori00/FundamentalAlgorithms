@@ -164,6 +164,7 @@ void bfs(Graph *graph, Node *s, Operation *op)
         bfs_queue.pop();
         curr_node->color = COLOR_BLACK;
 	}
+	// test
 }
 
 void print_bfs_tree(Graph *graph)
