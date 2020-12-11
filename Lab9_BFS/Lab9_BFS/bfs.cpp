@@ -175,6 +175,41 @@ void bfs(Graph *graph, Node *s, Operation *op)
 	}
 }
 
+void bfs_until_target(Graph* graph, Node* s, Node* target)
+{
+    //In comparsion to bfs(), this search stops when it founds the target node
+    std::queue<Node*> bfs_queue;
+    for (int i = 0; i < graph->nrNodes; i++)
+    {
+        graph->v[i]->color = COLOR_WHITE;
+    }
+    s->color = COLOR_GRAY;
+    s->dist = 0;
+    bfs_queue.push(s);
+    bool found_target = s == target;
+    while (!bfs_queue.empty() && !found_target)
+    {
+        Node* curr_node = bfs_queue.front();
+        // process neighbors
+        for (int i = 0; i < curr_node->adjSize; i++)
+        {
+            if (curr_node->adj[i]->color == COLOR_WHITE)
+            {
+                bfs_queue.push(curr_node->adj[i]);
+                curr_node->adj[i]->parent = curr_node;
+                curr_node->adj[i]->color = COLOR_GRAY;
+                curr_node->adj[i]->dist = curr_node->dist + 1;
+            	if (curr_node->adj[i] == target)
+            	{
+                    found_target = true;
+            	}
+            }
+        }
+        bfs_queue.pop();
+        curr_node->color = COLOR_BLACK;
+    }
+}
+
 void print_bfs_tree(Graph *graph)
 {
     //first, we will represent the BFS tree as a parent array
@@ -264,7 +299,7 @@ int shortest_path(Graph *graph, Node *start, Node *end, Node *path[])
     // the number of nodes filled in the path array should be returned
     // if end is not reachable from start, return -1
     // note: the size of the array path is guaranteed to be at least 1000
-    bfs(graph, start, nullptr);
+    bfs_until_target(graph, start, end);
 	if (end->color == COLOR_WHITE){
         return -1;
 	} else {
