@@ -316,9 +316,9 @@ int shortest_path(Graph *graph, Node *start, Node *end, Node *path[])
 	}
 }
 
-bool contains(Node** array, int array_size, Node* node)
+bool contains(vector<Node*> array, Node* node)
 {
-	for (int i = 0; i < array_size; i++)
+	for (int i = 0; i < array.size(); i++)
 	{
 		if (array[i] == node)
 		{
@@ -331,14 +331,17 @@ bool contains(Node** array, int array_size, Node* node)
 void addEdgesToMakeConnected(Graph* graph, int no_edges_to_add)
 {
     srand(time(NULL));
+	// work on a vector in order to avoid unnecessary memory allocation on the actual nodes
+    vector<vector<Node*>> edges;
+    edges.resize(graph->nrNodes);
 	// make the graph connected and all nodes are reachable from v[0]
 	for (int n1= 1; n1 < min(graph->nrNodes, no_edges_to_add + 1); n1++)
 	{
         int n2 = rand() % n1;
-        graph->v[n1]->adj[graph->v[n1]->adjSize++] = graph->v[n2];
+        edges.at(n1).push_back(graph->v[n2]);
 	}
 	// add the missing edges
-    /*int no_missing_edges = no_edges_to_add - graph->nrNodes + 1;
+    int no_missing_edges = no_edges_to_add - graph->nrNodes + 1;
     int no_added_edges = 0;
 	while (no_added_edges < no_missing_edges)
 	{
@@ -346,13 +349,23 @@ void addEdgesToMakeConnected(Graph* graph, int no_edges_to_add)
         int n2 = rand() % graph->nrNodes;
 		if (n1 != n2)
 		{
-			if (!contains(graph->v[n1]->adj, graph->v[n1]->adjSize, graph->v[n2]))
+			if (!contains(edges.at(n1), graph->v[n2]))
 			{
-				graph->v[n1]->adj[graph->v[n1]->adjSize++] = graph->v[n2];
+                edges.at(n1).push_back(graph->v[n2]);
                 no_added_edges++;
 			}
 		}
-	}*/
+	}
+	// add edges from vectors to graph
+	for (int i = 0; i < graph->nrNodes; i++)
+	{
+        graph->v[i]->adjSize = edges.at(i).size();
+        graph->v[i]->adj = (Node**)malloc(sizeof(Node*) * graph->v[i]->adjSize);
+		for (int j = 0; j < graph->v[i]->adjSize; j++)
+		{
+            graph->v[i]->adj[j] = edges.at(i).at(j);
+		}
+	}
 }
 
 
@@ -393,7 +406,7 @@ void performance()
         }
         // TODO: generate 4500 random edges
         // make sure the generated graph is connected
-        // addEdgesToMakeConnected(&graph, 4500);
+        addEdgesToMakeConnected(&graph, 4500);
 
         bfs(&graph, graph.v[0], &op);
         free_graph(&graph);
