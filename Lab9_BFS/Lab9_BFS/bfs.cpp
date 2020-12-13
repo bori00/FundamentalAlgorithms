@@ -9,7 +9,7 @@
 #include "parent_array_multiway_tree.h"
 #include "multiway_tree.h"
 
-bool knight_version = 0;
+bool knight_version = false;
 
 #define MAX_NEIGHBORS_NORMAL 4
 #define MAX_NEIGHBORS_KNIGHT 8
@@ -139,7 +139,14 @@ void grid_to_graph(const Grid *grid, Graph *graph)
     //we need to keep the nodes in a matrix, so we can easily refer to a position in the grid
     Node *nodes[MAX_ROWS][MAX_COLS];
     int i, j, k;
-    Point neighb[4];
+    Point* neighb;
+	if (knight_version)
+	{
+        neighb = (Point*)malloc(sizeof(Point) * MAX_NEIGHBORS_KNIGHT);
+	} else
+	{
+        neighb = (Point*)malloc(sizeof(Point) * MAX_NEIGHBORS_NORMAL);
+	}
 
     //compute how many nodes we have and allocate each node
     graph->nrNodes = 0;
@@ -168,7 +175,13 @@ void grid_to_graph(const Grid *grid, Graph *graph)
 
     //compute the adjacency list for each node
     for(i=0; i<graph->nrNodes; ++i){
-        graph->v[i]->adjSize = get_neighbors(grid, graph->v[i]->position, neighb);
+    	if (knight_version)
+    	{
+            graph->v[i]->adjSize = get_neighbors_knight(grid, graph->v[i]->position, neighb);
+        }
+        else {
+            graph->v[i]->adjSize = get_neighbors(grid, graph->v[i]->position, neighb);
+        }
         if(graph->v[i]->adjSize != 0){
             graph->v[i]->adj = (Node**)malloc(graph->v[i]->adjSize * sizeof(Node*));
             k = 0;
