@@ -2,10 +2,17 @@
 #include <string.h>
 #include "bfs.h"
 
+
+#include <iostream>
 #include <queue>
 
 #include "parent_array_multiway_tree.h"
 #include "multiway_tree.h"
+
+bool knight_version = 0;
+
+#define MAX_NEIGHBORS_NORMAL 4
+#define MAX_NEIGHBORS_KNIGHT 8
 
 bool is_in_grid(const Grid* grid, Point p)
 {
@@ -40,6 +47,7 @@ Point potential_neighbor(Point p, Direction dir)
     return neighbor;
 }
 
+
 int get_neighbors(const Grid *grid, Point p, Point neighb[])
 {
     // TODO: fill the array neighb with the neighbors of the point p and return the number of neighbors
@@ -57,6 +65,72 @@ int get_neighbors(const Grid *grid, Point p, Point neighb[])
             no_neighbors++;
 		}
 	}
+    return no_neighbors;
+}
+
+Point potential_neighbor_knight(Point p, Knight_Direction dir)
+{
+    Point neighbor;
+    neighbor.row = p.row;
+    neighbor.col = p.col;
+    switch (dir)
+    {
+    case Knight_Direction::UP_RIGHT:
+        neighbor.row -= 2;
+        neighbor.col++;
+        break;
+    case Knight_Direction::RIGHT_UP:
+        neighbor.row--;
+        neighbor.col += 2;
+        break;
+    case Knight_Direction::RIGHT_DOWN:
+        neighbor.row++;
+        neighbor.col += 2;
+        break;
+    case Knight_Direction::DOWN_RIGHT:
+        neighbor.row += 2;
+        neighbor.col++;
+        break;
+    case Knight_Direction::DOWN_LEFT:
+        neighbor.row += 2;
+        neighbor.col--;
+        break;
+    case Knight_Direction::LEFT_DOWN:
+        neighbor.row++;
+        neighbor.col -= 2;
+        break;
+    case Knight_Direction::LEFT_UP:
+        neighbor.row--;
+        neighbor.col -= 2;
+        break;
+    case Knight_Direction::UP_LEFT:
+        neighbor.row -= 2;
+        neighbor.col--;
+        break;
+    }
+    return neighbor;
+}
+
+int get_neighbors_knight(const Grid* grid, Point p, Point neighb[])
+{
+    int no_neighbors = 0;
+    Knight_Direction directions[8] = {Knight_Direction::DOWN_LEFT,
+    	Knight_Direction::DOWN_RIGHT,
+    	Knight_Direction::LEFT_DOWN,
+    	Knight_Direction::LEFT_UP,
+    	Knight_Direction::RIGHT_DOWN,
+    	Knight_Direction::RIGHT_UP,
+    	Knight_Direction::UP_LEFT,
+    	Knight_Direction::UP_RIGHT};
+    for (int i = 0; i < 8; i++)
+    {
+        Point np = potential_neighbor_knight(p, directions[i]);
+        if (is_in_grid(grid, np) && is_free_cell(grid, np))
+        {
+            neighb[no_neighbors] = np;
+            no_neighbors++;
+        }
+    }
     return no_neighbors;
 }
 
