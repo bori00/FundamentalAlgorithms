@@ -57,3 +57,38 @@ void Graph::addEdge(int n1, int n2) {
   this->nodes_[n1].addEdge(&this->nodes_[n2]);
 }
 
+list<int> Graph::topological_sort(int* valid) {
+  *valid = true;
+  vector<DFSNodeData> node_data;
+  list<int> result;
+  node_data.resize(this->nodes_.size());
+  for (Node node: this->nodes_) {
+    if (node_data[node.index_].color_ == DFSNodeData::Color::WHITE) {
+      if (!top_sort_dfs_visit(&node, node_data, result)) {
+        *valid = false;
+        break;
+      }
+    }
+  }
+  return result;
+}
+
+bool Graph::top_sort_dfs_visit(Graph::Node *node,
+                         vector<DFSNodeData> &node_data,
+                         list<int> &sorted_nodes) {
+  node_data[node->index_].color_ = DFSNodeData::Color::GRAY;
+  for (Node* neighbor : node->edges_) {
+    if (node_data[neighbor->index_].color_ == DFSNodeData::Color::WHITE) {
+      if(!top_sort_dfs_visit(neighbor, node_data, sorted_nodes)) {
+        return false;
+      }
+    }
+    if (node_data[neighbor->index_].color_ == DFSNodeData::Color::GRAY) {
+      return false;
+    }
+  }
+  node_data[node->index_].color_ = DFSNodeData::Color::BLACK;
+  sorted_nodes.push_front(node->index_);
+  return true;
+}
+

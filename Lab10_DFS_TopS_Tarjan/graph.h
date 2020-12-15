@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <unordered_map>
+#include <list>
 
 using namespace std;
 
@@ -28,7 +29,7 @@ class Graph {
  private:
   class Node {
    public:
-    Node(int index);
+    explicit Node(int index);
     void addEdge(Node* node);
     vector<Node*> edges_;
     int index_;
@@ -40,8 +41,14 @@ class Graph {
 
   static void dfs_visit(Node* node, vector<DFSNodeData> &node_data, int &time);
 
+  /** Returns true if no cycle was detected. */
+  static bool top_sort_dfs_visit(Node* node, vector<DFSNodeData> &node_data, list<int>
+      &sorted_nodes);
+
  public:
   vector<DFSNodeData> dfs();
+
+  list<int> topological_sort(int* valid);
 };
 
 #endif //LAB10_DFS_TOPS_TARJAN__GRAPH_H_
