@@ -10,6 +10,10 @@ void Graph::Node::addEdge(Graph::Node *node) {
   this->edges_.push_back(node);
 }
 
+Graph::Node::Node(int index) {
+  this->index_ = index;
+}
+
 Graph::DFSNodeData::DFSNodeData() {
   this->d_ = -1;
   this->f_ = -1;
@@ -17,40 +21,36 @@ Graph::DFSNodeData::DFSNodeData() {
 };
 
 Graph::Graph(int noNodes) {
-  this->nodes_.resize(noNodes);
+  this->nodes_.reserve(noNodes);
+  for (int i = 0; i < noNodes; i++) {
+    this->nodes_.emplace_back(i);
+  }
 }
 
 vector<Graph::DFSNodeData> Graph::dfs() {
-  unordered_map<Node*, DFSNodeData> node_to_data;
-  for (Node node : this->nodes_) {
-    node_to_data[&node] = DFSNodeData();
-  }
+  vector<DFSNodeData> node_data;
+  node_data.resize(this->nodes_.size());
   int time = 0;
   for (Node node: this->nodes_) {
-    if (node_to_data[&node].color_ == DFSNodeData::Color::WHITE) {
-      dfs_visit(&node, node_to_data, time);
+    if (node_data[node.index_].color_ == DFSNodeData::Color::WHITE) {
+      dfs_visit(&node, node_data, time);
     }
   }
-  vector<Graph::DFSNodeData> result;
-  result.reserve(this->nodes_.size());
-  for (int i = 0; i < this->nodes_.size(); i++) {
-    result.push_back(node_to_data[&this->nodes_[i]]);
-  }
-  return result;
+  return node_data;
 }
 
-void Graph::dfs_visit(Node* node, unordered_map<Node*, DFSNodeData> &node_to_data, int &time) {
+void Graph::dfs_visit(Node* node, vector<DFSNodeData> &node_data, int &time) {
   time++;
-  node_to_data[node].d_ = time;
-  node_to_data[node].color_ = DFSNodeData::Color::GRAY;
+  node_data[node->index_].d_ = time;
+  node_data[node->index_].color_ = DFSNodeData::Color::GRAY;
   for (Node* neighbor : node->edges_) {
-    if (node_to_data[neighbor].color_ == DFSNodeData::Color::WHITE) {
-      dfs_visit(neighbor, node_to_data, time);
+    if (node_data[neighbor->index_].color_ == DFSNodeData::Color::WHITE) {
+      dfs_visit(neighbor, node_data, time);
     }
   }
   time++;
-  node_to_data[node].f_ = time;
-  node_to_data[node].color_ = DFSNodeData::Color::BLACK;
+  node_data[node->index_].f_ = time;
+  node_data[node->index_].color_ = DFSNodeData::Color::BLACK;
 }
 
 void Graph::addEdge(int n1, int n2) {

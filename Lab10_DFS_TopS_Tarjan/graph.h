@@ -28,13 +28,17 @@ class Graph {
  private:
   class Node {
    public:
+    Node(int index);
     void addEdge(Node* node);
     vector<Node*> edges_;
+    int index_;
+
+
   };
 
   vector<Node> nodes_;
 
-  static void dfs_visit(Node* node, unordered_map<Node*, DFSNodeData> &node_to_data, int &time);
+  static void dfs_visit(Node* node, vector<DFSNodeData> &node_data, int &time);
 
  public:
   vector<DFSNodeData> dfs();
