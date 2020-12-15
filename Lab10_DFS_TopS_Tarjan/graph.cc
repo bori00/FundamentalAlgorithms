@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include "graph.h"
 
+class DFSNodeData;
 void Graph::Node::addEdge(Graph::Node *node) {
   this->edges_.push_back(node);
 }
@@ -19,7 +20,7 @@ Graph::Graph(int noNodes) {
   this->nodes_.resize(noNodes);
 }
 
-void Graph::dfs() {
+vector<Graph::DFSNodeData> Graph::dfs() {
   unordered_map<Node*, DFSNodeData> node_to_data;
   for (Node node : this->nodes_) {
     node_to_data[&node] = DFSNodeData();
@@ -30,6 +31,12 @@ void Graph::dfs() {
       dfs_visit(&node, node_to_data, time);
     }
   }
+  vector<Graph::DFSNodeData> result;
+  result.reserve(this->nodes_.size());
+  for (int i = 0; i < this->nodes_.size(); i++) {
+    result.push_back(node_to_data[&this->nodes_[i]]);
+  }
+  return result;
 }
 
 void Graph::dfs_visit(Node* node, unordered_map<Node*, DFSNodeData> &node_to_data, int &time) {
@@ -49,3 +56,4 @@ void Graph::dfs_visit(Node* node, unordered_map<Node*, DFSNodeData> &node_to_dat
 void Graph::addEdge(int n1, int n2) {
   this->nodes_[n1].addEdge(&this->nodes_[n2]);
 }
+

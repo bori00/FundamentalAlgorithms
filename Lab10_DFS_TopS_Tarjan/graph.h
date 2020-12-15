@@ -16,15 +16,6 @@ class Graph {
 
   void addEdge(int n1, int n2);
 
-  void dfs();
-
- private:
-  class Node {
-   public:
-    void addEdge(Node* node);
-    vector<Node*> edges_;
-  };
-
   class DFSNodeData {
    public:
     enum class Color  {WHITE, GRAY, BLACK};
@@ -34,9 +25,19 @@ class Graph {
     explicit DFSNodeData ();
   };
 
+ private:
+  class Node {
+   public:
+    void addEdge(Node* node);
+    vector<Node*> edges_;
+  };
+
   vector<Node> nodes_;
 
   static void dfs_visit(Node* node, unordered_map<Node*, DFSNodeData> &node_to_data, int &time);
+
+ public:
+  vector<DFSNodeData> dfs();
 };
 
 #endif //LAB10_DFS_TOPS_TARJAN__GRAPH_H_
