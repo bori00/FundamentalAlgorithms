@@ -16,7 +16,7 @@ class DFSEvaluator {
   void EvaluateConstantNodesVaryingEdges();
   void EvaluateConstantEdgesVaryingNodes();
 
-  Graph GenerateRandomGraph(int no_nodes, int no_edges);
+  static Graph GenerateRandomGraph(int no_nodes, int no_edges);
 
   // for evaluating constant nr. nodes, varying nr. edges case
   static const int kNoNodes = 100;

@@ -123,7 +123,9 @@ void Graph::TarjanDfs(Graph::Node *node,
       node_data[node->index_].low_ = min(
           node_data[node->index_].low_,
           node_data[neighbor->index_].low_);
-    } else if (node_data[neighbor->index_].on_stack_) { // already visited. Ancestor. Back edge.
+    } else if (node_data[neighbor->index_].on_stack_) {
+      // already visited. Ancestor, back edge
+      // or successor, forward edge.
       node_data[node->index_].low_ = min(node_data[node->index_].low_,
                                          node_data[neighbor->index_].d_);
     }
