@@ -1,6 +1,7 @@
 #include "demo_tarjan.h"
 #include "demo_topological_sort.h"
 #include "demo_dfs.h"
+#include "dfs_evaluator.h"
 
 using namespace std;
 
@@ -14,5 +15,8 @@ int main() {
   Demo_Tarjan1();
   Demo_Tarjan2();
   Demo_Tarjan3();
+
+  DFSEvaluator evaluator;
+  evaluator.Evaluate();
   return 0;
 }

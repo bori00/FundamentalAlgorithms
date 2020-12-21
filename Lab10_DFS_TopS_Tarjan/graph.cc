@@ -156,6 +156,16 @@ void Graph::PrintAdjLists() {
   }
 }
 
+bool Graph::HasEdge(int n1, int n2) {
+  bool found = false;
+  for (Node* neighbor : nodes_[n1].edges_) {
+    if (neighbor->index_ == n1) {
+      found = true;
+    }
+  }
+  return found;
+}
+
 Graph::TarjanNodeData::TarjanNodeData() {
   this->d_ = -1;
   this->low_ = -1;

@@ -66,6 +66,8 @@ class Graph {
   list<int> TopologicalSort(bool &valid);
 
   vector<vector<int>> TarjanSCC();
+
+  bool HasEdge(int n1, int n2);
 };
 
 #endif //LAB10_DFS_TOPS_TARJAN__GRAPH_H_
