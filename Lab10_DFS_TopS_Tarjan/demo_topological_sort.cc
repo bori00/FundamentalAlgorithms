@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void PrintTopOrder(list<int> nodes) {
+void PrintTopOrder(list<int> &nodes) {
   for (int node_index : nodes) {
     cout << node_index << " ";
   }

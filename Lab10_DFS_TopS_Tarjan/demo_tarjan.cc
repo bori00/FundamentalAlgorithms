@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void print_sccs(vector<vector<int>> sccs) {
+void print_sccs(vector<vector<int>> &sccs) {
   for (const vector<int>& scc : sccs) {
     cout << "SCC: ";
     for (int nodeIndex : scc) {
