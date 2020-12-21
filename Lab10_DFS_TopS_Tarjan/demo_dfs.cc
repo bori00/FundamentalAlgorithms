@@ -8,6 +8,9 @@
 
 using namespace std;
 
+static Profiler p("IgnoreP");
+static Operation op = p.createOperation("IgnoreOp", 0);
+
 void PrintDfsNodesData(vector<Graph::DFSNodeData> &node_data) {
   for (int i = 0; i < node_data.size(); i++) {
     cout << "Node " << i << ": discovery time: " << node_data[i].d_ << ", finishing time: " <<
@@ -28,7 +31,7 @@ void Demo_Dfs1(){
   g->AddEdge(6, 0);
   g->AddEdge(6, 7);
   g->PrintAdjLists();
-  vector<Graph::DFSNodeData> node_data = g->Dfs();
+  vector<Graph::DFSNodeData> node_data = g->Dfs(&op);
   PrintDfsNodesData(node_data);
 }
 
@@ -43,7 +46,7 @@ void Demo_Dfs2() {
   g->AddEdge(2, 0);
   g->AddEdge(2, 1);
   g->PrintAdjLists();
-  vector<Graph::DFSNodeData> node_data = g->Dfs();
+  vector<Graph::DFSNodeData> node_data = g->Dfs(&op);
   PrintDfsNodesData(node_data);
 }
 
@@ -59,6 +62,6 @@ void Demo_Dfs3() {
   g->AddEdge(5, 2);
   g->AddEdge(3, 5);
   g->PrintAdjLists();
-  vector<Graph::DFSNodeData> node_data = g->Dfs();
+  vector<Graph::DFSNodeData> node_data = g->Dfs(&op);
   PrintDfsNodesData(node_data);
 }

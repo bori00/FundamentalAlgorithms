@@ -28,30 +28,34 @@ Graph::Graph(int noNodes) {
   }
 }
 
-vector<Graph::DFSNodeData> Graph::Dfs() {
+vector<Graph::DFSNodeData> Graph::Dfs(Operation* operation) {
   vector<DFSNodeData> node_data;
   node_data.resize(this->nodes_.size());
   int time = 0;
   for (Node node: this->nodes_) {
+    operation->count();
     if (node_data[node.index_].color_ == DFSNodeData::Color::WHITE) {
-      DfsVisit(&node, node_data, time);
+      DfsVisit(&node, node_data, time, operation);
     }
   }
   return node_data;
 }
 
-void Graph::DfsVisit(Node* node, vector<DFSNodeData> &node_data, int &time) {
+void Graph::DfsVisit(Node* node, vector<DFSNodeData> &node_data, int &time, Operation* operation) {
   time++;
   node_data[node->index_].d_ = time;
   node_data[node->index_].color_ = DFSNodeData::Color::GRAY;
+  operation->count(2);
   for (Node* neighbor : node->edges_) {
+    operation->count();
     if (node_data[neighbor->index_].color_ == DFSNodeData::Color::WHITE) {
-      DfsVisit(neighbor, node_data, time);
+      DfsVisit(neighbor, node_data, time, operation);
     }
   }
   time++;
   node_data[node->index_].f_ = time;
   node_data[node->index_].color_ = DFSNodeData::Color::BLACK;
+  operation->count(2);
 }
 
 void Graph::AddEdge(int n1, int n2) {

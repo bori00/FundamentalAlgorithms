@@ -9,6 +9,7 @@
 #include <unordered_map>
 #include <list>
 #include <stack>
+#include "Profiler.h"
 
 using namespace std;
 
@@ -50,7 +51,7 @@ class Graph {
 
   vector<Node> nodes_;
 
-  static void DfsVisit(Node* node, vector<DFSNodeData> &node_data, int &time);
+  static void DfsVisit(Node* node, vector<DFSNodeData> &node_data, int &time, Operation* operation);
 
   /** Returns true if no cycle was detected. */
   static bool TopSortDfsVisit(Node* node, vector<DFSNodeData> &node_data, list<int>
@@ -60,7 +61,7 @@ class Graph {
       stack<Node*> &stack, int &d_time);
 
  public:
-  vector<DFSNodeData> Dfs();
+  vector<DFSNodeData> Dfs(Operation* operation);
 
   list<int> TopologicalSort(bool &valid);
 
