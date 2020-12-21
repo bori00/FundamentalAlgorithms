@@ -16,7 +16,7 @@ class Graph {
  public:
   explicit Graph(int noNodes);
 
-  void addEdge(int n1, int n2);
+  void AddEdge(int n1, int n2);
 
   void PrintAdjLists();
 
@@ -41,7 +41,7 @@ class Graph {
   class Node {
    public:
     explicit Node(int index);
-    void addEdge(Node* node);
+    void AddEdge(Node* node);
     vector<Node*> edges_;
     int index_;
 
@@ -50,21 +50,21 @@ class Graph {
 
   vector<Node> nodes_;
 
-  static void dfs_visit(Node* node, vector<DFSNodeData> &node_data, int &time);
+  static void DfsVisit(Node* node, vector<DFSNodeData> &node_data, int &time);
 
   /** Returns true if no cycle was detected. */
-  static bool top_sort_dfs_visit(Node* node, vector<DFSNodeData> &node_data, list<int>
+  static bool TopSortDfsVisit(Node* node, vector<DFSNodeData> &node_data, list<int>
       &sorted_nodes);
 
   static void TarjanDfs(Node* node, vector<TarjanNodeData> &node_data, vector<vector<int>> &sccs,
       stack<Node*> &stack, int &d_time);
 
  public:
-  vector<DFSNodeData> dfs();
+  vector<DFSNodeData> Dfs();
 
-  list<int> topological_sort(int* valid);
+  list<int> TopologicalSort(int* valid);
 
-  vector<vector<int>> Tarjan_SCC();
+  vector<vector<int>> TarjanSCC();
 };
 
 #endif //LAB10_DFS_TOPS_TARJAN__GRAPH_H_

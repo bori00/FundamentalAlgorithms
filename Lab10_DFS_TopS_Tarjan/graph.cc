@@ -7,7 +7,7 @@
 #include "graph.h"
 
 class DFSNodeData;
-void Graph::Node::addEdge(Graph::Node *node) {
+void Graph::Node::AddEdge(Graph::Node *node) {
   this->edges_.push_back(node);
 }
 
@@ -28,25 +28,25 @@ Graph::Graph(int noNodes) {
   }
 }
 
-vector<Graph::DFSNodeData> Graph::dfs() {
+vector<Graph::DFSNodeData> Graph::Dfs() {
   vector<DFSNodeData> node_data;
   node_data.resize(this->nodes_.size());
   int time = 0;
   for (Node node: this->nodes_) {
     if (node_data[node.index_].color_ == DFSNodeData::Color::WHITE) {
-      dfs_visit(&node, node_data, time);
+      DfsVisit(&node, node_data, time);
     }
   }
   return node_data;
 }
 
-void Graph::dfs_visit(Node* node, vector<DFSNodeData> &node_data, int &time) {
+void Graph::DfsVisit(Node* node, vector<DFSNodeData> &node_data, int &time) {
   time++;
   node_data[node->index_].d_ = time;
   node_data[node->index_].color_ = DFSNodeData::Color::GRAY;
   for (Node* neighbor : node->edges_) {
     if (node_data[neighbor->index_].color_ == DFSNodeData::Color::WHITE) {
-      dfs_visit(neighbor, node_data, time);
+      DfsVisit(neighbor, node_data, time);
     }
   }
   time++;
@@ -54,18 +54,18 @@ void Graph::dfs_visit(Node* node, vector<DFSNodeData> &node_data, int &time) {
   node_data[node->index_].color_ = DFSNodeData::Color::BLACK;
 }
 
-void Graph::addEdge(int n1, int n2) {
-  this->nodes_[n1].addEdge(&this->nodes_[n2]);
+void Graph::AddEdge(int n1, int n2) {
+  this->nodes_[n1].AddEdge(&this->nodes_[n2]);
 }
 
-list<int> Graph::topological_sort(int* valid) {
+list<int> Graph::TopologicalSort(int* valid) {
   *valid = true;
   vector<DFSNodeData> node_data;
   list<int> result;
   node_data.resize(this->nodes_.size());
   for (Node node: this->nodes_) {
     if (node_data[node.index_].color_ == DFSNodeData::Color::WHITE) {
-      if (!top_sort_dfs_visit(&node, node_data, result)) {
+      if (!TopSortDfsVisit(&node, node_data, result)) {
         *valid = false;
         break;
       }
@@ -74,13 +74,13 @@ list<int> Graph::topological_sort(int* valid) {
   return result;
 }
 
-bool Graph::top_sort_dfs_visit(Graph::Node *node,
+bool Graph::TopSortDfsVisit(Graph::Node *node,
                          vector<DFSNodeData> &node_data,
                          list<int> &sorted_nodes) {
   node_data[node->index_].color_ = DFSNodeData::Color::GRAY;
   for (Node* neighbor : node->edges_) {
     if (node_data[neighbor->index_].color_ == DFSNodeData::Color::WHITE) {
-      if(!top_sort_dfs_visit(neighbor, node_data, sorted_nodes)) {
+      if(!TopSortDfsVisit(neighbor, node_data, sorted_nodes)) {
         return false;
       }
     }
@@ -93,7 +93,7 @@ bool Graph::top_sort_dfs_visit(Graph::Node *node,
   return true;
 }
 
-vector<vector<int>> Graph::Tarjan_SCC() {
+vector<vector<int>> Graph::TarjanSCC() {
   vector<TarjanNodeData> node_data;
   vector<vector<int>> sccs;
   stack<Node*> tarjan_stack;
@@ -142,7 +142,7 @@ void Graph::TarjanDfs(Graph::Node *node,
 }
 
 void Graph::PrintAdjLists() {
-  for (Node node : this->nodes_) {
+  for (const Node& node : this->nodes_) {
     cout << "Node " << node.index_ << "s neighbors: ";
     for (Node* neighbor : node.edges_) {
       cout << neighbor->index_ << " ";
