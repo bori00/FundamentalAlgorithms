@@ -92,3 +92,57 @@ bool Graph::top_sort_dfs_visit(Graph::Node *node,
   return true;
 }
 
+vector<vector<int>> Graph::Tarjan_SCC() {
+  vector<TarjanNodeData> node_data;
+  vector<vector<int>> sccs;
+  stack<Node*> tarjan_stack;
+  node_data.resize(this->nodes_.size());
+  int d_time = 1;
+  for (Node node : this->nodes_) {
+    if (node_data[node.index_].d_ == -1) { //not visited yet
+      TarjanDfs(&node, node_data, sccs, tarjan_stack, d_time);
+    }
+  }
+  return sccs;
+}
+void Graph::TarjanDfs(Graph::Node *node,
+                      vector<TarjanNodeData> &node_data,
+                      vector<vector<int>> &sccs, stack<Node*> &stack,
+                      int &d_time) {
+  stack.push(node);
+  node_data[node->index_].d_ = d_time;
+  node_data[node->index_].low_ = d_time;
+  node_data[node->index_].on_stack_ = true;
+  d_time++;
+  for (Node *neighbor : node->edges_) {
+    if (node_data[neighbor->index_].d_ == -1) { //not yet visited --> successor of node. Tree edge.
+      TarjanDfs(neighbor, node_data, sccs, stack, d_time);
+      node_data[node->index_].low_ = min(
+          node_data[node->index_].low_,
+          node_data[neighbor->index_].low_);
+    } else if (node_data[neighbor->index_].on_stack_) { // already visited. Ancestor. Back edge.
+      node_data[node->index_].low_ = min(node_data[node->index_].low_,
+                                         node_data[neighbor->index_].d_);
+    }
+  }
+  if (node_data[node->index_].low_ == node_data[node->index_].d_) { // starts a new scc
+    vector<int> nodes_in_scc;
+    bool found_this = false;
+    while (!found_this) {
+      nodes_in_scc.push_back(stack.top()->index_);
+      if (stack.top() == node) {
+        found_this = true;
+      }
+      node_data[stack.top()->index_].on_stack_ = false;
+      stack.pop();
+    }
+    sccs.push_back(nodes_in_scc);
+  }
+}
+
+
+Graph::TarjanNodeData::TarjanNodeData() {
+  this->d_ = -1;
+  this->low_ = -1;
+  this->on_stack_ = false;
+}
