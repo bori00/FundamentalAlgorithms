@@ -6,9 +6,11 @@
 #include <iostream>
 #include "graph.h"
 
-class DFSNodeData;
-void Graph::Node::AddEdge(Graph::Node *node) {
-  this->edges_.push_back(node);
+Graph::Graph(int noNodes) {
+  this->nodes_.reserve(noNodes);
+  for (int i = 0; i < noNodes; i++) {
+    this->nodes_.emplace_back(i);
+  }
 }
 
 Graph::Node::Node(int index) {
@@ -20,13 +22,6 @@ Graph::DFSNodeData::DFSNodeData() {
   this->f_ = -1;
   this->color_ = Color::WHITE;
 };
-
-Graph::Graph(int noNodes) {
-  this->nodes_.reserve(noNodes);
-  for (int i = 0; i < noNodes; i++) {
-    this->nodes_.emplace_back(i);
-  }
-}
 
 vector<Graph::DFSNodeData> Graph::Dfs(Operation* operation) {
   vector<DFSNodeData> node_data;
@@ -56,10 +51,6 @@ void Graph::DfsVisit(Node* node, vector<DFSNodeData> &node_data, int &time, Oper
   node_data[node->index_].f_ = time;
   node_data[node->index_].color_ = DFSNodeData::Color::BLACK;
   operation->count(2);
-}
-
-void Graph::AddEdge(int n1, int n2) {
-  this->nodes_[n1].AddEdge(&this->nodes_[n2]);
 }
 
 list<int> Graph::TopologicalSort(bool &valid) {
@@ -96,6 +87,12 @@ bool Graph::TopSortDfsVisit(Graph::Node *node,
   node_data[node->index_].color_ = DFSNodeData::Color::BLACK;
   sorted_nodes.push_front(node->index_);
   return true;
+}
+
+Graph::TarjanNodeData::TarjanNodeData() {
+  this->d_ = -1;
+  this->low_ = -1;
+  this->on_stack_ = false;
 }
 
 vector<vector<int>> Graph::TarjanSCC() {
@@ -166,8 +163,10 @@ bool Graph::HasEdge(int n1, int n2) {
   return found;
 }
 
-Graph::TarjanNodeData::TarjanNodeData() {
-  this->d_ = -1;
-  this->low_ = -1;
-  this->on_stack_ = false;
+void Graph::AddEdge(int n1, int n2) {
+  this->nodes_[n1].AddEdge(&this->nodes_[n2]);
+}
+
+void Graph::Node::AddEdge(Graph::Node *node) {
+  this->edges_.push_back(node);
 }
