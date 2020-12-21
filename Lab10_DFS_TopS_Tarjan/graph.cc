@@ -58,15 +58,16 @@ void Graph::AddEdge(int n1, int n2) {
   this->nodes_[n1].AddEdge(&this->nodes_[n2]);
 }
 
-list<int> Graph::TopologicalSort(int* valid) {
-  *valid = true;
+list<int> Graph::TopologicalSort(bool &valid) {
+  valid = true;
   vector<DFSNodeData> node_data;
   list<int> result;
   node_data.resize(this->nodes_.size());
   for (Node node: this->nodes_) {
     if (node_data[node.index_].color_ == DFSNodeData::Color::WHITE) {
       if (!TopSortDfsVisit(&node, node_data, result)) {
-        *valid = false;
+        valid = false;
+        result.clear();
         break;
       }
     }

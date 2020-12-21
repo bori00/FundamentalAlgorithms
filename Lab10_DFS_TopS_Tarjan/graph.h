@@ -62,7 +62,7 @@ class Graph {
  public:
   vector<DFSNodeData> Dfs();
 
-  list<int> TopologicalSort(int* valid);
+  list<int> TopologicalSort(bool &valid);
 
   vector<vector<int>> TarjanSCC();
 };
