@@ -3,6 +3,7 @@
 //
 
 #include <unordered_map>
+#include <iostream>
 #include "graph.h"
 
 class DFSNodeData;
@@ -140,6 +141,15 @@ void Graph::TarjanDfs(Graph::Node *node,
   }
 }
 
+void Graph::PrintAdjLists() {
+  for (Node node : this->nodes_) {
+    cout << "Node " << node.index_ << "s neighbors: ";
+    for (Node* neighbor : node.edges_) {
+      cout << neighbor->index_ << " ";
+    }
+    cout << endl;
+  }
+}
 
 Graph::TarjanNodeData::TarjanNodeData() {
   this->d_ = -1;

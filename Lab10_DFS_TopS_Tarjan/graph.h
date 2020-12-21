@@ -18,6 +18,8 @@ class Graph {
 
   void addEdge(int n1, int n2);
 
+  void PrintAdjLists();
+
   class DFSNodeData {
    public:
     enum class Color  {WHITE, GRAY, BLACK};
